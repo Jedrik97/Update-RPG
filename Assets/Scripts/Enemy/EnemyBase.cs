@@ -8,7 +8,9 @@ public class EnemyBase : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth = 100f;
     public float attackDamage = 10f;
+    public float _exp = 10;
 
+    
     [Header("Attack Parameters")]
     public float attackRange = 1.5f;
     public float attackDelay = 0.5f;
