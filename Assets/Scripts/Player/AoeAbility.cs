@@ -1,0 +1,85 @@
+using System.Collections;
+using UnityEngine;
+
+public class AoeAbility : MonoBehaviour
+{
+    [Header("AOE Settings")]
+    [SerializeField] private float aoeRadius = 3f;
+    [SerializeField] private int aoeDamagePerSecond = 10;
+    [SerializeField] private float aoeDuration = 10f;
+    [SerializeField] private float aoeCooldown = 6f;
+    [SerializeField] private GameObject magicEffect;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private Animator animator;
+
+    private bool isAoeActive = false;
+
+    void OnEnable()
+    {
+        PlayerCombat.OnAoeTriggered += StartAoeAttack;
+    }
+
+    void OnDisable()
+    {
+        PlayerCombat.OnAoeTriggered -= StartAoeAttack;
+    }
+
+    private void StartAoeAttack()
+    {
+        if (isAoeActive) return;
+        StartCoroutine(AoeRoutine());
+    }
+
+    private IEnumerator AoeRoutine()
+    {
+        isAoeActive = true;
+        
+        if (animator != null)
+        {
+            animator.SetTrigger("AoeAttack");
+        }
+
+        if (magicEffect)
+        {
+            magicEffect.SetActive(true);
+            StartCoroutine(DisableMagicEffectAfterDelay(aoeDuration));
+        }
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < aoeDuration)
+        {
+            PerformAoeDamage();
+            yield return new WaitForSeconds(1f);
+            elapsedTime += 1f;
+        }
+
+        yield return new WaitForSeconds(aoeCooldown);
+        isAoeActive = false;
+    }
+
+    private void PerformAoeDamage()
+    {
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, aoeRadius, enemyLayer);
+        foreach (Collider enemy in hitEnemies)
+        {
+            if (enemy.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
+            {
+                enemyBase.TakeDamage(aoeDamagePerSecond);
+            }
+        }
+    }
+
+    private IEnumerator DisableMagicEffectAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (magicEffect)
+            magicEffect.SetActive(false);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, aoeRadius);
+    }
+}
