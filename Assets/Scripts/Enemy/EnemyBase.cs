@@ -6,27 +6,20 @@ public class EnemyBase : MonoBehaviour
     [Header("Enemy Stats")]
     public string enemyName;
     public float maxHealth = 100f;
-    public float currentHealth = 100f;
+    public float currentHealth;
     public float attackDamage = 10f;
-    public float _exp = 10;
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
 
-    
-    [Header("Attack Parameters")]
-    public float attackRange = 1.5f;
-    public float attackDelay = 0.5f;
-    public float chaseSpeed = 3.5f;
-    public float attackSpeed = 0f;
-    
     public event System.Action<float> OnHealthChanged;
-    public event System.Action OnDeath;
     
-    private Coroutine healingCoroutine;
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
         currentHealth = maxHealth;
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
     }
-
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -37,36 +30,25 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    public void Heal(float amount)
+    private void Die()
     {
-        currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
-        OnHealthChanged?.Invoke(currentHealth);
+        GameManager.Instance.EnemyDied(this);
+        Destroy(gameObject);
     }
 
-    public void StartHealing()
+    public void Respawn()
     {
-        if (healingCoroutine != null)
-        {
-            StopCoroutine(healingCoroutine);
-        }
-        healingCoroutine = StartCoroutine(GradualHeal());
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
+        gameObject.SetActive(true);
     }
 
     public IEnumerator GradualHeal()
     {
-        float healDuration = 3f;
-        float healAmount = maxHealth / healDuration;
-
-        for (float t = 0; t < healDuration; t += Time.deltaTime)
-        {
-            Heal(healAmount * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    protected virtual void Die()
-    {
-        OnDeath?.Invoke();
-        Destroy(gameObject);
+        yield return new WaitForSeconds(1f);
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
     }
 }

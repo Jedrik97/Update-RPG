@@ -16,7 +16,7 @@ public class EnemyPathFollower : MonoBehaviour
     private EnemyMeleeAI meleeAI;
     private EnemyBase enemy;
 
-    private void Start()
+    private void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
         meleeAI = GetComponent<EnemyMeleeAI>();
@@ -33,6 +33,8 @@ public class EnemyPathFollower : MonoBehaviour
             meleeAI.OnStopPatrol += StopPatrol;
             meleeAI.OnReturnToPatrol += ReturnToPatrol;
         }
+        
+        enemy.OnHealthChanged += OnEnemyHealthChanged;
     }
 
     private void OnDestroy()
@@ -42,6 +44,8 @@ public class EnemyPathFollower : MonoBehaviour
             meleeAI.OnStopPatrol -= StopPatrol;
             meleeAI.OnReturnToPatrol -= ReturnToPatrol;
         }
+        
+        enemy.OnHealthChanged -= OnEnemyHealthChanged;
     }
 
     private void Update()
@@ -88,6 +92,19 @@ public class EnemyPathFollower : MonoBehaviour
             }
 
             agent.SetDestination(waypoints[currentWaypointIndex].position);
+        }
+    }
+
+    private void OnEnemyHealthChanged(float currentHealth)
+    {
+        if (currentHealth == enemy.maxHealth)
+        {
+            // Если здоровье восстановлено, активируем движение
+            if (!isChasing && agent.isStopped)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(waypoints[currentWaypointIndex].position);  // Возвращаем врага к текущей точке патруля
+            }
         }
     }
 }

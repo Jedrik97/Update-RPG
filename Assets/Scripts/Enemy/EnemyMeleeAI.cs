@@ -19,9 +19,15 @@ public class EnemyMeleeAI : EnemyBase
     public delegate void ReturnToPatrolDelegate();
     public event ReturnToPatrolDelegate OnReturnToPatrol;
 
-    protected override void Start()
+    // Добавляем недостающие переменные
+    public float attackRange = 2f;  // Радиус атаки
+    public float chaseSpeed = 3.5f; // Скорость преследования
+    public float attackDelay = 1f;  // Задержка перед атакой
+    public float attackSpeed = 1.5f; // Скорость атаки
+
+    protected override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
 
         if (fieldOfView != null)
@@ -96,7 +102,7 @@ public class EnemyMeleeAI : EnemyBase
         agent.isStopped = false;
         agent.SetDestination(chaseStartPoint);
         OnReturnToPatrol?.Invoke();
-        StartHealing(); // Начинаем постепенное восстановление здоровья
+        StartCoroutine(GradualHeal()); // Начинаем постепенное восстановление здоровья
 
         while (Vector3.Distance(transform.position, chaseStartPoint) > 1f)
         {

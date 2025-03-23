@@ -14,14 +14,13 @@ public class EnemyUI : MonoBehaviour
     
     private EnemyBase enemyBase;
 
-    private void Start()
+    private void OnEnable()
     {
         enemyBase = GetComponent<EnemyBase>();
 
         if (enemyBase)
         {
             enemyBase.OnHealthChanged += UpdateHealthUI;
-            enemyBase.OnDeath += HideUI;
         }
 
         InitializeUI();
@@ -55,11 +54,10 @@ public class EnemyUI : MonoBehaviour
         if (enemyBase)
         {
             enemyBase.OnHealthChanged -= UpdateHealthUI;
-            enemyBase.OnDeath -= HideUI;
         }
     }
 
-    private void InitializeUI()
+    public void InitializeUI()
     {
         if (enemyNameText)
         {

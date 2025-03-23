@@ -4,9 +4,9 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private Collider weaponCollider;
     [SerializeField] private int weaponDamage = 25;
-    private float deactivateweapon = 1;
+    private float deactivateweapon = 3;
 
-    private void Start()
+    private void OnEnable()
     {
         if (weaponCollider)
             weaponCollider.enabled = false;
