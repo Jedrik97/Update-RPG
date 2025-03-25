@@ -7,13 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("Enemies")]
-    public List<GameObject> enemyPrefabs;
-    public List<Transform> spawnPoints;
-
-    private Dictionary<EnemyBase, Transform> activeEnemies = new Dictionary<EnemyBase, Transform>();
-
-    [Header("Player")]
-    public int playerExperience = 0; 
+    public List<GameObject> enemyPrefabs; // Префабы врагов
+    public List<Transform> spawnPoints; // Точки спавна для каждого врага
+    private Queue<GameObject> inactiveEnemies = new Queue<GameObject>(); // Очередь для неактивных врагов
 
     private void Awake()
     {
@@ -27,43 +23,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RegisterEnemy(EnemyBase enemy, Transform spawnPoint)
+    public void RegisterEnemy(GameObject enemy)
     {
-        if (!activeEnemies.ContainsKey(enemy))
+        // Добавляем врага в очередь для повторного использования
+        inactiveEnemies.Enqueue(enemy);
+    }
+
+    public void EnemyKilled(EnemyBase enemy)
+    {
+        if (enemy != null)
         {
-            activeEnemies.Add(enemy, spawnPoint);
+            // Запускаем респаун врага
+            StartCoroutine(RespawnEnemy(enemy));
         }
     }
 
-    public void EnemyDied(EnemyBase enemy)
+    private IEnumerator RespawnEnemy(EnemyBase enemy)
     {
-        int experienceGained = 10;
-        playerExperience += experienceGained;
-        Debug.Log("Player gained " + experienceGained + " experience. Total: " + playerExperience);
-        
-        if (activeEnemies.ContainsKey(enemy))
+        // Задержка респауна
+        yield return new WaitForSeconds(30f);  // Например, 30 секунд
+
+        // Проверяем, является ли враг экземпляром EnemyMeleeAI
+        if (enemy is EnemyMeleeAI)
         {
-            activeEnemies.Remove(enemy);
+            // Вызов респауна для врага, если это EnemyMeleeAI
+            (enemy as EnemyMeleeAI).Respawn();
         }
-        
-        StartCoroutine(RespawnEnemy(enemy));
+        else
+        {
+            // Вызов респауна для EnemyBase
+            enemy.Respawn();
+        }
     }
 
-    private IEnumerator RespawnEnemy(EnemyBase deadEnemy)
-    {
-        // Задержка перед респавном врага
-        yield return new WaitForSeconds(1f);
-
-        // Рандомно выбираем врага и точку спавна
-        int enemyIndex = Random.Range(0, enemyPrefabs.Count);
-        int spawnPointIndex = Random.Range(0, spawnPoints.Count);
-
-        // Спавним нового врага
-        GameObject newEnemyObject = Instantiate(enemyPrefabs[enemyIndex], spawnPoints[spawnPointIndex].position, Quaternion.identity);
-
-        // Получаем компонент EnemyBase и регистрируем его в GameManager
-        EnemyBase newEnemy = newEnemyObject.GetComponent<EnemyBase>();
-        RegisterEnemy(newEnemy, spawnPoints[spawnPointIndex]);
-        newEnemy.Respawn(); // Возвращаем врага в действие (если нужно)
-    }
 }
+    

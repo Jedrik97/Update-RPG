@@ -4,22 +4,20 @@ using System.Collections;
 
 public class EnemyPathFollower : MonoBehaviour
 {
-    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private Transform[] waypoints; // Пути для патруля
     [SerializeField] private float reachThreshold = 0.5f;
 
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
     private Vector3 lastPatrolPoint;
     private bool isChasing = false;
-    
+
     private NavMeshAgent agent;
-    private EnemyMeleeAI meleeAI;
     private EnemyBase enemy;
 
     private void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
-        meleeAI = GetComponent<EnemyMeleeAI>();
         enemy = GetComponent<EnemyBase>();
 
         if (waypoints.Length > 0)
@@ -28,23 +26,11 @@ public class EnemyPathFollower : MonoBehaviour
             agent.SetDestination(waypoints[currentWaypointIndex].position);
         }
 
-        if (meleeAI)
-        {
-            meleeAI.OnStopPatrol += StopPatrol;
-            meleeAI.OnReturnToPatrol += ReturnToPatrol;
-        }
-        
         enemy.OnHealthChanged += OnEnemyHealthChanged;
     }
 
     private void OnDestroy()
     {
-        if (meleeAI)
-        {
-            meleeAI.OnStopPatrol -= StopPatrol;
-            meleeAI.OnReturnToPatrol -= ReturnToPatrol;
-        }
-        
         enemy.OnHealthChanged -= OnEnemyHealthChanged;
     }
 

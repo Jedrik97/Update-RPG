@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class EnemyBase : MonoBehaviour
     private Quaternion initialRotation;
 
     public event System.Action<float> OnHealthChanged;
-    
+    public event System.Action OnDeath;
 
     protected virtual void OnEnable()
     {
@@ -20,8 +21,11 @@ public class EnemyBase : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
     }
+
     public void TakeDamage(float damage)
     {
+        if (!gameObject.activeSelf) return; // Если объект деактивирован, игнорируем урон
+
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth);
         if (currentHealth <= 0)
@@ -32,22 +36,36 @@ public class EnemyBase : MonoBehaviour
 
     private void Die()
     {
-        GameManager.Instance.EnemyDied(this);
-        Destroy(gameObject);
+        OnDeath?.Invoke();
+        GameManager.Instance.EnemyKilled(this); // Сообщаем GameManager о смерти
+        gameObject.SetActive(false); // Деактивируем объект
     }
 
-    public void Respawn()
+    // Сделаем метод Respawn() виртуальным, чтобы его можно было переопределить
+    public virtual void Respawn()
     {
         transform.position = initialPosition;
         transform.rotation = initialRotation;
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
-        gameObject.SetActive(true);
+        gameObject.SetActive(true); // Активируем объект
+
+        // Убедимся, что NavMeshAgent активен и его параметры корректны
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.isStopped = false;
+            agent.speed = 3.5f; // Устанавливаем нормальную скорость
+        }
     }
+
 
     public IEnumerator GradualHeal()
     {
+        // Задержка перед восстановлением
         yield return new WaitForSeconds(1f);
+
+        // Восстанавливаем здоровье до максимума
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
     }

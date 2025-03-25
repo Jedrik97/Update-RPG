@@ -14,10 +14,7 @@ public class EnemyMeleeAI : EnemyBase
     private Vector3 chaseStartPoint;
     private Transform player;
 
-    public delegate void StopPatrolDelegate();
-    public event StopPatrolDelegate OnStopPatrol;
-    public delegate void ReturnToPatrolDelegate();
-    public event ReturnToPatrolDelegate OnReturnToPatrol;
+    private bool isPatrolling = true; // Флаг для патрулирования
 
     // Добавляем недостающие переменные
     public float attackRange = 2f;  // Радиус атаки
@@ -25,9 +22,20 @@ public class EnemyMeleeAI : EnemyBase
     public float attackDelay = 1f;  // Задержка перед атакой
     public float attackSpeed = 1.5f; // Скорость атаки
 
+    // Переменные для патрулирования
+    public Transform[] waypoints;  // Массив точек патруля
+    private int currentWaypointIndex = 0;  // Индекс текущей точки патруля
+
+    // Добавление событий для остановки патрулирования и возвращения к патрулю
+    public delegate void StopPatrolDelegate();
+    public event StopPatrolDelegate OnStopPatrol;
+
+    public delegate void ReturnToPatrolDelegate();
+    public event ReturnToPatrolDelegate OnReturnToPatrol;
+
     protected override void OnEnable()
     {
-        base.OnEnable();
+        base.OnEnable(); // Вызываем родительский OnEnable
         agent = GetComponent<NavMeshAgent>();
 
         if (fieldOfView != null)
@@ -55,7 +63,7 @@ public class EnemyMeleeAI : EnemyBase
             }
 
             player = fieldOfView.Player; // Используем игрока из FOV
-            OnStopPatrol?.Invoke();
+            OnStopPatrol?.Invoke(); // Останавливаем патрулирование, если видим игрока
         }
         else if (!isReturning)
         {
@@ -69,6 +77,12 @@ public class EnemyMeleeAI : EnemyBase
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         float distanceFromStart = Vector3.Distance(transform.position, chaseStartPoint);
+
+        // Если враг патрулирует и видит игрока в радиусе 15 единиц, начинает преследование
+        if (isPatrolling && distanceToPlayer <= 15f)
+        {
+            StartCoroutine(CheckReturnCondition());
+        }
 
         if (distanceFromStart > 15f)
         {
@@ -100,17 +114,18 @@ public class EnemyMeleeAI : EnemyBase
         isPreparingAttack = false;
         isAttacking = false;
         agent.isStopped = false;
-        agent.SetDestination(chaseStartPoint);
-        OnReturnToPatrol?.Invoke();
+        agent.SetDestination(waypoints[currentWaypointIndex].position); // Возвращаемся к точке патруля
+        OnReturnToPatrol?.Invoke(); // Возвращаемся к патрулированию
         StartCoroutine(GradualHeal()); // Начинаем постепенное восстановление здоровья
 
-        while (Vector3.Distance(transform.position, chaseStartPoint) > 1f)
+        while (Vector3.Distance(transform.position, waypoints[currentWaypointIndex].position) > 1f)
         {
             yield return null;
         }
 
         isReturning = false; // Разрешаем снова реагировать на игрока
         hasSeenPlayer = false; // Враг забывает о старой цели
+        isPatrolling = true; // Враг снова патрулирует
     }
 
     private void ChasePlayer()
@@ -120,6 +135,7 @@ public class EnemyMeleeAI : EnemyBase
             agent.speed = chaseSpeed;
             agent.isStopped = false;
             agent.SetDestination(player.position);
+            isPatrolling = false; // Останавливаем патрулирование, когда начинается преследование
         }
     }
 
@@ -156,4 +172,17 @@ public class EnemyMeleeAI : EnemyBase
         isAttacking = false;
         ChasePlayer();
     }
+
+    // Переопределяем Respawn() в EnemyMeleeAI
+    public override void Respawn()
+    {
+        base.Respawn();  // Вызов метода Respawn из родительского класса
+        isPreparingAttack = false; // Сбрасываем состояние атаки
+        isAttacking = false;
+        isReturning = false;
+        hasSeenPlayer = false;
+        isPatrolling = true; // Враг снова патрулирует
+        agent.isStopped = false;  // Активируем агент для патрулирования
+    }
+
 }
