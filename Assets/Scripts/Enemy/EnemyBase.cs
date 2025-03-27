@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -22,9 +21,16 @@ public class EnemyBase : MonoBehaviour
         initialRotation = transform.rotation;
     }
 
+    public IEnumerator GradualHeal()
+    {
+        yield return new WaitForSeconds(1f);
+        
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
+    }
     public void TakeDamage(float damage)
     {
-        if (!gameObject.activeSelf) return; // Если объект деактивирован, игнорируем урон
+        if (!gameObject.activeSelf) return; 
 
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth);
@@ -37,36 +43,18 @@ public class EnemyBase : MonoBehaviour
     private void Die()
     {
         OnDeath?.Invoke();
-        GameManager.Instance.EnemyKilled(this); // Сообщаем GameManager о смерти
-        gameObject.SetActive(false); // Деактивируем объект
+        GameManager.Instance.EnemyKilled(this);
+        gameObject.SetActive(false); 
+        
     }
-
-    // Сделаем метод Respawn() виртуальным, чтобы его можно было переопределить
-    public virtual void Respawn()
+    
+    public void Respawn()
     {
         transform.position = initialPosition;
         transform.rotation = initialRotation;
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
-        gameObject.SetActive(true); // Активируем объект
-
-        // Убедимся, что NavMeshAgent активен и его параметры корректны
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        if (agent != null)
-        {
-            agent.isStopped = false;
-            agent.speed = 3.5f; // Устанавливаем нормальную скорость
-        }
+        gameObject.SetActive(true); 
     }
-
-
-    public IEnumerator GradualHeal()
-    {
-        // Задержка перед восстановлением
-        yield return new WaitForSeconds(1f);
-
-        // Восстанавливаем здоровье до максимума
-        currentHealth = maxHealth;
-        OnHealthChanged?.Invoke(currentHealth);
-    }
+    
 }

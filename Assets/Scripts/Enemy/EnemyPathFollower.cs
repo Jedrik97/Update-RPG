@@ -1,15 +1,14 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 
 public class EnemyPathFollower : MonoBehaviour
 {
-    [SerializeField] private Transform[] waypoints; // Пути для патруля
+    [SerializeField] private Transform[] waypoints;
     [SerializeField] private float reachThreshold = 0.5f;
 
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
-    private Vector3 lastPatrolPoint;
     private bool isChasing = false;
 
     private NavMeshAgent agent;
@@ -17,21 +16,15 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void OnEnable()
     {
+        OneSecond();
+        isChasing = false;
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<EnemyBase>();
-
-        if (waypoints.Length > 0)
-        {
-            lastPatrolPoint = waypoints[0].position;
-            agent.SetDestination(waypoints[currentWaypointIndex].position);
-        }
-
-        enemy.OnHealthChanged += OnEnemyHealthChanged;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        enemy.OnHealthChanged -= OnEnemyHealthChanged;
+        isChasing = false;
     }
 
     private void Update()
@@ -42,18 +35,21 @@ public class EnemyPathFollower : MonoBehaviour
         }
     }
 
-    private void StopPatrol()
+    public void StopPatrol()
     {
         isChasing = true;
         agent.isStopped = true;
     }
 
-    private void ReturnToPatrol()
+    public void ReturnToPatrol()
     {
-        isChasing = false;
+        isChasing = false;  
         agent.isStopped = false;
-        agent.SetDestination(lastPatrolPoint);
-        StartCoroutine(enemy.GradualHeal());
+        agent.SetDestination(waypoints[currentWaypointIndex].position);
+        if (enemy)
+        {
+            enemy.GradualHeal();
+        }
     }
 
     private void Patrol()
@@ -67,7 +63,7 @@ public class EnemyPathFollower : MonoBehaviour
                 if (currentWaypointIndex < waypoints.Length - 1)
                     currentWaypointIndex++;
                 else
-                    movingForward = false;
+                    movingForward = false;  
             }
             else
             {
@@ -81,16 +77,13 @@ public class EnemyPathFollower : MonoBehaviour
         }
     }
 
-    private void OnEnemyHealthChanged(float currentHealth)
+    private IEnumerator OneSecond()
     {
-        if (currentHealth == enemy.maxHealth)
+        yield return new WaitForSeconds(1f);
+
+        if (waypoints.Length > 0)
         {
-            // Если здоровье восстановлено, активируем движение
-            if (!isChasing && agent.isStopped)
-            {
-                agent.isStopped = false;
-                agent.SetDestination(waypoints[currentWaypointIndex].position);  // Возвращаем врага к текущей точке патруля
-            }
+            agent.SetDestination(waypoints[currentWaypointIndex].position);
         }
     }
 }

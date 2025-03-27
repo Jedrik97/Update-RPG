@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Enemies")]
     public List<GameObject> enemyPrefabs; // Префабы врагов
-    public List<Transform> spawnPoints; // Точки спавна для каждого врага
     private Queue<GameObject> inactiveEnemies = new Queue<GameObject>(); // Очередь для неактивных врагов
 
     private void Awake()
@@ -41,7 +40,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator RespawnEnemy(EnemyBase enemy)
     {
         // Задержка респауна
-        yield return new WaitForSeconds(30f);  // Например, 30 секунд
+        yield return new WaitForSeconds(10f);  // Например, 30 секунд
 
         // Проверяем, является ли враг экземпляром EnemyMeleeAI
         if (enemy is EnemyMeleeAI)
