@@ -1,11 +1,10 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyPathFollower : MonoBehaviour
 {
     [SerializeField] private Transform[] waypoints;
-    [SerializeField] private float reachThreshold = 0.5f;
+    [SerializeField] private float reachThreshold = 1f;
 
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
@@ -16,14 +15,14 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void OnEnable()
     {
-        OneSecond();
-        isChasing = false;
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<EnemyBase>();
+        Patrol();
     }
 
     private void OnDisable()
     {
+        agent.isStopped = false;
         isChasing = false;
     }
 
@@ -33,12 +32,15 @@ public class EnemyPathFollower : MonoBehaviour
         {
             Patrol();
         }
+        else
+        {
+            StopPatrol();
+        }
     }
 
     public void StopPatrol()
     {
         isChasing = true;
-        agent.isStopped = true;
     }
 
     public void ReturnToPatrol()
@@ -46,13 +48,10 @@ public class EnemyPathFollower : MonoBehaviour
         isChasing = false;  
         agent.isStopped = false;
         agent.SetDestination(waypoints[currentWaypointIndex].position);
-        if (enemy)
-        {
-            enemy.GradualHeal();
-        }
+        
     }
 
-    private void Patrol()
+    public void Patrol()
     {
         if (waypoints.Length == 0) return;
 
@@ -73,16 +72,6 @@ public class EnemyPathFollower : MonoBehaviour
                     movingForward = true;
             }
 
-            agent.SetDestination(waypoints[currentWaypointIndex].position);
-        }
-    }
-
-    private IEnumerator OneSecond()
-    {
-        yield return new WaitForSeconds(1f);
-
-        if (waypoints.Length > 0)
-        {
             agent.SetDestination(waypoints[currentWaypointIndex].position);
         }
     }

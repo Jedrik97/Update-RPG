@@ -8,40 +8,33 @@ public class EnemyMeleeAI : EnemyBase
     [SerializeField] private EnemyPathFollower pathFollower;
 
     private NavMeshAgent agent;
-    private bool isPreparingAttack = false;
-    private bool isAttacking = false;
-    private bool isReturning = false;
-    private bool hasSeenPlayer = false;
-    private Vector3 chaseStartPoint;
     private Transform player;
 
-    private bool isPatrolling = true;
+    private bool hasSeenPlayer = false;
+    private Vector3 chaseStartPoint;
+
+    private float timeSinceLastAttack = 0f;
+    private bool isReturning = false;
 
     public float attackRange = 2f;
     public float chaseSpeed = 3.5f;
     public float attackDelay = 1f;
     public float attackSpeed = 1.5f;
+    public float attackCooldown = 2f;
+    public float maxChaseDistance = 15f; // Максимальная дистанция погони
 
-    public Transform[] waypoints;
-    private int currentWaypointIndex = 0;
-    
+    private enum EnemyState { Idle, Patrolling, Chasing, Attacking, Returning }
+    private EnemyState currentState = EnemyState.Patrolling;
+
     protected override void OnEnable()
     {
-        
         base.OnEnable();
-        isPreparingAttack = false;
-        isAttacking = false;
-        isReturning = false;
-        hasSeenPlayer = false;
-        isPatrolling = true;
         agent = GetComponent<NavMeshAgent>();
 
         if (fieldOfView != null)
         {
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
         }
-        pathFollower.ReturnToPatrol();
-        Debug.Log("дошёл до патруля в мили");
     }
 
     private void OnDisable()
@@ -54,119 +47,153 @@ public class EnemyMeleeAI : EnemyBase
 
     private void HandlePlayerVisibilityChanged(bool isVisible)
     {
-        if (isVisible && !isReturning)
+        if (isVisible)
         {
             if (!hasSeenPlayer)
             {
                 hasSeenPlayer = true;
                 chaseStartPoint = transform.position;
             }
-
-            player = fieldOfView.Player;
-                pathFollower.StopPatrol(); // Останавливаем патрулирование
+            player = fieldOfView.Player; 
+            if (player == null) return;
+            
+            StopPatrolling();
+            currentState = EnemyState.Chasing;
         }
-        else if (!isReturning)
+        else
         {
-            StartCoroutine(CheckReturnCondition());
+            hasSeenPlayer = false;
+            currentState = EnemyState.Returning;
+            StartCoroutine(ReturnToPatrol());
         }
     }
 
-    private void Update()
+    private void StopPatrolling()
     {
-        if (player == null || isReturning) return;
+        if (pathFollower != null) pathFollower.StopPatrol();
+        agent.isStopped = false;
+    }
+
+    private void StartPatrolling()
+    {
+        if (pathFollower != null) pathFollower.Patrol();
+        agent.isStopped = false;
+    }
+
+    private IEnumerator ReturnToPatrol()
+    {
+        agent.SetDestination(chaseStartPoint);
+        while (Vector3.Distance(transform.position, chaseStartPoint) > 1f)
+        {
+            yield return null;
+        }
+        agent.isStopped = true;
+        yield return new WaitForSeconds(1f);
+        currentState = EnemyState.Patrolling;
+        StartPatrolling();
+    }
+
+    private void FixedUpdate()
+    {
+        timeSinceLastAttack += Time.fixedDeltaTime;
+        
+        if (player == null)
+        {
+            player = fieldOfView?.Player;
+            if (player == null) return;
+        }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         float distanceFromStart = Vector3.Distance(transform.position, chaseStartPoint);
 
-        if (isPatrolling && distanceToPlayer <= 15f)
+        switch (currentState)
         {
-            StartCoroutine(CheckReturnCondition());
-        }
+            case EnemyState.Patrolling:
+                if (distanceToPlayer <= maxChaseDistance && hasSeenPlayer)
+                {
+                    currentState = EnemyState.Chasing;
+                    StopPatrolling();
+                }
+                else if (pathFollower != null)
+                {
+                    StartPatrolling();
+                }
+                break;
 
-        if (distanceFromStart > 15f)
-        {
-            ReturnToPatrolAfterDelay();
-        }
-        else if (distanceToPlayer > attackRange && hasSeenPlayer)
-        {
-            ChasePlayer();
-            Debug.Log("тут3");
-        }
-        else if (!isPreparingAttack && !isAttacking  && hasSeenPlayer)
-        {
-            StartCoroutine(PrepareAttack());
-        }
-    }
+            case EnemyState.Chasing:
+                if (distanceFromStart > maxChaseDistance)
+                {
+                    hasSeenPlayer = false;
+                    currentState = EnemyState.Returning;
+                    StartCoroutine(ReturnToPatrol());
+                }
+                else if (distanceToPlayer <= attackRange && timeSinceLastAttack >= attackCooldown)
+                {
+                    currentState = EnemyState.Attacking;
+                    StartCoroutine(PrepareAttack());
+                }
+                else
+                {
+                    ChasePlayer();
+                }
+                break;
 
-    private IEnumerator CheckReturnCondition()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        if (Vector3.Distance(transform.position, chaseStartPoint) > 15f)
-        {
-           ReturnToPatrolAfterDelay();
+            case EnemyState.Attacking:
+                if (timeSinceLastAttack >= attackCooldown)
+                {
+                    currentState = EnemyState.Chasing;
+                    ChasePlayer();
+                }
+                break;
         }
-    }
-
-    private void ReturnToPatrolAfterDelay()
-    {
-        isReturning = true;
-        isPreparingAttack = false;
-        isAttacking = false;
-        agent.isStopped = false;
-        
-        pathFollower.ReturnToPatrol();
-        isReturning = false;
-        hasSeenPlayer = false;
-        isPatrolling = true;
     }
 
     private void ChasePlayer()
     {
-        Debug.Log("Пытается атаковать");
-        if (!isAttacking && !isPreparingAttack && player != null && !isReturning)
+        if (currentState == EnemyState.Chasing && player != null)
         {
+            float distanceFromStart = Vector3.Distance(transform.position, chaseStartPoint);
+            if (distanceFromStart > maxChaseDistance)
+            {
+                currentState = EnemyState.Returning;
+                StartCoroutine(ReturnToPatrol());
+                return;
+            }
             agent.speed = chaseSpeed;
-            agent.isStopped = false;
             agent.SetDestination(player.position);
-            isPatrolling = false;
         }
     }
 
     private IEnumerator PrepareAttack()
     {
-        isPreparingAttack = true;
-        agent.isStopped = true;
         yield return new WaitForSeconds(attackDelay);
-
-        if (player != null && !isReturning)
+        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange)
         {
             Attack();
-            Debug.Log("тут4");
         }
         else
         {
-            isPreparingAttack = false;
+            currentState = EnemyState.Chasing;
             ChasePlayer();
-            Debug.Log("тут2");
         }
     }
 
     private void Attack()
     {
-        isPreparingAttack = false;
-        isAttacking = true;
-        agent.speed = attackSpeed;
-        
-
-        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange && !isReturning)
+        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange && timeSinceLastAttack >= attackCooldown)
         {
-            player.GetComponent<HealthPlayerController>()?.TakeDamage(attackDamage);
+            var health = player.GetComponent<HealthPlayerController>();
+            if (health != null)
+            {
+                health.TakeDamage(attackDamage);
+                Debug.Log("Enemy attacked player!");
+            }
+            else
+            {
+                Debug.Log("No HealthPlayerController found on player!");
+            }
+            timeSinceLastAttack = 0f;
         }
-
-        isAttacking = false;
-        ChasePlayer();
-        Debug.Log("тут1");
+        currentState = EnemyState.Chasing;
     }
-    
 }

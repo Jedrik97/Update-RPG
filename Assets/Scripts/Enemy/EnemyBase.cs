@@ -11,9 +11,12 @@ public class EnemyBase : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
 
+    public delegate void HealDelegate();
+    public HealDelegate OnHealRequested;
     public event System.Action<float> OnHealthChanged;
     public event System.Action OnDeath;
 
+    
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth;
@@ -21,10 +24,8 @@ public class EnemyBase : MonoBehaviour
         initialRotation = transform.rotation;
     }
 
-    public IEnumerator GradualHeal()
+    public void GradualHeal()
     {
-        yield return new WaitForSeconds(1f);
-        
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
     }
