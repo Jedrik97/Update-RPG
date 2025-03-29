@@ -3,8 +3,10 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private Collider weaponCollider;
-    [SerializeField] private int weaponDamage = 25;
-    private float deactivateweapon = 3;
+    private int weaponDamage = 25;
+    private float deactivateWeaponTime = 3f;
+
+    [SerializeField] private PlayerStats playerStats;
 
     private void OnEnable()
     {
@@ -14,15 +16,32 @@ public class Weapon : MonoBehaviour
 
     public void EnableCollider(bool enable)
     {
-        if (weaponCollider)
+        if (weaponCollider == null)
         {
-            weaponCollider.enabled = enable;
+            Debug.LogError("weaponCollider не назначен!");
+            return;
         }
+
+        weaponCollider.enabled = enable;
+
         if (enable)
         {
-            Invoke(nameof(DisableCollider), deactivateweapon); // Запускаем таймер на деактивацию
+            UpdateWeaponDamage();
+            Invoke(nameof(DisableCollider), deactivateWeaponTime);
         }
     }
+
+    private void UpdateWeaponDamage()
+    {
+        if (playerStats == null)
+        {
+            Debug.LogError("playerStats не назначен!");
+            return;
+        }
+
+        weaponDamage = 25 + (int)(playerStats.strength * 10);
+    }
+
 
     private void DisableCollider()
     {
@@ -38,6 +57,5 @@ public class Weapon : MonoBehaviour
         {
             enemyBase.TakeDamage(weaponDamage);
         }
-        
     }
 }

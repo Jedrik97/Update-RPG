@@ -9,12 +9,13 @@ public class PlayerStats : MonoBehaviour
     private float baseExp = 1000f;
 
     public float strength = 10f;
-    public float agility = 10f;
+    public float stamina = 10f;
     public float intelligence = 10f;
     public float wisdom = 10f;
 
-    // Новая переменная для отслеживания доступных очков характеристик
     public int availableStatPoints = 0;
+
+    public float health = 10f; 
 
     public void GainExperience(float amount)
     {
@@ -32,17 +33,22 @@ public class PlayerStats : MonoBehaviour
         currentExp -= expToNextLevel;
         expToNextLevel += baseExp * level;
 
-        // При уровне увеличиваем характеристики на 1 каждую
         strength += 1f;
-        agility += 1f;
+        stamina += 1f;
         intelligence += 1f;
         wisdom += 1f;
 
-        // Даем дополнительное очко для распределения
-        availableStatPoints++; // Один дополнительный очко на выбор при каждом уровне
+        availableStatPoints++;
+        
+        health = GetMaxHealth();
+        
+    }
+    
+    public float GetMaxHealth()
+    {
+        return health + (stamina * 10f);
     }
 
-    // Метод для распределения очков характеристик
     public void SpendStatPoint(string stat)
     {
         if (availableStatPoints > 0)
@@ -53,7 +59,7 @@ public class PlayerStats : MonoBehaviour
                     strength += 1f;
                     break;
                 case "Agility":
-                    agility += 1f;
+                    stamina += 1f;
                     break;
                 case "Intelligence":
                     intelligence += 1f;
@@ -63,7 +69,7 @@ public class PlayerStats : MonoBehaviour
                     break;
             }
 
-            availableStatPoints--; // Очко потрачено
+            availableStatPoints--; 
             Debug.Log($"Потрачено 1 очко на {stat}. Осталось {availableStatPoints} очков.");
         }
         else

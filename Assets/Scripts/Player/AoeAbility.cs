@@ -12,6 +12,9 @@ public class AoeAbility : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Animator animator;
 
+    // Ссылки на PlayerStats, чтобы получить информацию о статистике персонажа
+    [SerializeField] private PlayerStats playerStats;
+
     private bool isAoeActive = false;
 
     void OnEnable()
@@ -33,7 +36,7 @@ public class AoeAbility : MonoBehaviour
     private IEnumerator AoeRoutine()
     {
         isAoeActive = true;
-        
+
         if (animator != null)
         {
             animator.SetTrigger("AoeAttack");
@@ -46,6 +49,9 @@ public class AoeAbility : MonoBehaviour
         }
 
         float elapsedTime = 0f;
+
+        // Применяем бонусы на основе статистики
+        UpdateAoeStats();
 
         while (elapsedTime < aoeDuration)
         {
@@ -68,6 +74,14 @@ public class AoeAbility : MonoBehaviour
                 enemyBase.TakeDamage(aoeDamagePerSecond);
             }
         }
+    }
+
+    private void UpdateAoeStats()
+    {
+        aoeDamagePerSecond = 10 + (int)(playerStats.intelligence * 2); 
+        aoeRadius = 3f + (playerStats.wisdom * 0.1f); 
+        aoeCooldown = Mathf.Max(0.1f, 6f - (playerStats.wisdom * 0.1f)); 
+        aoeDuration = 10f + (playerStats.intelligence * 0.1f);
     }
 
     private IEnumerator DisableMagicEffectAfterDelay(float delay)

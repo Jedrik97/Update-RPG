@@ -30,7 +30,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (playerStats.availableStatPoints > 0)
                 {
-                    Debug.Log("Available stat points: " + playerStats.availableStatPoints);
                     SpendStatPointAndApplyBonus(stone.statType);
                     return;
                 }
@@ -53,8 +52,8 @@ public class PlayerInteraction : MonoBehaviour
             case StatStone.StatType.Strength:
                 playerStats.strength += 1f;
                 break;
-            case StatStone.StatType.Agility:
-                playerStats.agility += 1f;
+            case StatStone.StatType.Stamina:
+                playerStats.stamina += 1f;
                 break;
             case StatStone.StatType.Intelligence:
                 playerStats.intelligence += 1f;

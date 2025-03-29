@@ -39,13 +39,20 @@ public class PlayerCombat : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         if (weapon != null)
+        {
             weapon.EnableCollider(true);
+        }
+        else
+        {
+            Debug.LogError("weapon не назначен!");
+        }
 
         yield return new WaitForSeconds(GetAnimationLength(attackName) - 0.2f);
 
         isAttacking = false;
         OnAttackStateChanged?.Invoke(false);
     }
+
 
     private float GetAnimationLength(string animationName)
     {

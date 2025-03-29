@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 38790101}
-  weaponDamage: 25
+  playerStats: {fileID: 5866666021550950896}
 --- !u!54 &38790103
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17679,7 +17679,7 @@ PrefabInstance:
     - target: {fileID: 5948607858795106357, guid: c80546d16d938c04990c6d33d46e4952,
         type: 3}
       propertyPath: m_Name
-      value: Agility Rock
+      value: Stamina Rock
       objectReference: {fileID: 0}
     - target: {fileID: 5948607858795106357, guid: c80546d16d938c04990c6d33d46e4952,
         type: 3}
@@ -25046,11 +25046,12 @@ MonoBehaviour:
   level: 1
   currentExp: 0
   expToNextLevel: 100
-  strength: 10
-  agility: 10
-  intelligence: 10
-  wisdom: 10
+  strength: 1
+  stamina: 1
+  intelligence: 1
+  wisdom: 1
   availableStatPoints: 0
+  health: 100
 --- !u!114 &5866666021550950897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25086,6 +25087,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 5866666021550950887}
+  playerStats: {fileID: 5866666021550950896}
 --- !u!114 &5866666021550950899
 MonoBehaviour:
   m_ObjectHideFlags: 0
