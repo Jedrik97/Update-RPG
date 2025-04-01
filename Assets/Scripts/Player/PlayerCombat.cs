@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Weapon weapon;
 
     private bool isAttacking = false;
+
+    [Inject] private PlayerStats playerStats;  // Инжектируем PlayerStats
+    [Inject] private GameManager gameManager;  // Инжектируем GameManager
 
     void Update()
     {
@@ -52,7 +56,6 @@ public class PlayerCombat : MonoBehaviour
         isAttacking = false;
         OnAttackStateChanged?.Invoke(false);
     }
-
 
     private float GetAnimationLength(string animationName)
     {

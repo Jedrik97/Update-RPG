@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using Zenject;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -10,18 +10,36 @@ public class EnemyBase : MonoBehaviour
     public float attackDamage = 10f;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    
+    private GameManager gameManager;
 
     public delegate void HealDelegate();
     public HealDelegate OnHealRequested;
     public event System.Action<float> OnHealthChanged;
     public event System.Action OnDeath;
-
     
+    [Inject]
+    public void Construct(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth;
         initialPosition = transform.position;
         initialRotation = transform.rotation;
+        
+        if (gameManager != null)
+        {
+            ApplyLevelBasedStats(gameManager.GetPlayerLevel());
+        }
+    }
+
+    public void ApplyLevelBasedStats(int playerLevel)
+    {
+        attackDamage = 10f + (playerLevel * 5f); 
+        maxHealth = 100f + (playerLevel * 10f);  
     }
 
     public void GradualHeal()
@@ -29,9 +47,10 @@ public class EnemyBase : MonoBehaviour
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
     }
+    
     public void TakeDamage(float damage)
     {
-        if (!gameObject.activeSelf) return; 
+        if (!gameObject.activeSelf) return;
 
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth);
@@ -40,13 +59,12 @@ public class EnemyBase : MonoBehaviour
             Die();
         }
     }
-
+    
     private void Die()
     {
         OnDeath?.Invoke();
-        GameManager.Instance.EnemyKilled(this);
-        gameObject.SetActive(false); 
-        
+        gameManager?.EnemyKilled(this);
+        gameObject.SetActive(false);
     }
     
     public void Respawn()
@@ -55,7 +73,6 @@ public class EnemyBase : MonoBehaviour
         transform.rotation = initialRotation;
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
-        gameObject.SetActive(true); 
+        gameObject.SetActive(true);
     }
-    
 }

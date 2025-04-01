@@ -1,12 +1,13 @@
+using Zenject;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Inject] private PlayerStats playerStats;
+    
     [SerializeField] private Collider weaponCollider;
-    private int weaponDamage = 25;
+    private int weaponDamage;
     private float deactivateWeaponTime = 3f;
-
-    [SerializeField] private PlayerStats playerStats;
 
     private void OnEnable()
     {
@@ -14,6 +15,18 @@ public class Weapon : MonoBehaviour
             weaponCollider.enabled = false;
     }
 
+    [Inject]
+    private void OnInject()
+    {
+        if (playerStats == null)
+        {
+            Debug.LogError("playerStats не назначен!");
+        }
+        else
+        {
+            Debug.Log("playerStats инжектирован!");
+        }
+    }
     public void EnableCollider(bool enable)
     {
         if (weaponCollider == null)
@@ -39,9 +52,8 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        weaponDamage = 25 + (int)(playerStats.strength * 10);
+        weaponDamage = 25 + (int)(playerStats.strength * 5);
     }
-
 
     private void DisableCollider()
     {

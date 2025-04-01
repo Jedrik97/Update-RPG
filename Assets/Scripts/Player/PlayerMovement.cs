@@ -38,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove) return; // Блокируем движение, если идет атака
 
-        bool isRightMouseHeld = Input.GetMouseButton(1);
         isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
 
@@ -50,32 +49,24 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isRightMouseHeld)
+        // Получаем направление от камеры
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+        forward.y = 0; // Не учитываем вертикальную компонента
+        right.y = 0;   // Не учитываем вертикальную компонента
+        forward.Normalize();
+        right.Normalize();
+
+        // Рассчитываем движение относительно камеры
+        Vector3 movementDirection = (forward * input.y + right * input.x).normalized;
+        moveDirection = new Vector3(movementDirection.x * currentSpeed, moveDirection.y, movementDirection.z * currentSpeed);
+
+        // Поворачиваем персонажа в сторону движения
+        if (movementDirection.magnitude > 0)
         {
-            Vector3 forward = cameraTransform.forward;
-            Vector3 right = cameraTransform.right;
-            forward.y = 0;
-            right.y = 0;
-            forward.Normalize();
-            right.Normalize();
-
-            Vector3 movementDirection = (forward * input.y + right * input.x).normalized;
-            moveDirection = new Vector3(movementDirection.x * currentSpeed, moveDirection.y, movementDirection.z * currentSpeed);
-
-            if (movementDirection.magnitude > 0)
-            {
-                float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
-                float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationVelocity, rotationSmoothTime);
-                transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
-            }
-        }
-        else
-        {
-            float turn = input.x * rotationSpeed * Time.deltaTime;
-            transform.Rotate(0, turn, 0);
-
-            Vector3 forwardMovement = transform.forward * input.y * currentSpeed;
-            moveDirection = new Vector3(forwardMovement.x, moveDirection.y, forwardMovement.z);
+            float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
+            float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationVelocity, rotationSmoothTime);
+            transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
         }
 
         OnMove?.Invoke(input.x, input.y, isRunning);

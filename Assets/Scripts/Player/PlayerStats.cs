@@ -6,32 +6,26 @@ public class PlayerStats : MonoBehaviour
     public float currentExp = 0f;
     public float expToNextLevel = 1000f;
 
-    private float baseExp = 1000f;
-
-    public float strength = 10f;
-    public float stamina = 10f;
-    public float intelligence = 10f;
-    public float wisdom = 10f;
+    public float strength = 1f;
+    public float stamina = 1f;
+    public float intelligence = 1f;
+    public float wisdom = 1f;
 
     public int availableStatPoints = 0;
 
-    public float health = 10f; 
+    public float health = 10f;
 
-    public void GainExperience(float amount)
+    // Простой метод для получения максимального здоровья
+    public float GetMaxHealth()
     {
-        currentExp += amount;
-
-        while (currentExp >= expToNextLevel)
-        {
-            LevelUp();
-        }
+        return health + (stamina * 10f);
     }
 
-    private void LevelUp()
+    public void LevelUp()
     {
         level++;
         currentExp -= expToNextLevel;
-        expToNextLevel += baseExp * level;
+        expToNextLevel += 1000f * level;
 
         strength += 1f;
         stamina += 1f;
@@ -39,42 +33,5 @@ public class PlayerStats : MonoBehaviour
         wisdom += 1f;
 
         availableStatPoints++;
-        
-        health = GetMaxHealth();
-        
-    }
-    
-    public float GetMaxHealth()
-    {
-        return health + (stamina * 10f);
-    }
-
-    public void SpendStatPoint(string stat)
-    {
-        if (availableStatPoints > 0)
-        {
-            switch (stat)
-            {
-                case "Strength":
-                    strength += 1f;
-                    break;
-                case "Agility":
-                    stamina += 1f;
-                    break;
-                case "Intelligence":
-                    intelligence += 1f;
-                    break;
-                case "Wisdom":
-                    wisdom += 1f;
-                    break;
-            }
-
-            availableStatPoints--; 
-            Debug.Log($"Потрачено 1 очко на {stat}. Осталось {availableStatPoints} очков.");
-        }
-        else
-        {
-            Debug.Log("Нет доступных очков для распределения.");
-        }
     }
 }

@@ -1,15 +1,16 @@
 using UnityEngine;
-
+using Zenject;
 public class PlayerInteraction : MonoBehaviour
 {
     public float interactRange = 0.5f;
     public KeyCode interactKey = KeyCode.R;
 
-    private PlayerStats playerStats;
+    private IPlayerStatsManager playerStatsManager;
 
-    void Start()
+    [Inject]
+    public void Construct(IPlayerStatsManager playerStatsManager)
     {
-        playerStats = GetComponent<PlayerStats>();
+        this.playerStatsManager = playerStatsManager;
     }
 
     void Update()
@@ -28,40 +29,11 @@ public class PlayerInteraction : MonoBehaviour
             StatStone stone = hitCollider.GetComponent<StatStone>();
             if (stone != null)
             {
-                if (playerStats.availableStatPoints > 0)
+                if (playerStatsManager != null)
                 {
-                    SpendStatPointAndApplyBonus(stone.statType);
-                    return;
+                    playerStatsManager.SpendStatPoint(stone.statType.ToString());
                 }
             }
         }
-    }
-
-    void SpendStatPointAndApplyBonus(StatStone.StatType statType)
-    {
-        
-        playerStats.SpendStatPoint(statType.ToString()); 
-        
-        ApplyStatBonus(statType);
-    }
-
-    void ApplyStatBonus(StatStone.StatType statType)
-    {
-        switch (statType)
-        {
-            case StatStone.StatType.Strength:
-                playerStats.strength += 1f;
-                break;
-            case StatStone.StatType.Stamina:
-                playerStats.stamina += 1f;
-                break;
-            case StatStone.StatType.Intelligence:
-                playerStats.intelligence += 1f;
-                break;
-            case StatStone.StatType.Wisdom:
-                playerStats.wisdom += 1f;
-                break;
-        }
-        Debug.Log($"Получено +1 к {statType}. Потрачено 1 очко.");
     }
 }

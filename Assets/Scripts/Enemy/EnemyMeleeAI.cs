@@ -19,9 +19,8 @@ public class EnemyMeleeAI : EnemyBase
     public float attackRange = 2f;
     public float chaseSpeed = 3.5f;
     public float attackDelay = 1f;
-    public float attackSpeed = 1.5f;
     public float attackCooldown = 2f;
-    public float maxChaseDistance = 15f; // Максимальная дистанция погони
+    public float maxChaseDistance = 15f; 
 
     private enum EnemyState { Idle, Patrolling, Chasing, Attacking, Returning }
     private EnemyState currentState = EnemyState.Patrolling;
@@ -54,9 +53,14 @@ public class EnemyMeleeAI : EnemyBase
                 hasSeenPlayer = true;
                 chaseStartPoint = transform.position;
             }
-            player = fieldOfView.Player; 
-            if (player == null) return;
+            player = fieldOfView.Player;
             
+            if (player == null)
+            {
+                Debug.LogWarning("Player not found!");
+                return;
+            }
+
             StopPatrolling();
             currentState = EnemyState.Chasing;
         }
@@ -96,7 +100,7 @@ public class EnemyMeleeAI : EnemyBase
     private void FixedUpdate()
     {
         timeSinceLastAttack += Time.fixedDeltaTime;
-        
+
         if (player == null)
         {
             player = fieldOfView?.Player;
