@@ -14,8 +14,20 @@ public class PlayerCombat : MonoBehaviour
 
     private bool isAttacking = false;
 
-    [Inject] private PlayerStats playerStats;  // Инжектируем PlayerStats
-    [Inject] private GameManager gameManager;  // Инжектируем GameManager
+    private PlayerStats playerStats;
+    private GameManager gameManager;
+
+    [Inject]
+    public void Construct(PlayerStats playerStats)
+    {
+        this.playerStats = playerStats;
+    }
+    [Inject]
+    public void Construct(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+    
 
     void Update()
     {

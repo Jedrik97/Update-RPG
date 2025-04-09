@@ -14,9 +14,9 @@ public class EnemyBase : MonoBehaviour
     private GameManager gameManager;
 
     public delegate void HealDelegate();
-    public HealDelegate OnHealRequested;
     public event System.Action<float> OnHealthChanged;
-    public event System.Action OnDeath;
+    public event System.Action<GameObject> OnDeath;
+    public HealDelegate OnHealRequested;
     
     [Inject]
     public void Construct(GameManager gameManager)
@@ -50,6 +50,7 @@ public class EnemyBase : MonoBehaviour
     
     public void TakeDamage(float damage)
     {
+        Debug.Log("TakeDamage EnemyBase");
         if (!gameObject.activeSelf) return;
 
         currentHealth -= damage;
@@ -62,8 +63,8 @@ public class EnemyBase : MonoBehaviour
     
     private void Die()
     {
-        OnDeath?.Invoke();
-        gameManager?.EnemyKilled(this);
+        OnDeath?.Invoke(gameObject);
+        /*gameManager?.EnemyKilled();*/
         gameObject.SetActive(false);
     }
     

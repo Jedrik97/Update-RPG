@@ -3,35 +3,29 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [Inject] private PlayerStats playerStats;
+    private PlayerStats playerStats;
     
     [SerializeField] private Collider weaponCollider;
+    
     private int weaponDamage;
-    private float deactivateWeaponTime = 3f;
+    private float deactivateWeaponTime = 2f;
 
+    [Inject]
+    public void Construct(PlayerStats playerStats)
+    {
+        this.playerStats = playerStats;
+    }
     private void OnEnable()
     {
         if (weaponCollider)
             weaponCollider.enabled = false;
     }
-
-    [Inject]
-    private void OnInject()
-    {
-        if (playerStats == null)
-        {
-            Debug.LogError("playerStats не назначен!");
-        }
-        else
-        {
-            Debug.Log("playerStats инжектирован!");
-        }
-    }
+    
     public void EnableCollider(bool enable)
     {
         if (weaponCollider == null)
         {
-            Debug.LogError("weaponCollider не назначен!");
+            Debug.Log("weaponCollider не назначен!");
             return;
         }
 
@@ -42,17 +36,19 @@ public class Weapon : MonoBehaviour
             UpdateWeaponDamage();
             Invoke(nameof(DisableCollider), deactivateWeaponTime);
         }
+        Debug.Log("EnableCollider Weapon");
     }
 
     private void UpdateWeaponDamage()
     {
         if (playerStats == null)
         {
-            Debug.LogError("playerStats не назначен!");
+            Debug.Log("playerStats не назначен!");
             return;
         }
 
         weaponDamage = 25 + (int)(playerStats.strength * 5);
+        
     }
 
     private void DisableCollider()
@@ -63,6 +59,7 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter");
         if (!other.CompareTag("Enemy")) return;
 
         if (other.TryGetComponent(out EnemyBase enemyBase))

@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using Zenject;
 public class PlayerInteraction : MonoBehaviour
 {
@@ -36,4 +36,4 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
-}
+}*/

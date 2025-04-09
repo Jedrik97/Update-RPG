@@ -1,30 +1,35 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
 using Zenject;
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
 
-    [Inject] private PlayerStats playerStats;
+    private PlayerStats playerStats;
+    private EnemyBase enemy = new EnemyBase();
 
     public float experiencePerKill = 100f;
     public float respawnDelay = 15f;
 
-    private void Awake()
+    
+    private void OnEnable()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        enemy.OnDeath += EnemyKilled;
     }
 
-    public void EnemyKilled(EnemyBase enemy)
+    [Inject]
+    public void Construct(PlayerStats playerStats)
     {
-        if (playerStats != null)
+        this.playerStats = playerStats;
+    }
+    
+    
+    
+    public void EnemyKilled(GameObject Enemy)
+    {
+        Debug.Log("+++");
+        if (playerStats)
         {
             playerStats.currentExp += experiencePerKill;
             while (playerStats.currentExp >= playerStats.expToNextLevel)
@@ -32,20 +37,21 @@ public class GameManager : MonoBehaviour
                 LevelUp();
             }
         }
-        StartCoroutine(RespawnEnemy(enemy));
+        StartCoroutine(RespawnEnemy());
     }
 
     private void LevelUp()
     {
         playerStats.LevelUp();
-        Debug.Log($"Player leveled up! New level: {playerStats.level}");
+        /*Debug.Log($"Player leveled up! New level: {playerStats.level}");*/
     }
 
-    private IEnumerator RespawnEnemy(EnemyBase enemy)
+    private IEnumerator RespawnEnemy()
     {
         yield return new WaitForSeconds(respawnDelay);
         enemy.Respawn();
     }
+
     public int GetPlayerLevel()
     {
         if (playerStats != null)
@@ -53,5 +59,9 @@ public class GameManager : MonoBehaviour
             return playerStats.level;  
         }
         return 1; 
+    }
+    private void OnDisable()
+    {
+        enemy.OnDeath -= EnemyKilled;
     }
 }

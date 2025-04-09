@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -13,14 +15,21 @@ public class PlayerStats : MonoBehaviour
 
     public int availableStatPoints = 0;
 
-    public float health = 10f;
-
-    // Простой метод для получения максимального здоровья
+    public float health = 90f;
+    
     public float GetMaxHealth()
     {
         return health + (stamina * 10f);
     }
+    public void GainExperience(float amount)
+    {
+        currentExp += amount;
 
+        while (currentExp >= expToNextLevel)
+        {
+            LevelUp();
+        }
+    }
     public void LevelUp()
     {
         level++;
@@ -33,5 +42,31 @@ public class PlayerStats : MonoBehaviour
         wisdom += 1f;
 
         availableStatPoints++;
+    }
+    public void SpendStatPoint(string stat)
+    {
+        if (availableStatPoints > 0)
+        {
+            switch (stat)
+            {
+                case "Strength":
+                    strength += 1f;
+                    break;
+                case "Stamina":
+                    stamina += 1f;
+                    break;
+                case "Intelligence":
+                    intelligence += 1f;
+                    break;
+                case "Wisdom":
+                    wisdom += 1f;
+                    break;
+            }
+            availableStatPoints--;
+        }
+        else
+        {
+            Debug.Log("No stat points available.");
+        }
     }
 }

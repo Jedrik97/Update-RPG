@@ -19,13 +19,13 @@ public class PlayerMovement : MonoBehaviour
     private Transform cameraTransform;
     private bool isRunning = false;
     private float rotationVelocity;
-    private bool canMove = true; // Добавляем переменную для блокировки движения
+    private bool canMove = true;
 
     private void OnEnable()
     {
         PlayerInput.OnMoveInput += HandleMoveInput;
         PlayerInput.OnJumpInput += HandleJumpInput;
-        PlayerCombat.OnAttackStateChanged += HandleAttackStateChanged; // Подписываемся на блокировку движения
+        PlayerCombat.OnAttackStateChanged += HandleAttackStateChanged;
     }
 
     private void Start()
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMoveInput(Vector2 input)
     {
-        if (!canMove) return; // Блокируем движение, если идет атака
+        if (!canMove) return;
 
         isRunning = Input.GetKey(KeyCode.LeftShift);
         float currentSpeed = isRunning ? runSpeed : walkSpeed;
@@ -49,19 +49,17 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Получаем направление от камеры
+        
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
-        forward.y = 0; // Не учитываем вертикальную компонента
-        right.y = 0;   // Не учитываем вертикальную компонента
+        forward.y = 0; 
+        right.y = 0;   
         forward.Normalize();
         right.Normalize();
-
-        // Рассчитываем движение относительно камеры
+        
         Vector3 movementDirection = (forward * input.y + right * input.x).normalized;
         moveDirection = new Vector3(movementDirection.x * currentSpeed, moveDirection.y, movementDirection.z * currentSpeed);
-
-        // Поворачиваем персонажа в сторону движения
+        
         if (movementDirection.magnitude > 0)
         {
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
@@ -74,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleJumpInput()
     {
-        if (characterController.isGrounded && !isJumping && canMove) // Запрещаем прыгать во время атаки
+        if (characterController.isGrounded && !isJumping && canMove) 
         {
             isJumping = true;
             moveDirection.y = jumpForce;
@@ -99,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleAttackStateChanged(bool isAttacking)
     {
-        canMove = !isAttacking; // Блокируем или разблокируем движение
+        canMove = !isAttacking;
     }
 
     private void OnDisable()

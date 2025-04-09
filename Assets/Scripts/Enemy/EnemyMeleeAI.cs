@@ -14,13 +14,13 @@ public class EnemyMeleeAI : EnemyBase
     private Vector3 chaseStartPoint;
 
     private float timeSinceLastAttack = 0f;
-    private bool isReturning = false;
+    /*private bool isReturning = false;*/
 
-    public float attackRange = 2f;
-    public float chaseSpeed = 3.5f;
-    public float attackDelay = 1f;
-    public float attackCooldown = 2f;
-    public float maxChaseDistance = 15f; 
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float chaseSpeed = 3.5f;
+    [SerializeField] private float attackDelay = 1f;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float maxChaseDistance = 15f; 
 
     private enum EnemyState { Idle, Patrolling, Chasing, Attacking, Returning }
     private EnemyState currentState = EnemyState.Patrolling;
@@ -30,7 +30,7 @@ public class EnemyMeleeAI : EnemyBase
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
 
-        if (fieldOfView != null)
+        if (fieldOfView)
         {
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
         }
@@ -38,7 +38,7 @@ public class EnemyMeleeAI : EnemyBase
 
     private void OnDisable()
     {
-        if (fieldOfView != null)
+        if (fieldOfView)
         {
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
         }
@@ -57,7 +57,7 @@ public class EnemyMeleeAI : EnemyBase
             
             if (player == null)
             {
-                Debug.LogWarning("Player not found!");
+                /*Debug.LogWarning("Player not found!");*/
                 return;
             }
 
@@ -68,33 +68,32 @@ public class EnemyMeleeAI : EnemyBase
         {
             hasSeenPlayer = false;
             currentState = EnemyState.Returning;
-            StartCoroutine(ReturnToPatrol());
+            ReturnToPatrol();
         }
     }
 
     private void StopPatrolling()
     {
-        if (pathFollower != null) pathFollower.StopPatrol();
+        if (pathFollower) pathFollower.StopPatrol();
         agent.isStopped = false;
     }
 
     private void StartPatrolling()
     {
-        if (pathFollower != null) pathFollower.Patrol();
+        if (pathFollower) pathFollower.Patrol();
         agent.isStopped = false;
     }
 
-    private IEnumerator ReturnToPatrol()
+    private void ReturnToPatrol()
     {
         agent.SetDestination(chaseStartPoint);
-        while (Vector3.Distance(transform.position, chaseStartPoint) > 1f)
+        if (Vector3.Distance(transform.position, chaseStartPoint) <= 1f)
         {
-            yield return null;
+            agent.isStopped = true;
+            currentState = EnemyState.Patrolling;
+            Invoke("StartPatrolling",1f);
+            GradualHeal();
         }
-        agent.isStopped = true;
-        yield return new WaitForSeconds(1f);
-        currentState = EnemyState.Patrolling;
-        StartPatrolling();
     }
 
     private void FixedUpdate()
@@ -118,7 +117,7 @@ public class EnemyMeleeAI : EnemyBase
                     currentState = EnemyState.Chasing;
                     StopPatrolling();
                 }
-                else if (pathFollower != null)
+                else if (pathFollower)
                 {
                     StartPatrolling();
                 }
@@ -129,12 +128,12 @@ public class EnemyMeleeAI : EnemyBase
                 {
                     hasSeenPlayer = false;
                     currentState = EnemyState.Returning;
-                    StartCoroutine(ReturnToPatrol());
+                    ReturnToPatrol();
                 }
                 else if (distanceToPlayer <= attackRange && timeSinceLastAttack >= attackCooldown)
                 {
                     currentState = EnemyState.Attacking;
-                    StartCoroutine(PrepareAttack());
+                    Invoke("PrepareAttack",attackDelay);
                 }
                 else
                 {
@@ -160,7 +159,7 @@ public class EnemyMeleeAI : EnemyBase
             if (distanceFromStart > maxChaseDistance)
             {
                 currentState = EnemyState.Returning;
-                StartCoroutine(ReturnToPatrol());
+                ReturnToPatrol();
                 return;
             }
             agent.speed = chaseSpeed;
@@ -168,10 +167,9 @@ public class EnemyMeleeAI : EnemyBase
         }
     }
 
-    private IEnumerator PrepareAttack()
+    private void PrepareAttack()
     {
-        yield return new WaitForSeconds(attackDelay);
-        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange)
+        if (player && Vector3.Distance(transform.position, player.position) <= attackRange)
         {
             Attack();
         }
@@ -184,13 +182,13 @@ public class EnemyMeleeAI : EnemyBase
 
     private void Attack()
     {
-        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange && timeSinceLastAttack >= attackCooldown)
+        if (player && Vector3.Distance(transform.position, player.position) <= attackRange && timeSinceLastAttack >= attackCooldown)
         {
             var health = player.GetComponent<HealthPlayerController>();
-            if (health != null)
+            if (health)
             {
                 health.TakeDamage(attackDamage);
-                Debug.Log("Enemy attacked player!");
+                /*Debug.Log("Enemy attacked player!");*/
             }
             else
             {

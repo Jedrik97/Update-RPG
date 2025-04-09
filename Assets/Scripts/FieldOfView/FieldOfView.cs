@@ -3,23 +3,23 @@ using System;
 
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private Transform player; // Игрок задаётся вручную в инспекторе
+    [SerializeField] private Transform player;
 
     [Header("Параметры обзора")]
-    [SerializeField] private float viewRadius = 15f; // Радиус обзора
-    [SerializeField, Range(0, 360)] private float viewAngle = 180f; // Угол обзора
+    [SerializeField] private float viewRadius = 15f; 
+    [SerializeField, Range(0, 360)] private float viewAngle = 180f; 
 
     [Header("Слои")]
-    [SerializeField] private LayerMask obstacleMask; // Препятствия (стены и т.п.)
+    [SerializeField] private LayerMask obstacleMask;
 
     public event Action<bool> OnPlayerVisibilityChanged;
-    public Transform Player => player; // Теперь другие скрипты могут получить ссылку на игрока
+    public Transform Player => player;
 
     private bool playerVisible = false;
 
-    void Update()
+    private void FixedUpdate()
     {
-        if (player != null)
+        if (player)
         {
             bool isVisible = CheckPlayerInFOV();
             if (isVisible != playerVisible)
