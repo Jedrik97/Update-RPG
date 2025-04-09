@@ -17,9 +17,9 @@ public class EnemyBase : MonoBehaviour
     public event System.Action<float> OnHealthChanged;
     public event System.Action<GameObject> OnDeath;
     public HealDelegate OnHealRequested;
-    
+
     private ObjectPool<EnemyBase> _pool;
-    
+
     [Inject]
     public void Construct(GameManager gameManager)
     {
@@ -37,7 +37,7 @@ public class EnemyBase : MonoBehaviour
             ApplyLevelBasedStats(gameManager.GetPlayerLevel());
         }
     }
-    
+
     public void SetPool(ObjectPool<EnemyBase> pool)
     {
         this._pool = pool;
@@ -54,10 +54,9 @@ public class EnemyBase : MonoBehaviour
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
     }
-    
+
     public void TakeDamage(float damage)
     {
-        Debug.Log("TakeDamage EnemyBase");
         if (!gameObject.activeSelf) return;
 
         currentHealth -= damage;
@@ -67,13 +66,10 @@ public class EnemyBase : MonoBehaviour
             Die();
         }
     }
-    
+
     private void Die()
     {
         OnDeath?.Invoke(gameObject);
-        if (_pool)
-        {
-            _pool.ReturnToPool(this);
-        }   
+        _pool?.ReturnToPool(this);
     }
 }
