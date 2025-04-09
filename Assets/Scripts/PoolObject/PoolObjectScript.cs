@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using System.Collections.Generic;
 
 public class PoolObjectScript : MonoBehaviour
@@ -41,4 +41,4 @@ public class PoolObjectScript : MonoBehaviour
         bullet.SetActive(false);
         _bulletPool.Enqueue(bullet);
     }
-}
+}*/

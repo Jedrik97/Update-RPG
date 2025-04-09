@@ -1,67 +1,146 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
+
+
 public class GameManager : MonoBehaviour
 {
-
-    private PlayerStats playerStats;
-    private EnemyBase enemy = new EnemyBase();
+    [SerializeField] private List<EnemyBase> enemyPrefabs;
+    [SerializeField] private int _poolSize;
+    
+    private ObjectPool<EnemyBase> _enemyPool;
+    private PlayerStats _playerStats;
 
     public float experiencePerKill = 100f;
     public float respawnDelay = 15f;
 
-    
-    private void OnEnable()
-    {
-        enemy.OnDeath += EnemyKilled;
-    }
-
     [Inject]
     public void Construct(PlayerStats playerStats)
     {
-        this.playerStats = playerStats;
+        this._playerStats = playerStats;
     }
-    
-    
-    
-    public void EnemyKilled(GameObject Enemy)
+
+    private void Start()
     {
-        Debug.Log("+++");
-        if (playerStats)
+        _enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, 10, transform);
+        SpawnEnemies();
+    }
+
+
+    public void EnemyKilled(GameObject enemy)
+    {
+        if (_playerStats)
         {
-            playerStats.currentExp += experiencePerKill;
-            while (playerStats.currentExp >= playerStats.expToNextLevel)
+            _playerStats.currentExp += experiencePerKill;
+            while (_playerStats.currentExp >= _playerStats.expToNextLevel)
             {
                 LevelUp();
             }
         }
+        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+        
+        /*if (enemyBase)
+        {
+            enemyBase.OnDeath += EnemyKilled;
+        }*/
+        
         StartCoroutine(RespawnEnemy());
     }
 
     private void LevelUp()
     {
-        playerStats.LevelUp();
-        /*Debug.Log($"Player leveled up! New level: {playerStats.level}");*/
+        _playerStats.LevelUp();
     }
 
     private IEnumerator RespawnEnemy()
     {
         yield return new WaitForSeconds(respawnDelay);
-        enemy.Respawn();
+        EnemySpawn();
     }
-
+    private void SpawnEnemies()
+    {
+        EnemySpawn();
+    }
+    public void EnemySpawn()
+    {
+        EnemyBase enemy = _enemyPool.Get();
+            
+        enemy.SetPool(_enemyPool);    
+    }
     public int GetPlayerLevel()
     {
-        if (playerStats != null)
+        if (_playerStats)
         {
-            return playerStats.level;  
+            return _playerStats.level;  
         }
         return 1; 
     }
-    private void OnDisable()
+    /*private void OnDisable()
     {
-        enemy.OnDeath -= EnemyKilled;
+        EnemyBase.OnDeath -= EnemyKilled;
+    }*/
+}
+
+public class ObjectPool<T> where T : MonoBehaviour
+{
+    private Queue<T> _poolQueue;
+    private List<T> _prefabs;
+    private Transform _parent;
+
+    public ObjectPool(List<T> prefabs, int initialSizePerPrefab, Transform parent = null)
+    {
+        this._prefabs = prefabs;
+        this._parent = parent;
+        this._poolQueue = new Queue<T>();
+
+        Shuffle(prefabs);
+
+        foreach (var prefab in prefabs)
+        {
+            for (int i = 0; i < initialSizePerPrefab; i++)
+            {
+                T obj = Object.Instantiate(prefab, parent);
+                obj.gameObject.SetActive(false);
+                _poolQueue.Enqueue(obj);
+            }
+        }
+
+        
+        public T Get()
+        {
+            T obj;
+            if (_poolQueue.Count > 0)
+            {
+                obj = _poolQueue.Dequeue();
+            }
+            else
+            {
+                T prefab = _prefabs[Random.Range(0, _prefabs.Count)];
+                obj = Object.Instantiate(prefab, _parent);
+            }
+
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+
+        public void ReturnToPool(T obj)
+        {
+            obj.gameObject.SetActive(false);
+            _poolQueue.Enqueue(obj);
+        }
+        
+        public void Shuffle<T>(IList<T> list)
+        {
+            int n = list.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                int randomIndex = Random.Range(i, n);
+                (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+            }
+        }
+        
     }
 }

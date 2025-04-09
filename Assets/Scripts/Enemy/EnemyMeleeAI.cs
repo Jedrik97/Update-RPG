@@ -92,7 +92,7 @@ public class EnemyMeleeAI : EnemyBase
             agent.isStopped = true;
             currentState = EnemyState.Patrolling;
             Invoke("StartPatrolling",1f);
-            GradualHeal();
+            ReturnHeal();
         }
     }
 

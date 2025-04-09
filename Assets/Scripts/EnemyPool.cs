@@ -4,7 +4,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-public class ObjectPool<T> where T : MonoBehaviour
+public partial class ObjectPool<T> where T : MonoBehaviour
 {
     private Queue<T> _poolQueue;
     private List<T> _prefabs;
