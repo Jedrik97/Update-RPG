@@ -154,6 +154,7 @@ public class EnemyMeleeAI : EnemyBase
     {
         if (currentState == EnemyState.Chasing && player != null)
         {
+            if (!agent.isActiveAndEnabled) return;
             float distanceFromStart = Vector3.Distance(transform.position, chaseStartPoint);
             if (distanceFromStart > maxChaseDistance)
             {

@@ -5,17 +5,18 @@ public class StatStone : MonoBehaviour
 {
     private int _keyDown = 0;
     public enum StatType { Strength, Stamina, Intelligence, Wisdom }
-    
+
     public StatType statType;
 
     private PlayerStats _playerStats;
-    
+
     [Inject]
     public void Construct(PlayerStats playerStats)
     {
         _playerStats = playerStats;
     }
-    private void OnCollisionStay(Collision other)
+
+    private void OnTriggerStay(Collider other)
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -30,7 +31,7 @@ public class StatStone : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnTriggerExit(Collider other)
     {
         _keyDown = 0;
     }

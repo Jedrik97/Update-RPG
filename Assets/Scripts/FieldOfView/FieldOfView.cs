@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using Zenject;
 
 public class FieldOfView : MonoBehaviour
 {
@@ -18,10 +17,22 @@ public class FieldOfView : MonoBehaviour
 
     private bool playerVisible = false;
     
-    [Inject]
-    public void Construct(PlayerStats playerStats)
+    private void OnTriggerEnter(Collider other)
     {
-        player = playerStats.transform;
+        if (other.CompareTag("Player"))
+        {
+            player = other.transform;
+            CheckPlayerInFOV();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            player = null;
+            OnPlayerVisibilityChanged?.Invoke(false);
+        }
     }
 
     private void FixedUpdate()
@@ -39,9 +50,12 @@ public class FieldOfView : MonoBehaviour
 
     private bool CheckPlayerInFOV()
     {
+        if (!player)
+            return false;
+
         Vector3 dirToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
+        
         if (distanceToPlayer < viewRadius)
         {
             float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
@@ -49,7 +63,7 @@ public class FieldOfView : MonoBehaviour
             {
                 if (!Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, obstacleMask))
                 {
-                    return true;
+                    return true; 
                 }
             }
         }

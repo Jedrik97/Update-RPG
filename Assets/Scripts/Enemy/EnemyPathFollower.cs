@@ -17,6 +17,9 @@ public class EnemyPathFollower : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<EnemyBase>();
+        
+        enemy.OnDeath += HandleDeath;
+        
         Patrol();
     }
 
@@ -24,6 +27,7 @@ public class EnemyPathFollower : MonoBehaviour
     {
         agent.isStopped = false;
         isChasing = false;
+        enemy.OnDeath -= HandleDeath;
     }
 
     private void Update()
@@ -75,4 +79,21 @@ public class EnemyPathFollower : MonoBehaviour
             agent.SetDestination(waypoints[currentWaypointIndex].position);
         }
     }
+    public void SetWaypoints(WayPoint[] newWaypoints)
+    {
+        waypoints = new Transform[newWaypoints.Length];
+        for (int i = 0; i < newWaypoints.Length; i++)
+        {
+            waypoints[i] = newWaypoints[i].transform;
+        }
+    }
+    public void ResetWaypoints()
+    {
+        waypoints = new Transform[0];
+    }
+    private void HandleDeath(GameObject enemy)
+    {
+        ResetWaypoints();
+    }
+    
 }

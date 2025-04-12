@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using Zenject;
 
 public class EnemyUI : MonoBehaviour
 {
@@ -8,58 +6,44 @@ public class EnemyUI : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text enemyNameText;
     [SerializeField] private UnityEngine.UI.Slider healthBar;
     [SerializeField] private UnityEngine.UI.Image enemyCircle;
-    
+
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 15f;
-    private EnemyBase enemyBase;
-    
-    private PlayerStats playerStats;
-    
-    [Inject]
-    public void Construct(PlayerStats playerStats)
-    {
-        this.playerStats = playerStats;
-        
-    }
-    private Transform player;
-    
+
+    [Header("Enemy Base")]
+    [SerializeField] private EnemyBase enemyBase;
+
+    private Collider enemyCollider;
+
     private void OnEnable()
     {
-        player = playerStats.transform;
-        enemyBase = GetComponent<EnemyBase>();
-
         if (enemyBase)
         {
             enemyBase.OnHealthChanged += UpdateHealthUI;
         }
-
+        enemyCollider = GetComponent<Collider>();
+        
         InitializeUI();
-        StartCoroutine(DelayedHideUI());
-    }
-
-    private IEnumerator DelayedHideUI()
-    {
-        yield return new WaitForEndOfFrame();
         HideUI();
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        if (player)
+        if (other.CompareTag("Player"))
         {
-            float distance = Vector3.Distance(transform.position, player.position);
-            if (distance <= detectionRange)
-            {
-                ShowUI();
-            }
-            else
-            {
-                HideUI();
-            }
+            ShowUI();
         }
     }
 
-    private void OnDestroy()
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            HideUI(); 
+        }
+    }
+
+    private void OnDisable()
     {
         if (enemyBase)
         {

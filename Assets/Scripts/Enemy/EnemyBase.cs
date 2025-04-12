@@ -8,8 +8,6 @@ public class EnemyBase : MonoBehaviour
     public float maxHealth = 100f;
     public float currentHealth;
     public float attackDamage = 10f;
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
     
     private GameManager gameManager;
 
@@ -29,8 +27,6 @@ public class EnemyBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         currentHealth = maxHealth;
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
         OnHealthChanged?.Invoke(currentHealth);
         if (gameManager)
         {
@@ -72,5 +68,6 @@ public class EnemyBase : MonoBehaviour
         Debug.Log("Die Enemy");
         OnDeath?.Invoke(gameObject);
         _pool?.ReturnToPool(this);
+        
     }
 }
