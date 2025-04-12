@@ -32,7 +32,7 @@ public class EnemyBase : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
         OnHealthChanged?.Invoke(currentHealth);
-        if (gameManager != null)
+        if (gameManager)
         {
             ApplyLevelBasedStats(gameManager.GetPlayerLevel());
         }
@@ -69,6 +69,7 @@ public class EnemyBase : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log("Die Enemy");
         OnDeath?.Invoke(gameObject);
         _pool?.ReturnToPool(this);
     }

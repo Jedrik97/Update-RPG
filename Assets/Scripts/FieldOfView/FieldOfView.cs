@@ -1,21 +1,28 @@
 using UnityEngine;
 using System;
+using Zenject;
 
 public class FieldOfView : MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    private Transform player;
 
-    [Header("Параметры обзора")]
+    [Header("Field of View")]
     [SerializeField] private float viewRadius = 15f; 
     [SerializeField, Range(0, 360)] private float viewAngle = 180f; 
 
-    [Header("Слои")]
+    [Header("Layers")]
     [SerializeField] private LayerMask obstacleMask;
 
     public event Action<bool> OnPlayerVisibilityChanged;
     public Transform Player => player;
 
     private bool playerVisible = false;
+    
+    [Inject]
+    public void Construct(PlayerStats playerStats)
+    {
+        player = playerStats.transform;
+    }
 
     private void FixedUpdate()
     {

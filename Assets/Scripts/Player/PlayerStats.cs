@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -12,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     public float stamina = 1f;
     public float intelligence = 1f;
     public float wisdom = 1f;
-
+    
     public int availableStatPoints = 0;
 
     public float health = 90f;

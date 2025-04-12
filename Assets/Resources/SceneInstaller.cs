@@ -3,17 +3,17 @@ using Zenject;
 
 public class SceneInstaller : MonoInstaller
 {
-    public GameObject GameManagerPrefab;
-    public GameObject PlayerPrefab;
+    public GameObject GameManager;
+    public GameObject Player;
     
     public override void InstallBindings()
     {
         Container.Bind<GameManager>()
-            .FromComponentInNewPrefab(GameManagerPrefab)
+            .FromComponentInHierarchy(GameManager)
             .AsSingle()
             .Lazy();
         Container.Bind<PlayerStats>()
-            .FromComponentInNewPrefab(PlayerPrefab)
+            .FromComponentInHierarchy(Player)
             .AsSingle()
             .Lazy();
     }

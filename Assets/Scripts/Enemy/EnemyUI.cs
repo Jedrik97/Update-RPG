@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Zenject;
 
 public class EnemyUI : MonoBehaviour
 {
@@ -10,12 +11,21 @@ public class EnemyUI : MonoBehaviour
     
     [Header("Detection Settings")]
     [SerializeField] private float detectionRange = 15f;
-    [SerializeField] private Transform player;
-    
     private EnemyBase enemyBase;
-
+    
+    private PlayerStats playerStats;
+    
+    [Inject]
+    public void Construct(PlayerStats playerStats)
+    {
+        this.playerStats = playerStats;
+        
+    }
+    private Transform player;
+    
     private void OnEnable()
     {
+        player = playerStats.transform;
         enemyBase = GetComponent<EnemyBase>();
 
         if (enemyBase)
@@ -33,7 +43,7 @@ public class EnemyUI : MonoBehaviour
         HideUI();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (player)
         {

@@ -14,7 +14,6 @@ public class EnemyMeleeAI : EnemyBase
     private Vector3 chaseStartPoint;
 
     private float timeSinceLastAttack = 0f;
-    /*private bool isReturning = false;*/
 
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float chaseSpeed = 3.5f;
