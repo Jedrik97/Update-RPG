@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -16,18 +17,27 @@ public class PlayerCombat : MonoBehaviour
 
     private PlayerStats playerStats;
     private GameManager gameManager;
+    
+    private Dictionary<string, float> attackDurations = new Dictionary<string, float>
+    {
+        { "Attack1", 1.15f },
+        { "Attack2", 1.20f },
+        { "Attack3", 1.22f }, 
+        { "Attack4", 2.13f },
+        { "Attack5", 2.10f } 
+    };
 
     [Inject]
     public void Construct(PlayerStats playerStats)
     {
         this.playerStats = playerStats;
     }
+
     [Inject]
     public void Construct(GameManager gameManager)
     {
         this.gameManager = gameManager;
     }
-    
 
     void Update()
     {
@@ -50,7 +60,6 @@ public class PlayerCombat : MonoBehaviour
     {
         isAttacking = true;
         OnAttackStateChanged?.Invoke(true);
-
         animator.Play(attackName);
         yield return new WaitForSeconds(0.1f);
 
@@ -62,21 +71,11 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.LogError("weapon не назначен!");
         }
-
-        yield return new WaitForSeconds(GetAnimationLength(attackName) - 0.2f);
+        
+        float attackDuration = attackDurations[attackName];
+        yield return new WaitForSeconds(attackDuration);
 
         isAttacking = false;
         OnAttackStateChanged?.Invoke(false);
-    }
-
-    private float GetAnimationLength(string animationName)
-    {
-        RuntimeAnimatorController ac = animator.runtimeAnimatorController;
-        foreach (AnimationClip clip in ac.animationClips)
-        {
-            if (clip.name == animationName)
-                return clip.length;
-        }
-        return 0.5f;
     }
 }

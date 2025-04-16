@@ -49,17 +49,16 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
-        forward.y = 0; 
-        right.y = 0;   
+        forward.y = 0;
+        right.y = 0;
         forward.Normalize();
         right.Normalize();
-        
+
         Vector3 movementDirection = (forward * input.y + right * input.x).normalized;
         moveDirection = new Vector3(movementDirection.x * currentSpeed, moveDirection.y, movementDirection.z * currentSpeed);
-        
+
         if (movementDirection.magnitude > 0)
         {
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
