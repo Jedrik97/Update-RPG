@@ -56,7 +56,6 @@ public class EnemyMeleeAI : EnemyBase
             
             if (player == null)
             {
-                /*Debug.LogWarning("Player not found!");*/
                 return;
             }
 

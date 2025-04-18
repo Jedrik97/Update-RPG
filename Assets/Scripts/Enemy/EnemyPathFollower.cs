@@ -5,10 +5,13 @@ public class EnemyPathFollower : MonoBehaviour
 {
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float reachThreshold = 1f;
-
+    
+    private float waitTime = 2f;
+    private float waitTimer = 0f;
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
     private bool isChasing = false;
+    private bool isWaiting = false;
 
     private NavMeshAgent agent;
     private EnemyBase enemy;
@@ -30,7 +33,7 @@ public class EnemyPathFollower : MonoBehaviour
         enemy.OnDeath -= HandleDeath;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!isChasing)
         {
@@ -47,37 +50,47 @@ public class EnemyPathFollower : MonoBehaviour
         isChasing = true;
     }
 
-    public void ReturnToPatrol()
-    {
-        isChasing = false;  
-        agent.isStopped = false;
-        agent.SetDestination(waypoints[currentWaypointIndex].position);
-        
-    }
-
     public void Patrol()
     {
         if (waypoints.Length == 0) return;
 
         if (!agent.pathPending && agent.remainingDistance <= reachThreshold)
         {
-            if (movingForward)
+            if (!isWaiting)
             {
-                if (currentWaypointIndex < waypoints.Length - 1)
-                    currentWaypointIndex++;
-                else
-                    movingForward = false;  
+                isWaiting = true; 
+                waitTimer = waitTime; 
             }
             else
             {
-                if (currentWaypointIndex > 0)
-                    currentWaypointIndex--;
-                else
-                    movingForward = true;
+                waitTimer -= Time.deltaTime;
+                if (waitTimer <= 0f)
+                {
+                    isWaiting = false;
+                    MoveToNextPoint();
+                }
             }
-
-            agent.SetDestination(waypoints[currentWaypointIndex].position);
         }
+    }
+
+    private void MoveToNextPoint()
+    {
+        if (movingForward)
+        {
+            if (currentWaypointIndex < waypoints.Length - 1)
+                currentWaypointIndex++;
+            else
+                movingForward = false;  
+        }
+        else
+        {
+            if (currentWaypointIndex > 0)
+                currentWaypointIndex--;
+            else
+                movingForward = true;
+        }
+
+        agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
     public void SetWaypoints(WayPoint[] newWaypoints)
     {
