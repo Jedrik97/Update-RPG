@@ -20,7 +20,7 @@ public class EnemyPathFollower : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<EnemyBase>();
-        
+        agent.isStopped = false;
         enemy.OnDeath += HandleDeath;
         
         Patrol();
@@ -28,7 +28,7 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void OnDisable()
     {
-        agent.isStopped = false;
+        agent.isStopped = true;
         isChasing = false;
         enemy.OnDeath -= HandleDeath;
     }

@@ -8,6 +8,8 @@ TagManager:
   - Weapon
   - tree
   - Terrain
+  - arrow
+  - ArrowBoundary
   layers:
   - Default
   - TransparentFX

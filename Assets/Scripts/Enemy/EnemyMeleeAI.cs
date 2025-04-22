@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 
 public class EnemyMeleeAI : EnemyBase
 {
@@ -15,13 +14,13 @@ public class EnemyMeleeAI : EnemyBase
 
     private float timeSinceLastAttack = 0f;
 
-    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackRange = 3f;
     [SerializeField] private float chaseSpeed = 3.5f;
     [SerializeField] private float attackDelay = 1f;
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float maxChaseDistance = 15f; 
 
-    private enum EnemyState { Idle, Patrolling, Chasing, Attacking, Returning }
+    private enum EnemyState {Patrolling, Chasing, Attacking, Returning }
     private EnemyState currentState = EnemyState.Patrolling;
 
     protected override void OnEnable()
@@ -37,6 +36,7 @@ public class EnemyMeleeAI : EnemyBase
 
     private void OnDisable()
     {
+        CancelInvoke(nameof(PrepareAttack));
         if (fieldOfView)
         {
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
@@ -54,11 +54,8 @@ public class EnemyMeleeAI : EnemyBase
             }
             player = fieldOfView.Player;
             
-            if (player == null)
-            {
-                return;
-            }
-
+            if (player == null) return;
+            
             StopPatrolling();
             currentState = EnemyState.Chasing;
         }
@@ -151,7 +148,7 @@ public class EnemyMeleeAI : EnemyBase
 
     private void ChasePlayer()
     {
-        if (currentState == EnemyState.Chasing && player != null)
+        if (currentState == EnemyState.Chasing && player)
         {
             if (!agent.isActiveAndEnabled) return;
             float distanceFromStart = Vector3.Distance(transform.position, chaseStartPoint);
@@ -168,6 +165,12 @@ public class EnemyMeleeAI : EnemyBase
 
     private void PrepareAttack()
     {
+        if (agent && agent.isOnNavMesh && agent.isActiveAndEnabled) 
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+        }
+
         if (player && Vector3.Distance(transform.position, player.position) <= attackRange)
         {
             Attack();
@@ -175,9 +178,10 @@ public class EnemyMeleeAI : EnemyBase
         else
         {
             currentState = EnemyState.Chasing;
-            ChasePlayer();
+            agent.isStopped = false;
         }
     }
+
 
     private void Attack()
     {
@@ -187,7 +191,6 @@ public class EnemyMeleeAI : EnemyBase
             if (health)
             {
                 health.TakeDamage(attackDamage);
-                /*Debug.Log("Enemy attacked player!");*/
             }
             else
             {
