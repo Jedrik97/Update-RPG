@@ -2,19 +2,39 @@ using UnityEngine;
 
 public class EnemyWeapon : MonoBehaviour
 {
-    public float damage = 10f; // Урон врага
+    [SerializeField] private Collider weaponCollider;
+    [SerializeField] private int damage = 20;
+    [SerializeField] private float activeDuration = 0.5f;
+
+    private void OnEnable()
+    {
+        if (weaponCollider)
+            weaponCollider.enabled = false;
+    }
+
+    // Вызывать через UnityEvent onWeaponActivate в EnemyMeleeAI
+    public void EnableCollider()
+    {
+        if (weaponCollider == null)
+        {
+            Debug.LogWarning("EnemyWeapon: weaponCollider не назначен!");
+            return;
+        }
+        weaponCollider.enabled = true;
+        Invoke(nameof(DisableCollider), activeDuration);
+    }
+
+    private void DisableCollider()
+    {
+        if (weaponCollider)
+            weaponCollider.enabled = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Проверяем, что игрок имеет тег "Player"
-        if (other.CompareTag("Player"))
-        {
-            // Получаем компонент здоровья игрока
-            HealthPlayerController playerHealth = other.GetComponent<HealthPlayerController>();
-            if (playerHealth)
-            {
-                playerHealth.TakeDamage(damage); // Наносим урон игроку
-            }
-        }
+        if (!other.CompareTag("Player")) return;
+        var health = other.GetComponent<HealthPlayerController>();
+        if (health != null)
+            health.TakeDamage(damage);
     }
 }

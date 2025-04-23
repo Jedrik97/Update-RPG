@@ -6,7 +6,7 @@ public class FieldOfView : MonoBehaviour
     private Transform player;
 
     [Header("Field of View")]
-    [SerializeField] private float viewRadius = 20f; 
+    [SerializeField] private float viewRadius = 15f; 
     [SerializeField, Range(0, 360)] private float viewAngle = 180f; 
 
     [Header("Layers")]

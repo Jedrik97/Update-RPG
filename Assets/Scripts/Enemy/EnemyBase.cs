@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
@@ -11,13 +12,13 @@ public class EnemyBase : MonoBehaviour
     
     private GameManager gameManager;
 
-    public delegate void HealDelegate();
     public event System.Action<float> OnHealthChanged;
     public event System.Action<GameObject> OnDeath;
-    public HealDelegate OnHealRequested;
 
     private ObjectPool<EnemyBase> _pool;
 
+    protected Animator animator;
+    
     [Inject]
     public void Construct(GameManager gameManager)
     {
@@ -32,6 +33,7 @@ public class EnemyBase : MonoBehaviour
         {
             ApplyLevelBasedStats(gameManager.GetPlayerLevel());
         }
+        animator = GetComponent<Animator>();
     }
 
     public void SetPool(ObjectPool<EnemyBase> pool)
@@ -41,8 +43,8 @@ public class EnemyBase : MonoBehaviour
 
     public void ApplyLevelBasedStats(int playerLevel)
     {
-        attackDamage = 10f + (playerLevel * 5f); 
-        maxHealth = 100f + (playerLevel * 10f);  
+        attackDamage = 10f + (playerLevel * 5f);
+        maxHealth = 100f + (playerLevel * 10f);
     }
 
     public void ReturnHeal()
@@ -57,17 +59,33 @@ public class EnemyBase : MonoBehaviour
 
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth);
-        if (currentHealth <= 0)
+
+        if (currentHealth > 0f)
         {
+            // Запуск анимации получения урона
+            if (animator)
+                animator.SetTrigger("TakeDamage");
+        }
+        else
+        {
+            // Если здоровье упало до нуля или ниже — сразу смерть
             Die();
         }
     }
 
     private void Die()
     {
-        Debug.Log("Die Enemy");
+        if (animator)
+            animator.SetTrigger("Die");
+
         OnDeath?.Invoke(gameObject);
+        StartCoroutine(WaitAndReturnToPool());
+    }
+
+    private IEnumerator WaitAndReturnToPool()
+    {
+        // Ждём перед возвратом в пул, чтобы анимация успела проиграться
+        yield return new WaitForSeconds(60f);
         _pool?.ReturnToPool(this);
-        
     }
 }

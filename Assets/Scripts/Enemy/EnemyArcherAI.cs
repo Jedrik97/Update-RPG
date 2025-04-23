@@ -7,57 +7,64 @@ public class EnemyArcherAI : EnemyBase
 {
     [Header("Components & Prefabs")]
     [SerializeField] private FieldOfView fieldOfView;
+    [SerializeField] private EnemyPathFollower pathFollower;
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private Arrow arrowPrefab;
     [SerializeField] private int initialArrowCount = 10;
 
     [Header("Movement & Detection")]
     [SerializeField] private float chaseSpeed = 3.5f;
-    [SerializeField] private float maxChaseDistance = 15f;
+    [SerializeField] private float maxChaseDistance = 25f;
     [SerializeField] private float attackRange = 15f;
 
-    [Header("Attack Timings")]
-    [SerializeField] private float attackDelay = 1f;
-    [SerializeField] private float attackCooldown = 3f;
+    [Header("Death Settings")]
+    [Tooltip("Time in seconds the archer remains dead before deactivating")]
+    [SerializeField] private float deathDuration = 5f;
 
-    private Animator animator;
     private ObjectPool<Arrow> arrowPool;
     private NavMeshAgent agent;
     private Transform player;
 
-    private bool hasSeenPlayer = false;
+    private bool hasSeenPlayer;
     private Vector3 chaseStartPoint;
-    private float timeSinceLastShot;
 
-    private enum EnemyState { Patrolling, Chasing, Attacking, Returning }
+    private enum EnemyState { Patrolling, Chasing, Attacking, Returning, Dead }
     private EnemyState currentState = EnemyState.Patrolling;
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
-        
+        pathFollower = GetComponent<EnemyPathFollower>();
         arrowPool = new ObjectPool<Arrow>(new List<Arrow> { arrowPrefab }, initialArrowCount, transform);
 
-        if (fieldOfView)
-        {
+        if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
-        }
-        
-        timeSinceLastShot = attackCooldown;
+
+        // Подписка на события для прерывания атаки и обработки смерти
+        OnHealthChanged += HandleDamageInterrupt;
+        OnDeath += HandleDeath;
+
+        pathFollower?.ResumePatrol();
+        currentState = EnemyState.Patrolling;
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsAttacking", false);
     }
 
     private void OnDisable()
     {
-        CancelInvoke(nameof(PerformShot));
-        
-        if (fieldOfView)
+        if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
+
+        OnHealthChanged -= HandleDamageInterrupt;
+        OnDeath -= HandleDeath;
     }
 
     private void HandlePlayerVisibilityChanged(bool isVisible)
     {
+        if (currentState == EnemyState.Dead)
+            return;
+
         if (isVisible)
         {
             if (!hasSeenPlayer)
@@ -66,159 +73,146 @@ public class EnemyArcherAI : EnemyBase
                 chaseStartPoint = transform.position;
             }
             player = fieldOfView.Player;
-            if (player == null) return;
-
             currentState = EnemyState.Chasing;
-
-            // Если игрок в зоне поражения, запускаем корутину для выстрела
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
-            {
-                if (shootCoroutine == null)
-                {
-                    shootCoroutine = StartCoroutine(ShootAtPlayer());
-                }
-            }
         }
         else
         {
             hasSeenPlayer = false;
             currentState = EnemyState.Returning;
             agent.isStopped = false;
-
-            // Если игрок выходит из зоны поражения, останавливаем корутину
-            if (shootCoroutine != null)
-            {
-                StopCoroutine(shootCoroutine);
-                shootCoroutine = null;
-            }
         }
     }
 
-
-    private void FixedUpdate()
-{
-    timeSinceLastShot += Time.fixedDeltaTime;
-    if (player == null)
-        player = fieldOfView?.Player;
-    if (player == null) return;
-
-    float distToPlayer = Vector3.Distance(transform.position, player.position);
-    float distFromStart = Vector3.Distance(transform.position, chaseStartPoint);
-
-    // Устанавливаем максимальную дистанцию для преследования
-    float maxChaseDistance = 20f;
-
-    switch (currentState)
+    private void Update()
     {
-        case EnemyState.Patrolling:
-            break;
+        if (currentState == EnemyState.Dead)
+            return;
 
-        case EnemyState.Chasing:
-            if (distToPlayer > attackRange && distToPlayer <= maxChaseDistance && timeSinceLastShot >= attackCooldown)
-            {
-                // Если игрок в пределах зоны поражения, стрелок останавливается и атакует
-                currentState = EnemyState.Attacking;
-                agent.isStopped = true;
-                Invoke(nameof(PerformShot), attackDelay);
-            }
-            else if (distToPlayer > maxChaseDistance)
-            {
-                // Если игрок убежал за пределы 20 единиц, стрелок продолжает следить за ним
-                if (distToPlayer <= attackRange)
+        UpdateWalkingAnimation();
+
+        if (player == null && fieldOfView != null)
+            player = fieldOfView.Player;
+        if (player == null)
+            return;
+
+        float distToPlayer = Vector3.Distance(transform.position, player.position);
+        float distFromStart = Vector3.Distance(transform.position, chaseStartPoint);
+
+        switch (currentState)
+        {
+            case EnemyState.Patrolling:
+                if (distToPlayer <= maxChaseDistance)
+                    currentState = EnemyState.Chasing;
+                break;
+
+            case EnemyState.Chasing:
+                if (distFromStart > maxChaseDistance)
                 {
-                    // Пауза между выстрелами
-                    if (timeSinceLastShot >= attackCooldown)
-                    {
-                        Shoot();
-                        timeSinceLastShot = 0f;
-                    }
+                    currentState = EnemyState.Returning;
+                    agent.isStopped = false;
+                    agent.SetDestination(chaseStartPoint);
+                }
+                else if (distToPlayer <= attackRange)
+                {
+                    currentState = EnemyState.Attacking;
+                    animator.SetBool("IsWalking", false);
                 }
                 else
                 {
-                    // Стрелок перестает преследовать игрока, но продолжает следить
-                    agent.isStopped = true;
-                    agent.SetDestination(transform.position); // Останавливаем движение
-                    currentState = EnemyState.Chasing; // Он просто продолжает следить
+                    agent.isStopped = false;
+                    agent.speed = chaseSpeed;
+                    agent.SetDestination(player.position);
+                    RotateTowardsPlayer();
                 }
-            }
-            break;
+                break;
 
-        case EnemyState.Attacking:
-            if (distToPlayer > attackRange)
-            {
-                currentState = EnemyState.Chasing;
+            case EnemyState.Attacking:
+                if (distToPlayer <= attackRange)
+                {
+                    animator.SetBool("IsAttacking", true);
+                    agent.isStopped = true;
+                    RotateTowardsPlayer();
+                }
+                break;
+
+            case EnemyState.Returning:
                 agent.isStopped = false;
-            }
-            else if (timeSinceLastShot >= attackCooldown && !IsInvoking(nameof(PerformShot)))
-            {
-                agent.isStopped = true;
-                Invoke(nameof(PerformShot), attackDelay);
-            }
-            break;
-
-        case EnemyState.Returning:
-            if (distFromStart <= 1f)
-            {
-                agent.isStopped = true;
-                currentState = EnemyState.Patrolling;
-                ReturnHeal();
-            }
-            break;
+                agent.SetDestination(chaseStartPoint);
+                if (distFromStart <= 1f)
+                {
+                    agent.isStopped = true;
+                    currentState = EnemyState.Patrolling;
+                    ReturnHeal();
+                }
+                break;
+        }
     }
-}
 
-
-    private void PerformShot()
+    private void UpdateWalkingAnimation()
     {
-        if (player && Vector3.Distance(transform.position, player.position) <= attackRange)
-        {
-            animator.SetTrigger("Attack");
-            timeSinceLastShot = 0f;
-        }
-        if (hasSeenPlayer)
-        {
-            currentState = EnemyState.Attacking;
-        }
-        else
-        {
-            currentState = EnemyState.Returning;
-            agent.isStopped = false;
-            agent.SetDestination(chaseStartPoint);
-        }
+        animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
     }
 
-    private Coroutine shootCoroutine;
-
-    private IEnumerator ShootAtPlayer()
-    {
-        while (player != null && Vector3.Distance(transform.position, player.position) <= attackRange)
-        {
-            Shoot();  // Выстрел
-            yield return new WaitForSeconds(attackCooldown);  // Пауза между выстрелами
-        }
-    }
-
+    // Called by animation event at moment of shooting
     private void Shoot()
     {
-        Debug.Log("выстрелил");
-        if (fieldOfView.Player)
+        if (currentState == EnemyState.Dead || player == null)
+            return;
+
+        Vector3 spawnPos = arrowSpawnPoint.position;
+        Arrow arrow = arrowPool.Get();
+        arrow.transform.position = spawnPos;
+
+        Vector3 targetPos = player.position + Vector3.up;
+        Vector3 lookDir = (targetPos - spawnPos).normalized;
+
+        arrow.transform.rotation = Quaternion.LookRotation(lookDir);
+        arrow.Initialize(lookDir, arrowPool);
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        if (player == null)
+            return;
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0;
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            Quaternion.LookRotation(direction),
+            Time.deltaTime * 5f
+        );
+    }
+
+    // Обработчик прерывания атаки при получении урона
+    private void HandleDamageInterrupt(float newHealth)
+    {
+        if (currentState == EnemyState.Attacking)
         {
-            Arrow arrow = arrowPool.Get();
-
-            // Получаем позицию игрока, но учитываем высоту (например, 0.7 по Y)
-            Vector3 targetPosition = new Vector3(fieldOfView.Player.position.x, fieldOfView.Player.position.y + 0.7f, fieldOfView.Player.position.z);
-
-            // Устанавливаем позицию и поворот стрелы
-            arrow.transform.position = arrowSpawnPoint.position;
-            arrow.transform.rotation = arrowSpawnPoint.rotation;
-
-            // Направляем стрелу по вектору, направленному на цель (игрока)
-            Vector3 direction = targetPosition - arrow.transform.position;
-            arrow.Initialize(direction, arrowPool);
+            currentState = EnemyState.Chasing;
+            animator.SetBool("IsAttacking", false);
+            agent.isStopped = false;
         }
     }
 
-    
-    
+    private void HandleDeath(GameObject obj)
+    {
+        currentState = EnemyState.Dead;
+        agent.isStopped = true;
+        agent.updateRotation = false;
+
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsAttacking", false);
+        animator.SetTrigger("Die");
+
+        pathFollower?.StopPatrol();
+
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        yield return new WaitForSeconds(deathDuration);
+        gameObject.SetActive(false);
+    }
 }
 

@@ -1,16 +1,18 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
     private Vector3 launchDirection;
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float maxDistance = 30f;
-    [SerializeField] private int damage = 10;  // Урон стрелы
+    
+    [SerializeField] private int damage = 10;  
 
     private Vector3 startPosition;
     private ObjectPool<Arrow> pool;
     private Rigidbody rb;
+    private bool isInPool = false;
 
     private void Awake()
     {
@@ -25,16 +27,11 @@ public class Arrow : MonoBehaviour
         gameObject.SetActive(true);
 
         rb.AddForce(direction * speed, ForceMode.Impulse);
+        StartCoroutine(WaitAndReturnToPool());
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
-        if (!other.CompareTag("Enemy") && !other.CompareTag("ArrowBoundary"))
-        {
-            ReturnToPool();
-        }
-        
         if (other.CompareTag("Player"))
         {
             var health = other.GetComponent<HealthPlayerController>();
@@ -46,16 +43,15 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private IEnumerator WaitAndReturnToPool()
     {
-        if (other.CompareTag("ArrowBoundary"))
-        {
-            ReturnToPool();
-        }
+        yield return new WaitForSeconds(6f);
+        ReturnToPool();
     }
 
     private void ReturnToPool()
     {
+        
         if (rb)
         {
             rb.linearVelocity = Vector3.zero;
