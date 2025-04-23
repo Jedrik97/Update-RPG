@@ -40,8 +40,7 @@ public class EnemyArcherAI : EnemyBase
 
         if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
-
-        // Подписка на события для прерывания атаки и обработки смерти
+        
         OnHealthChanged += HandleDamageInterrupt;
         OnDeath += HandleDeath;
 
@@ -152,8 +151,7 @@ public class EnemyArcherAI : EnemyBase
     {
         animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
     }
-
-    // Called by animation event at moment of shooting
+    
     private void Shoot()
     {
         if (currentState == EnemyState.Dead || player == null)
@@ -182,8 +180,7 @@ public class EnemyArcherAI : EnemyBase
             Time.deltaTime * 5f
         );
     }
-
-    // Обработчик прерывания атаки при получении урона
+    
     private void HandleDamageInterrupt(float newHealth)
     {
         if (currentState == EnemyState.Attacking)

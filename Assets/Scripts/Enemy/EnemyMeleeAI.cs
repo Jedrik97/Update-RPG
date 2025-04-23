@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -7,51 +9,67 @@ public class EnemyMeleeAI : EnemyBase
     [Header("Components & Prefabs")]
     [SerializeField] private FieldOfView fieldOfView;
     [SerializeField] private EnemyPathFollower pathFollower;
-    [SerializeField] private Animator animator;
-    [Tooltip("Invoke this event (e.g. EnemyWeapon.EnableCollider) at the attack moment")]
-    [SerializeField] private UnityEvent onWeaponActivate;
 
-    [Header("Stats & Timing")]
-    [SerializeField] private float attackRange = 3f;
+    [Header("Movement & Detection")]
     [SerializeField] private float chaseSpeed = 3.5f;
-    [SerializeField] private float attackDelay = 0.5f;
-    [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private float maxChaseDistance = 15f;
+    [SerializeField] private float maxChaseDistance = 25f;
+    [SerializeField] private float attackRange = 3f;
 
+    [Header("Death Settings")]
+    [Tooltip("Time in seconds the archer remains dead before deactivating")]
+    [SerializeField] private float deathDuration = 5f;
+    
+    [SerializeField] private UnityEvent onWeaponActivate;
+    [SerializeField] private UnityEvent onWeaponDeactivate;
     private NavMeshAgent agent;
     private Transform player;
-    private bool hasSeenPlayer = false;
-    private Vector3 chaseStartPoint;
-    private float timeSinceLastAttack = Mathf.Infinity;
 
-    private enum EnemyState { Patrolling, Chasing, Attacking, Returning }
+    private bool hasSeenPlayer;
+    private Vector3 chaseStartPoint;
+
+    private enum EnemyState { Patrolling, Chasing, Attacking, Returning, Dead }
     private EnemyState currentState = EnemyState.Patrolling;
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
-        if (animator == null) animator = GetComponent<Animator>();
-        agent.isStopped = false;
-        hasSeenPlayer = false;
-        timeSinceLastAttack = attackCooldown;
+        pathFollower = GetComponent<EnemyPathFollower>();
 
-        if (fieldOfView)
+        if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
+        
+        OnHealthChanged += HandleDamageInterrupt;
+        OnDeath += HandleDeath;
 
-        // Начинаем патруль
         pathFollower?.ResumePatrol();
+        currentState = EnemyState.Patrolling;
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsAttacking", false);
     }
 
     private void OnDisable()
     {
-        CancelInvoke(nameof(PerformAttack));
-        if (fieldOfView)
+        if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
+
+        OnHealthChanged -= HandleDamageInterrupt;
+        OnDeath -= HandleDeath;
     }
 
+    public void EnableCollider()
+    {
+        onWeaponActivate?.Invoke();
+    }
+    public void DisableCollider()
+    {
+        onWeaponDeactivate?.Invoke();
+    }
     private void HandlePlayerVisibilityChanged(bool isVisible)
     {
+        if (currentState == EnemyState.Dead)
+            return;
+
         if (isVisible)
         {
             if (!hasSeenPlayer)
@@ -60,73 +78,65 @@ public class EnemyMeleeAI : EnemyBase
                 chaseStartPoint = transform.position;
             }
             player = fieldOfView.Player;
-            if (player == null) return;
-
-            pathFollower?.StopPatrol();
             currentState = EnemyState.Chasing;
         }
         else
         {
             hasSeenPlayer = false;
             currentState = EnemyState.Returning;
-            pathFollower?.StopPatrol();
             agent.isStopped = false;
-            agent.SetDestination(chaseStartPoint);
-            animator.SetBool("IsAttacking", false);
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        timeSinceLastAttack += Time.fixedDeltaTime;
+        if (currentState == EnemyState.Dead)
+            return;
 
+        UpdateWalkingAnimation();
+
+        if (player == null && fieldOfView != null)
+            player = fieldOfView.Player;
         if (player == null)
-            player = fieldOfView?.Player;
-        if (player == null) return;
+            return;
 
         float distToPlayer = Vector3.Distance(transform.position, player.position);
         float distFromStart = Vector3.Distance(transform.position, chaseStartPoint);
 
-        UpdateMovementAnimation();
-
         switch (currentState)
         {
             case EnemyState.Patrolling:
-                pathFollower?.ResumePatrol();
-                animator.SetBool("IsWalking", true);
-                if (distToPlayer <= maxChaseDistance && hasSeenPlayer)
-                {
+                if (distToPlayer <= maxChaseDistance)
                     currentState = EnemyState.Chasing;
-                    pathFollower?.StopPatrol();
-                }
                 break;
 
             case EnemyState.Chasing:
                 if (distFromStart > maxChaseDistance)
                 {
                     currentState = EnemyState.Returning;
-                    animator.SetBool("IsWalking", true);
-                    animator.SetBool("IsAttacking", false);
+                    agent.isStopped = false;
+                    agent.SetDestination(chaseStartPoint);
                 }
-                else if (distToPlayer <= attackRange && timeSinceLastAttack >= attackCooldown)
+                else if (distToPlayer <= attackRange)
                 {
                     currentState = EnemyState.Attacking;
-                    animator.SetBool("IsAttacking", true);
-                    Invoke(nameof(PerformAttack), attackDelay);
+                    animator.SetBool("IsWalking", false);
                 }
                 else
                 {
                     agent.isStopped = false;
                     agent.speed = chaseSpeed;
                     agent.SetDestination(player.position);
+                    RotateTowardsPlayer();
                 }
                 break;
 
             case EnemyState.Attacking:
-                if (timeSinceLastAttack >= attackCooldown)
+                if (distToPlayer <= attackRange)
                 {
-                    currentState = EnemyState.Chasing;
-                    animator.SetBool("IsAttacking", false);
+                    animator.SetBool("IsAttacking", true);
+                    agent.isStopped = true;
+                    RotateTowardsPlayer();
                 }
                 break;
 
@@ -137,24 +147,60 @@ public class EnemyMeleeAI : EnemyBase
                 {
                     agent.isStopped = true;
                     currentState = EnemyState.Patrolling;
-                    animator.SetBool("IsAttacking", false);
-                    pathFollower?.ResumePatrol();
                     ReturnHeal();
                 }
                 break;
         }
     }
 
-    private void UpdateMovementAnimation()
+    private void UpdateWalkingAnimation()
     {
         animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
     }
+    
 
-    private void PerformAttack()
+    private void RotateTowardsPlayer()
     {
+        if (player == null)
+            return;
+        Vector3 direction = player.position - transform.position;
+        direction.y = 0;
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            Quaternion.LookRotation(direction),
+            Time.deltaTime * 5f
+        );
+    }
+    
+    private void HandleDamageInterrupt(float newHealth)
+    {
+        if (currentState == EnemyState.Attacking)
+        {
+            currentState = EnemyState.Chasing;
+            animator.SetBool("IsAttacking", false);
+            agent.isStopped = false;
+        }
+    }
+
+    private void HandleDeath(GameObject obj)
+    {
+        currentState = EnemyState.Dead;
         agent.isStopped = true;
-        timeSinceLastAttack = 0f;
-        // Триггерим событие активации оружия (EnableCollider в EnemyWeapon)
-        onWeaponActivate?.Invoke();
+        agent.updateRotation = false;
+
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsAttacking", false);
+        animator.SetTrigger("Die");
+
+        pathFollower?.StopPatrol();
+
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        yield return new WaitForSeconds(deathDuration);
+        gameObject.SetActive(false);
     }
 }
+

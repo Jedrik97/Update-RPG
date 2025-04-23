@@ -62,13 +62,11 @@ public class EnemyBase : MonoBehaviour
 
         if (currentHealth > 0f)
         {
-            // Запуск анимации получения урона
             if (animator)
                 animator.SetTrigger("TakeDamage");
         }
         else
         {
-            // Если здоровье упало до нуля или ниже — сразу смерть
             Die();
         }
     }
@@ -84,7 +82,6 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator WaitAndReturnToPool()
     {
-        // Ждём перед возвратом в пул, чтобы анимация успела проиграться
         yield return new WaitForSeconds(60f);
         _pool?.ReturnToPool(this);
     }

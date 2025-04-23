@@ -4,28 +4,26 @@ public class EnemyWeapon : MonoBehaviour
 {
     [SerializeField] private Collider weaponCollider;
     [SerializeField] private int damage = 20;
-    [SerializeField] private float activeDuration = 0.5f;
 
     private void OnEnable()
     {
         if (weaponCollider)
             weaponCollider.enabled = false;
     }
-
-    // Вызывать через UnityEvent onWeaponActivate в EnemyMeleeAI
+    
     public void EnableCollider()
     {
+        Debug.Log("включился");
         if (weaponCollider == null)
         {
-            Debug.LogWarning("EnemyWeapon: weaponCollider не назначен!");
             return;
         }
         weaponCollider.enabled = true;
-        Invoke(nameof(DisableCollider), activeDuration);
     }
 
-    private void DisableCollider()
+    public void DisableCollider()
     {
+        Debug.Log("выключился");
         if (weaponCollider)
             weaponCollider.enabled = false;
     }

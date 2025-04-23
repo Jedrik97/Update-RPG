@@ -1295,15 +1295,40 @@ MonoBehaviour:
   attackDamage: 15
   fieldOfView: {fileID: 2628836722308275578}
   pathFollower: {fileID: 4314257987420027337}
-  animator: {fileID: 0}
+  chaseSpeed: 3.5
+  maxChaseDistance: 15
+  attackRange: 2.5
+  deathDuration: 5
   onWeaponActivate:
     m_PersistentCalls:
-      m_Calls: []
-  attackRange: 1.5
-  chaseSpeed: 3.5
-  attackDelay: 2
-  attackCooldown: 2
-  maxChaseDistance: 15
+      m_Calls:
+      - m_Target: {fileID: 7337686688529839955}
+        m_TargetAssemblyTypeName: EnemyWeapon, Assembly-CSharp
+        m_MethodName: EnableCollider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onWeaponDeactivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7337686688529839955}
+        m_TargetAssemblyTypeName: EnemyWeapon, Assembly-CSharp
+        m_MethodName: DisableCollider
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4314257987420027337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1398,7 +1423,7 @@ Animator:
   m_GameObject: {fileID: 3757688206142667191}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 20300ac630e0fcd4dbab63a9b39cdafa, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2bc27d4002e910d438c2b9f52b3e3eb4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 29bc6496ce31ec44baf7768b0b4a6b1f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1965,6 +1990,9 @@ GameObject:
   - component: {fileID: 172210064068787774}
   - component: {fileID: 6880220596282086406}
   - component: {fileID: 8450542791852878781}
+  - component: {fileID: 3461441103746903318}
+  - component: {fileID: 314654513334090214}
+  - component: {fileID: 7337686688529839955}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Untagged
@@ -2040,6 +2068,68 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &3461441103746903318
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842056866030784154}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &314654513334090214
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842056866030784154}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.47543192, y: 0.058521878, z: 1.310321}
+  m_Center: {x: -0.017573154, y: 0.0000019122872, z: 0.18389675}
+--- !u!114 &7337686688529839955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842056866030784154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cdcd8098f536a1409a1c8091c1c2dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 314654513334090214}
+  damage: 20
 --- !u!1 &5011181695884358191
 GameObject:
   m_ObjectHideFlags: 0
