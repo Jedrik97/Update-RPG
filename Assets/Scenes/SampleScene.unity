@@ -6498,9 +6498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1352471826663474333, guid: 3661e0d8790584d4396c3495acff0a12, type: 3}
-  - {fileID: 456501228538336078, guid: da86b3dc12e90d34e9c4efa94f974730, type: 3}
-  - {fileID: 456501228538336078, guid: da86b3dc12e90d34e9c4efa94f974730, type: 3}
+  - {fileID: 7312602864059615199, guid: 6a0376c8d55b28b419ab37ea3b82e4d3, type: 3}
   _poolSize: 0
   startPoints:
   - {fileID: 1368776845}

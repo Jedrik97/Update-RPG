@@ -1282,6 +1282,7 @@ MonoBehaviour:
   currentHealth: 0
   attackDamage: 20
   fieldOfView: {fileID: 2336879378399530136}
+  pathFollower: {fileID: 8658316750880303974}
   arrowSpawnPoint: {fileID: 2245367856611556634}
   arrowPrefab: {fileID: 216457263720598669, guid: 9090a50168e596f46a982f68b5bb41de,
     type: 3}
@@ -1289,6 +1290,7 @@ MonoBehaviour:
   chaseSpeed: 3.5
   maxChaseDistance: 30
   attackRange: 15
+  deathDuration: 5
 --- !u!114 &454736084372839201
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+// PlayerCombat.cs
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ public class PlayerCombat : MonoBehaviour
     private PlayerStats playerStats;
     private GameManager gameManager;
     
-    private Dictionary<string, float> attackDurations = new Dictionary<string, float>
+    private readonly Dictionary<string, float> attackDurations = new Dictionary<string, float>
     {
         { "Attack1", 1.15f },
         { "Attack2", 1.20f },
@@ -28,18 +29,13 @@ public class PlayerCombat : MonoBehaviour
     };
 
     [Inject]
-    public void Construct(PlayerStats playerStats)
+    public void Construct(PlayerStats playerStats, GameManager gameManager)
     {
         this.playerStats = playerStats;
-    }
-
-    [Inject]
-    public void Construct(GameManager gameManager)
-    {
         this.gameManager = gameManager;
     }
 
-    void Update()
+    private void Update()
     {
         if (!isAttacking)
         {
@@ -60,22 +56,27 @@ public class PlayerCombat : MonoBehaviour
     {
         isAttacking = true;
         OnAttackStateChanged?.Invoke(true);
-        animator.Play(attackName);
-        yield return new WaitForSeconds(0.1f);
 
-        if (weapon != null)
-        {
-            weapon.EnableCollider(true);
-        }
-        else
-        {
-            Debug.LogError("weapon не назначен!");
-        }
+        animator.Play(attackName);
         
-        float attackDuration = attackDurations[attackName];
-        yield return new WaitForSeconds(attackDuration);
+        if (attackDurations.TryGetValue(attackName, out float duration))
+            yield return new WaitForSeconds(duration);
+        else
+            yield return null;
 
         isAttacking = false;
         OnAttackStateChanged?.Invoke(false);
+    }
+    
+    public void EnableWeaponHitbox()
+    {
+        if (weapon)
+            weapon.EnableCollider(true);
+    }
+
+    public void DisableWeaponHitbox()
+    {
+        if (weapon)
+            weapon.EnableCollider(false);
     }
 }

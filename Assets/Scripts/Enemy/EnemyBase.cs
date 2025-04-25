@@ -62,14 +62,15 @@ public class EnemyBase : MonoBehaviour
 
         if (currentHealth > 0f)
         {
-            if (animator)
-                animator.SetTrigger("TakeDamage");
+            animator.ResetTrigger("TakeDamage");
+            animator.SetTrigger("TakeDamage");
         }
         else
         {
             Die();
         }
     }
+
 
     private void Die()
     {
