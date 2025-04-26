@@ -17,17 +17,28 @@ public class PlayerAnimator : MonoBehaviour
 
     private void HandleMovement(float x, float z, bool running)
     {
-        float speedMultiplier = running ? 1f : 0.5f;
-        Vector2 move = new Vector2(x, z);
-        float speed = move.magnitude * speedMultiplier;
-        animator.SetFloat("Speed", speed);
-        
-        if (move.sqrMagnitude > 0.001f)
+        const float deadZone = 0.1f;
+        Vector2 input = new Vector2(x, z);
+
+        // Если почти не движемся — встанем в Idle
+        if (input.magnitude < deadZone)
         {
-            float angle = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg;
-            animator.SetFloat("Direction", angle);
+            animator.SetFloat("MoveX", 0f);
+            animator.SetFloat("MoveZ", 0f);
         }
-        
+        else
+        {
+            // MoveZ: +1 — вперёд, –1 — назад
+            float moveZ = Mathf.Sign(z);
+
+            // MoveX: –1 — ходьба, +1 — бег
+            float moveX = running ? 1f : -1f;
+
+            animator.SetFloat("MoveX", moveX);
+            animator.SetFloat("MoveZ", moveZ);
+        }
+
+        // Сбрасываем флаг прыжка при ходьбе/беге
         animator.SetBool("IsJumping", false);
     }
 
