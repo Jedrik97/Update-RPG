@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
-    private bool isRunning = false; // Следим за бегом
 
     private void OnEnable()
     {
@@ -18,31 +17,26 @@ public class PlayerAnimator : MonoBehaviour
 
     private void HandleMovement(float x, float z, bool running)
     {
-        isRunning = running;
-        animator.SetBool("IsRunning", isRunning); // Устанавливаем состояние бега
-
-        if (isRunning)
+        float speedMultiplier = running ? 1f : 0.5f;
+        Vector2 move = new Vector2(x, z);
+        float speed = move.magnitude * speedMultiplier;
+        animator.SetFloat("Speed", speed);
+        
+        if (move.sqrMagnitude > 0.001f)
         {
-            animator.SetFloat("RunX", x);
-            animator.SetFloat("RunZ", z);
+            float angle = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg;
+            animator.SetFloat("Direction", angle);
         }
-        else
-        {
-            animator.SetFloat("WalkX", x);
-            animator.SetFloat("WalkZ", z);
-        }
-
-        animator.SetBool("Idle", x == 0 && z == 0);
+        
+        animator.SetBool("IsJumping", false);
     }
 
     private void HandleJump(bool isJumping)
     {
         if (isJumping)
         {
-            if (isRunning)
-                animator.SetTrigger("JumpRun"); // Запускаем анимацию прыжка в беге
-            else
-                animator.SetTrigger("Jump"); // Запускаем обычный прыжок
+            animator.SetBool("IsJumping", true);
+            animator.SetTrigger("Jump");
         }
     }
 
