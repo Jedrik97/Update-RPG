@@ -14,7 +14,7 @@ public class EnemyArcherAI : EnemyBase
 
     [Header("Movement & Detection")]
     [SerializeField] private float chaseSpeed = 3.5f;
-    [SerializeField] private float maxChaseDistance = 25f;
+    [SerializeField] private float maxChaseDistance = 30f;
     [SerializeField] private float attackRange = 15f;
 
     [Header("Death Settings")]
@@ -100,8 +100,11 @@ public class EnemyArcherAI : EnemyBase
         switch (currentState)
         {
             case EnemyState.Patrolling:
+               
                 if (distToPlayer <= maxChaseDistance)
+                {
                     currentState = EnemyState.Chasing;
+                }
                 break;
 
             case EnemyState.Chasing:
@@ -132,9 +135,15 @@ public class EnemyArcherAI : EnemyBase
                     agent.isStopped = true;
                     RotateTowardsPlayer();
                 }
+                else if (distToPlayer > attackRange)
+                {
+                    animator.SetBool("IsAttacking", false);
+                    currentState = EnemyState.Chasing;
+                }
                 break;
 
             case EnemyState.Returning:
+                hasSeenPlayer = false;
                 agent.isStopped = false;
                 agent.SetDestination(chaseStartPoint);
                 if (distFromStart <= 1f)
@@ -142,8 +151,11 @@ public class EnemyArcherAI : EnemyBase
                     agent.isStopped = true;
                     currentState = EnemyState.Patrolling;
                     ReturnHeal();
+                    
+                    pathFollower?.ResumePatrol();
                 }
                 break;
+
         }
     }
 

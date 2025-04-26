@@ -30,8 +30,7 @@ public class EnemyPathFollower : MonoBehaviour
         movingForward = true;
 
         enemy.OnDeath += HandleDeath;
-
-        // Начинаем патрулирование сразу, если заданы точки
+        
         if (waypoints != null && waypoints.Length > 0)
         {
             agent.SetDestination(waypoints[currentWaypointIndex].position);
