@@ -1,18 +1,8 @@
 fileFormatVersion: 2
-guid: c22a98584700d204e9b5093a0c383cb9
-AssetOrigin:
-  serializedVersion: 1
-  productId: 250504
-  packageName: DemonBoss4
-  packageVersion: 1.0
-  assetPath: Assets/DemonBoss4/Animations/DemonLady@Death1.fbx
-  uploadId: 572390
+guid: 66419782315fa5043b44688297eda5dd
 ModelImporter:
   serializedVersion: 22200
-  internalIDToNameTable:
-  - first:
-      74: 1827226128182048838
-    second: Take 001
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -53,7 +43,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    nodeNameCollisionStrategy: 0
+    nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -109,8 +99,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  importBlendShapeDeformPercent: 0
-  remapMaterialsIfMaterialImportModeIsNone: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -1151,7 +1151,6 @@ GameObject:
   - component: {fileID: 5898405156120091323}
   - component: {fileID: 7085100371024532102}
   - component: {fileID: 7312602864059615199}
-  - component: {fileID: 454736084372839201}
   - component: {fileID: 4383461572751224824}
   m_Layer: 6
   m_Name: EnemySkeletonArcher
@@ -1284,27 +1283,13 @@ MonoBehaviour:
   fieldOfView: {fileID: 2336879378399530136}
   pathFollower: {fileID: 8658316750880303974}
   arrowSpawnPoint: {fileID: 2245367856611556634}
-  arrowPrefab: {fileID: 216457263720598669, guid: 9090a50168e596f46a982f68b5bb41de,
+  arrowPrefab: {fileID: 14455939647841487, guid: 0c3d09e49a2bbbd41879ad78d056e387,
     type: 3}
   initialArrowCount: 10
   chaseSpeed: 3.5
   maxChaseDistance: 30
   attackRange: 15
   deathDuration: 5
---- !u!114 &454736084372839201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3773272488793522301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8215c94645ecc3419ed4b900019f62c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waypoints: []
-  reachThreshold: 1
 --- !u!95 &4383461572751224824
 Animator:
   serializedVersion: 7
