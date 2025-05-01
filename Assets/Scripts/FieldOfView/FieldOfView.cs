@@ -44,6 +44,7 @@ public class FieldOfView : MonoBehaviour
             {
                 playerVisible = isVisible;
                 OnPlayerVisibilityChanged?.Invoke(playerVisible);
+                Debug.Log("инвок от fieldofview сработал");
             }
         }
     }
@@ -69,4 +70,35 @@ public class FieldOfView : MonoBehaviour
         }
         return false;
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, viewRadius);
+        
+        Vector3 leftBoundary  = DirFromAngle(-viewAngle / 2f, false);
+        Vector3 rightBoundary = DirFromAngle( viewAngle / 2f, false);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary  * viewRadius);
+        Gizmos.DrawLine(transform.position, transform.position + rightBoundary * viewRadius);
+        
+        Gizmos.color = Color.cyan;
+        int segments = 50;
+        float angleStep = viewAngle / segments;
+        Vector3 previousPoint = transform.position + DirFromAngle(-viewAngle / 2f, false) * viewRadius;
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = -viewAngle / 2f + angleStep * i;
+            Vector3 nextPoint = transform.position + DirFromAngle(angle, false) * viewRadius;
+            Gizmos.DrawLine(previousPoint, nextPoint);
+            previousPoint = nextPoint;
+        }
+    }
+    
+    private Vector3 DirFromAngle(float angleInDegrees, bool isGlobal)
+    {
+        if (!isGlobal) angleInDegrees += transform.eulerAngles.y;
+        float rad = angleInDegrees * Mathf.Deg2Rad;
+        return new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
+    }
+
 }

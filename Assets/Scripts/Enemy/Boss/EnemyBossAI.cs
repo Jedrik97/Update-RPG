@@ -115,6 +115,7 @@ public class EnemyBossAI : EnemyBase
                 break;
 
             case BossState.Chasing:
+                RotateTowardsPlayer();
                 if (distFromStart > maxChaseDistance)
                 {
                     currentState = BossState.Returning;
@@ -137,6 +138,7 @@ public class EnemyBossAI : EnemyBase
                 break;
 
             case BossState.Ranged:
+                RotateTowardsPlayer();
                 if (distToPlayer <= aoeDistance)
                 {
                     currentState = BossState.AOE;
@@ -187,11 +189,18 @@ public class EnemyBossAI : EnemyBase
     
     public void ShootFireball()
     {
-        if (player == null) return;
-        var fb = fireballPool.Get();
-        fb.transform.position = fireballSpawnPoint.position;
-        Vector3 dir = (player.position + Vector3.up - fireballSpawnPoint.position).normalized;
-        fb.Initialize(dir, fireballPool);
+        if (currentState == BossState.Dead || player == null)
+            return;
+
+        Vector3 spawnPos = fireballSpawnPoint.position;
+        Fireball fireball = fireballPool.Get();
+        fireball.transform.position = spawnPos;
+
+        Vector3 targetPos = player.position + Vector3.up;
+        Vector3 lookDir = (targetPos - spawnPos).normalized;
+
+        fireball.transform.rotation = Quaternion.LookRotation(lookDir);
+        fireball.Initialize(lookDir, fireballPool);
     }
     
     public void OnAOEEnd()
