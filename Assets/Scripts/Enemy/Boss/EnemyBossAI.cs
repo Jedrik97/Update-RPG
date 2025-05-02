@@ -15,22 +15,24 @@ public class EnemyBossAI : EnemyBase
 
     [Header("Movement & Detection")]
     [SerializeField] private float chaseSpeed = 3.5f;
-    [SerializeField] private float maxChaseDistance = 30f;      
-    [SerializeField] private float aoeDistance = 10f;          
-    [SerializeField] private float meleeTriggerDistance = 4f; 
+    [SerializeField] private float maxChaseDistance = 30f;
+    [SerializeField] private float rangeTriggerDistance = 30f;
+    [SerializeField] private float aoeDistance = 10f;
+    [SerializeField] private float meleeTriggerDistance = 2f;
 
-    [Header("Boss Attack Settings")]
+        [Header("Boss Attack Settings")]
     [SerializeField] private float aoeDuration = 1.5f;
     [SerializeField] private float meleeDuration = 10f;
-    [SerializeField] private float aoeDamageRadius = 15f;
-    [SerializeField] private float aoeDamageAmount = 20f;
 
     [Header("Teleportation")]
     [SerializeField] private Transform[] teleportPoints;
-    [SerializeField] private float postTeleportDelay = 1f;
 
     [Header("Death Settings")]
     [SerializeField] private float deathDuration = 5f;
+
+    [Header("Boss AOE Settings")]
+    [SerializeField] private float aoeDamageRadius = 15f;
+    [SerializeField] private float aoeDamageAmount = 20f;
 
     [Header("Weapons")]
     [SerializeField] private EnemyWeaponBoss leftWeapon;
@@ -47,7 +49,7 @@ public class EnemyBossAI : EnemyBase
 
     private enum BossState { Idle, Chasing, Ranged, AOE, Melee, Teleporting, Returning, Dead }
     private BossState currentState = BossState.Idle;
-
+    
     private float stateTimer;
 
     protected override void OnEnable()
@@ -57,7 +59,7 @@ public class EnemyBossAI : EnemyBase
         controller = GetComponent<CharacterController>();
         fireballPool = new ObjectPool<Fireball>(new List<Fireball> { fireballPrefab }, initialFireballCount, transform);
 
-        if (fieldOfView)
+        if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
 
         OnHealthChanged += HandleDamageInterrupt;
@@ -68,7 +70,7 @@ public class EnemyBossAI : EnemyBase
 
     private void OnDisable()
     {
-        if (fieldOfView)
+        if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
 
         OnHealthChanged -= HandleDamageInterrupt;
@@ -88,7 +90,7 @@ public class EnemyBossAI : EnemyBase
             currentState = BossState.Chasing;
         }
         else if (!isVisible)
-        {   
+        {
             hasSeenPlayer = false;
             currentState = BossState.Returning;
             agent.isStopped = false;
@@ -101,7 +103,6 @@ public class EnemyBossAI : EnemyBase
         if (currentState == BossState.Dead) return;
 
         UpdateWalkingAnimation();
-
         if (player == null && fieldOfView != null)
             player = fieldOfView.Player;
         if (player == null && currentState != BossState.Returning) return;
@@ -115,14 +116,13 @@ public class EnemyBossAI : EnemyBase
                 break;
 
             case BossState.Chasing:
-                RotateTowardsPlayer();
                 if (distFromStart > maxChaseDistance)
                 {
                     currentState = BossState.Returning;
                     agent.isStopped = false;
                     agent.SetDestination(chaseStartPoint);
                 }
-                else if (distToPlayer <= maxChaseDistance)
+                else if (distToPlayer <= rangeTriggerDistance && isPlayerVisible)
                 {
                     currentState = BossState.Ranged;
                     agent.isStopped = true;
@@ -147,25 +147,36 @@ public class EnemyBossAI : EnemyBase
                 break;
 
             case BossState.AOE:
+                RotateTowardsPlayer();
                 break;
 
             case BossState.Melee:
-                agent.isStopped = false;
-                agent.speed = chaseSpeed;
-                agent.SetDestination(player.position);
                 RotateTowardsPlayer();
-                if (distToPlayer <= meleeTriggerDistance)
-                {
-                    animator.SetTrigger("MeleeAttack");
-                }
                 if (Time.time >= stateTimer)
                 {
                     animator.SetTrigger("Teleport");
                     currentState = BossState.Teleporting;
+                    break;
+                }
+                
+                if (distToPlayer > meleeTriggerDistance)
+                {
+                    agent.isStopped = false;
+                    agent.speed = chaseSpeed;
+                    agent.SetDestination(player.position);
+                    RotateTowardsPlayer();
+                    animator.SetBool("IsWalking", true);
+                }
+                else
+                {
+                    agent.isStopped = true;
+                    animator.SetBool("IsWalking", false);
+                    animator.SetTrigger("MeleeAttack");
                 }
                 break;
 
             case BossState.Teleporting:
+                RotateTowardsPlayer();
                 break;
 
             case BossState.Returning:
@@ -186,7 +197,7 @@ public class EnemyBossAI : EnemyBase
     {
         animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
     }
-    
+
     public void ShootFireball()
     {
         if (currentState == BossState.Dead || player == null)
@@ -202,18 +213,20 @@ public class EnemyBossAI : EnemyBase
         fireball.transform.rotation = Quaternion.LookRotation(lookDir);
         fireball.Initialize(lookDir, fireballPool);
     }
-    
+
     public void OnAOEEnd()
     {
         PerformAOEDamage();
         currentState = BossState.Melee;
+        // start melee duration timer to transition to teleport
         stateTimer = Time.time + meleeDuration;
     }
-    
+
     public void PerformAOEDamage()
     {
-        if (player == null || !isPlayerVisible)
+        if (!isPlayerVisible || player == null)
             return;
+
         float dist = Vector3.Distance(transform.position, player.position);
         if (dist <= aoeDamageRadius)
         {
@@ -222,7 +235,7 @@ public class EnemyBossAI : EnemyBase
                 health.TakeDamage(aoeDamageAmount);
         }
     }
-    
+
     public void OnTeleport()
     {
         TeleportAway();
@@ -232,7 +245,6 @@ public class EnemyBossAI : EnemyBase
 
     private void TeleportAway()
     {
-        stateTimer = Time.time + postTeleportDelay;
         agent.isStopped = true;
         if (teleportPoints == null || teleportPoints.Length == 0) return;
         int idx = Random.Range(0, teleportPoints.Length);
@@ -244,6 +256,7 @@ public class EnemyBossAI : EnemyBase
 
     private void HandleDamageInterrupt(float newHealth)
     {
+        animator.SetTrigger("TakeDamage");
         if (currentState == BossState.Melee || currentState == BossState.AOE)
         {
             currentState = BossState.Chasing;
@@ -271,9 +284,12 @@ public class EnemyBossAI : EnemyBase
         if (player == null) return;
         Vector3 dir = player.position - transform.position;
         dir.y = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            Quaternion.LookRotation(dir),
+            Time.deltaTime * 5f);
     }
-    
+
     public void EnableLeftWeapon() => leftWeapon?.EnableCollider();
     public void DisableLeftWeapon() => leftWeapon?.DisableCollider();
     public void EnableRightWeapon() => rightWeapon?.EnableCollider();

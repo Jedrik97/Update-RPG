@@ -585,7 +585,7 @@ Transform:
   m_GameObject: {fileID: 44941933}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.29, y: 2.84, z: 12.49}
+  m_LocalPosition: {x: 14.84, y: 2.84, z: -30.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12828,6 +12828,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 2369049315509284897, guid: af8d0a12de7b28b41b708ac01461d7f8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3146711433171987099, guid: af8d0a12de7b28b41b708ac01461d7f8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -12976,17 +12981,27 @@ PrefabInstance:
     - target: {fileID: 6318113172873311949, guid: af8d0a12de7b28b41b708ac01461d7f8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.99809706
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6318113172873311949, guid: af8d0a12de7b28b41b708ac01461d7f8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6318113172873311949, guid: af8d0a12de7b28b41b708ac01461d7f8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.061662413
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6318113172873311949, guid: af8d0a12de7b28b41b708ac01461d7f8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6318113172873311949, guid: af8d0a12de7b28b41b708ac01461d7f8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 7.07
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6582185426057040210, guid: af8d0a12de7b28b41b708ac01461d7f8,
         type: 3}
@@ -13044,6 +13059,11 @@ PrefabInstance:
       propertyPath: fireballSpawnPoint
       value: 
       objectReference: {fileID: 1529874601}
+    - target: {fileID: 7064253745502732883, guid: af8d0a12de7b28b41b708ac01461d7f8,
+        type: 3}
+      propertyPath: meleeTriggerDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7064253745502732883, guid: af8d0a12de7b28b41b708ac01461d7f8,
         type: 3}
       propertyPath: teleportPoints.Array.size
@@ -23895,7 +23915,7 @@ Transform:
   m_GameObject: {fileID: 1950201028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.47, y: 3.836, z: 11.6}
+  m_LocalPosition: {x: 30.71, y: 3.47, z: -17.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
