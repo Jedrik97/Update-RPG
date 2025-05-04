@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthPlayerController : MonoBehaviour
 {
     public float maxHealth = 100;
     private float currentHealth;
     
-    public Slider healthBar; // Добавляем ссылку на слайдер
+    public TextMeshProUGUI healthText;
+    public Image healthOrb;
 
     public delegate void HealthChanged(float currentHealth, float maxHealth);
     public event HealthChanged OnHealthChanged;
@@ -46,24 +48,21 @@ public class HealthPlayerController : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        if (healthBar != null)
+        if (healthOrb)
         {
-            healthBar.maxValue = maxHealth;
-            healthBar.value = currentHealth;
+            healthOrb.fillAmount = currentHealth / maxHealth;
         }
-    }   
+
+        if (healthText)
+        {
+            healthText.text = $"{Mathf.CeilToInt(currentHealth)} / {Mathf.CeilToInt(maxHealth)}";
+        }
+    }
 
     private void Die()
     {
         Debug.Log("Player has died!");
     }
-    public float GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-
-    public float GetMaxHealth()
-    {
-        return maxHealth;
-    }
+    public float GetCurrentHealth() => currentHealth;
+    public float GetMaxHealth() => maxHealth;
 }

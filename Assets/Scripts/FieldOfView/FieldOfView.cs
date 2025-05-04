@@ -1,13 +1,15 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class FieldOfView : MonoBehaviour
 {
     private Transform player = null;
+    private Coroutine fovCheckCoroutine = null;
 
     [Header("Field of View")]
-    [SerializeField] private float viewRadius = 15f; 
-    [SerializeField, Range(0, 360)] private float viewAngle = 180f; 
+    [SerializeField] private float viewRadius = 15f;
+    [SerializeField, Range(0, 360)] private float viewAngle = 180f;
 
     [Header("Layers")]
     [SerializeField] private LayerMask obstacleMask;
@@ -16,13 +18,15 @@ public class FieldOfView : MonoBehaviour
     public Transform Player => player;
 
     private bool playerVisible = false;
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             player = other.transform;
-            CheckPlayerInFOV();
+
+            if (fovCheckCoroutine == null)
+                fovCheckCoroutine = StartCoroutine(CheckFOVRoutine());
         }
     }
 
@@ -30,21 +34,30 @@ public class FieldOfView : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (fovCheckCoroutine != null)
+            {
+                StopCoroutine(fovCheckCoroutine);
+                fovCheckCoroutine = null;
+            }
+
             player = null;
+            playerVisible = false;
             OnPlayerVisibilityChanged?.Invoke(false);
         }
     }
 
-    private void OnTriggerStay(Collider other) // убрать и добавить рейкаст в enemy для проверки видимости
+    private IEnumerator CheckFOVRoutine()
     {
-        if (other.CompareTag("Player"))
+        while (player)
         {
-            bool isVisible = CheckPlayerInFOV();
-            if (isVisible != playerVisible)
+            if (CheckPlayerInFOV())
             {
-                playerVisible = isVisible;
-                OnPlayerVisibilityChanged?.Invoke(playerVisible);
+                playerVisible = true;
+                OnPlayerVisibilityChanged?.Invoke(true);
+                yield break; 
             }
+
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -55,7 +68,7 @@ public class FieldOfView : MonoBehaviour
 
         Vector3 dirToPlayer = (player.position - transform.position).normalized;
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        
+
         if (distanceToPlayer < viewRadius)
         {
             float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
@@ -63,7 +76,7 @@ public class FieldOfView : MonoBehaviour
             {
                 if (!Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, obstacleMask))
                 {
-                    return true; 
+                    return true;
                 }
             }
         }
@@ -71,18 +84,17 @@ public class FieldOfView : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, viewRadius);
-        
-        Vector3 leftBoundary  = DirFromAngle(-viewAngle / 2f, false);
-        Vector3 rightBoundary = DirFromAngle( viewAngle / 2f, false);
+
+        Vector3 leftBoundary = DirFromAngle(-viewAngle / 2f, false);
+        Vector3 rightBoundary = DirFromAngle(viewAngle / 2f, false);
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + leftBoundary  * viewRadius);
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary * viewRadius);
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary * viewRadius);
-        
+
         Gizmos.color = Color.cyan;
         int segments = 50;
         float angleStep = viewAngle / segments;
@@ -95,14 +107,12 @@ public class FieldOfView : MonoBehaviour
             previousPoint = nextPoint;
         }
     }
-    
+
     private Vector3 DirFromAngle(float angleInDegrees, bool isGlobal)
     {
         if (!isGlobal) angleInDegrees += transform.eulerAngles.y;
         float rad = angleInDegrees * Mathf.Deg2Rad;
         return new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
     }
-    
 #endif
-    
 }
