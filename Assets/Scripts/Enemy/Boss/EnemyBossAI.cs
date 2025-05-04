@@ -31,7 +31,7 @@ public class EnemyBossAI : EnemyBase
     [SerializeField] private float deathDuration = 5f;
 
     [Header("Boss AOE Settings")]
-    [SerializeField] private float aoeDamageRadius = 15f;
+    [SerializeField] private float aoeDamageRadius = 10f;
     [SerializeField] private float aoeDamageAmount = 20f;
 
     [Header("Weapons")]
@@ -70,7 +70,7 @@ public class EnemyBossAI : EnemyBase
 
     private void OnDisable()
     {
-        if (fieldOfView != null)
+        if (fieldOfView)
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
 
         OnHealthChanged -= HandleDamageInterrupt;
@@ -218,7 +218,6 @@ public class EnemyBossAI : EnemyBase
     {
         PerformAOEDamage();
         currentState = BossState.Melee;
-        // start melee duration timer to transition to teleport
         stateTimer = Time.time + meleeDuration;
     }
 

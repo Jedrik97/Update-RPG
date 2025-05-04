@@ -3,7 +3,7 @@ using System;
 
 public class FieldOfView : MonoBehaviour
 {
-    private Transform player;
+    private Transform player = null;
 
     [Header("Field of View")]
     [SerializeField] private float viewRadius = 15f; 
@@ -35,16 +35,15 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void OnTriggerStay(Collider other) // убрать и добавить рейкаст в enemy для проверки видимости
     {
-        if (player)
+        if (other.CompareTag("Player"))
         {
             bool isVisible = CheckPlayerInFOV();
             if (isVisible != playerVisible)
             {
                 playerVisible = isVisible;
                 OnPlayerVisibilityChanged?.Invoke(playerVisible);
-                Debug.Log("инвок от fieldofview сработал");
             }
         }
     }
@@ -70,6 +69,9 @@ public class FieldOfView : MonoBehaviour
         }
         return false;
     }
+
+#if UNITY_EDITOR
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -100,5 +102,7 @@ public class FieldOfView : MonoBehaviour
         float rad = angleInDegrees * Mathf.Deg2Rad;
         return new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
     }
-
+    
+#endif
+    
 }
