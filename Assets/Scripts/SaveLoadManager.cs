@@ -37,8 +37,10 @@ public static class SaveLoadManager
         if (!File.Exists(p)) return false;
         var d = JsonUtility.FromJson<SaveData>(File.ReadAllText(p));
         stats.SetLevel(d.level, d.currentExp, d.expToNextLevel);
-        stats.strength = d.strength; stats.stamina = d.stamina;
-        stats.intelligence = d.intelligence; stats.wisdom = d.wisdom;
+        stats.strength = d.strength; 
+        stats.stamina = d.stamina;
+        stats.intelligence = d.intelligence; 
+        stats.wisdom = d.wisdom;
         stats.transform.position = d.playerPosition;
         hp.SetHealth(d.playerCurrentHealth);
         return true;
