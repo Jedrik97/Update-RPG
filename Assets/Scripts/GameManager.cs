@@ -33,11 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (_playerStats)
         {
-            _playerStats.currentExp += experiencePerKill;
-            while (_playerStats.currentExp >= _playerStats.expToNextLevel)
-            {
-                LevelUp();
-            }
+            _playerStats.GainExperience(experiencePerKill);
         }
         
         EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
@@ -47,11 +43,6 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(RespawnEnemy());
-    }
-
-    private void LevelUp()
-    {
-        _playerStats.LevelUp();
     }
 
     private IEnumerator RespawnEnemy()

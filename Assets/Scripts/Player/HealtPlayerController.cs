@@ -4,65 +4,40 @@ using TMPro;
 
 public class HealthPlayerController : MonoBehaviour
 {
-    public float maxHealth = 100;
+    public float maxHealth=100;
     private float currentHealth;
-    
-    public TextMeshProUGUI healthText;
+    [Header("UI")]
     public Image healthOrb;
+    public TextMeshProUGUI healthText;
 
-    public delegate void HealthChanged(float currentHealth, float maxHealth);
-    public event HealthChanged OnHealthChanged;
-
-    private void Start()
+    void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthBar();
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float d)
     {
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-        Debug.Log($"Player took {damage} damage. Current health: {currentHealth}");
-        
+        currentHealth = Mathf.Clamp(currentHealth-d,0,maxHealth);
         UpdateHealthBar();
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth<=0) Debug.Log("Player Died");
     }
-
-    public void Heal(float amount)
+    public void Heal(float h)
     {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
+        currentHealth = Mathf.Clamp(currentHealth+h,0,maxHealth);
         UpdateHealthBar();
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
-
-    private void UpdateHealthBar()
+    public void SetHealth(float h)
     {
-        if (healthOrb)
-        {
-            healthOrb.fillAmount = currentHealth / maxHealth;
-        }
-
-        if (healthText)
-        {
-            healthText.text = $"{Mathf.CeilToInt(currentHealth)} / {Mathf.CeilToInt(maxHealth)}";
-        }
+        currentHealth = Mathf.Clamp(h,0,maxHealth);
+        UpdateHealthBar();
     }
 
-    private void Die()
+    void UpdateHealthBar()
     {
-        Debug.Log("Player has died!");
+        if (healthOrb)  healthOrb.fillAmount = currentHealth/maxHealth;
+        if (healthText) healthText.text = $"{Mathf.CeilToInt(currentHealth)} / {Mathf.CeilToInt(maxHealth)}";
     }
+
     public float GetCurrentHealth() => currentHealth;
-    public float GetMaxHealth() => maxHealth;
 }
