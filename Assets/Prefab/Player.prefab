@@ -13475,7 +13475,6 @@ GameObject:
   - component: {fileID: 7671890069650135548}
   - component: {fileID: 5313548311633452829}
   - component: {fileID: 5882094519909011004}
-  - component: {fileID: 4560629884779400564}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -13491,8 +13490,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8578717061152252794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.049619615, y: -0, z: -0, w: 0.9987682}
-  m_LocalPosition: {x: 0, y: 1.967165, z: -4.6900597}
+  m_LocalRotation: {x: 0.00480265, y: 0.9696726, z: -0.24361154, w: 0.019116491}
+  m_LocalPosition: {x: -0.14995956, y: 3.5405498, z: 3.8018265}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13575,7 +13574,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: 177.74118
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -13585,7 +13584,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 15
+    Value: 27.873554
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -13697,7 +13696,7 @@ MonoBehaviour:
         LegacyInput: 
         LegacyGain: 1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0.2
         DecelTime: 0.2
@@ -13711,7 +13710,7 @@ MonoBehaviour:
         LegacyInput: 
         LegacyGain: 1
         CancelDeltaTime: 0
-      InputValue: 0
+      InputValue: -0
       Driver:
         AccelTime: 0
         DecelTime: 0
@@ -13741,18 +13740,6 @@ MonoBehaviour:
         Damping:
           Top: {x: 1, y: 1, z: 1}
           Bottom: {x: 1, y: 1, z: 1}
---- !u!114 &4560629884779400564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8578717061152252794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8630d9460f91c22458cbd0a261064d34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8701694979984256690
 GameObject:
   m_ObjectHideFlags: 0

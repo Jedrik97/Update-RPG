@@ -11,6 +11,16 @@ public class FieldOfView : MonoBehaviour
     [SerializeField] private float viewRadius = 15f;
     [SerializeField, Range(0, 360)] private float viewAngle = 180f;
 
+    [Header("Eye Heights")]
+    [Tooltip("Height of this object's 'eyes' above its position")]
+    [SerializeField] private float eyeHeight = 1.6f;
+    [Tooltip("Height offset to sample the player's eye position")]
+    [SerializeField] private float playerEyeHeight = 1.0f;
+
+    [Header("Check Interval")]
+    [Tooltip("Time in seconds between each FOV check")]
+    [SerializeField] private float checkInterval = 0.5f;
+
     [Header("Layers")]
     [SerializeField] private LayerMask obstacleMask;
 
@@ -54,10 +64,11 @@ public class FieldOfView : MonoBehaviour
             {
                 playerVisible = true;
                 OnPlayerVisibilityChanged?.Invoke(true);
-                yield break; 
+                Debug.Log("Player detected by FieldOfView");
+                yield break;
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(checkInterval);
         }
     }
 
@@ -65,44 +76,51 @@ public class FieldOfView : MonoBehaviour
     {
         if (!player)
             return false;
+        
+        Vector3 origin = transform.position + Vector3.up * eyeHeight;
+        Vector3 target = player.position + Vector3.up * playerEyeHeight;
 
-        Vector3 dirToPlayer = (player.position - transform.position).normalized;
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer < viewRadius)
+        Vector3 dir = (target - origin);
+        float distance = dir.magnitude;
+        Vector3 dirNormalized = dir / distance;
+        
+        if (distance > viewRadius)
+            return false;
+        
+        Vector3 dirFlat = new Vector3(dirNormalized.x, 0f, dirNormalized.z).normalized;
+        float angleToPlayer = Vector3.Angle(transform.forward, dirFlat);
+        if (angleToPlayer > viewAngle / 2f)
+            return false;
+        
+        if (Physics.Raycast(origin, dirNormalized, out RaycastHit hit, distance, obstacleMask))
         {
-            float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
-            if (angleToPlayer < viewAngle / 2)
-            {
-                if (!Physics.Raycast(transform.position, dirToPlayer, distanceToPlayer, obstacleMask))
-                {
-                    return true;
-                }
-            }
+            return false;
         }
-        return false;
+
+        return true;
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
+        Vector3 origin = transform.position + Vector3.up * eyeHeight;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, viewRadius);
+        Gizmos.DrawWireSphere(origin, viewRadius);
 
         Vector3 leftBoundary = DirFromAngle(-viewAngle / 2f, false);
         Vector3 rightBoundary = DirFromAngle(viewAngle / 2f, false);
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + leftBoundary * viewRadius);
-        Gizmos.DrawLine(transform.position, transform.position + rightBoundary * viewRadius);
+        Gizmos.DrawLine(origin, origin + leftBoundary * viewRadius);
+        Gizmos.DrawLine(origin, origin + rightBoundary * viewRadius);
 
         Gizmos.color = Color.cyan;
         int segments = 50;
         float angleStep = viewAngle / segments;
-        Vector3 previousPoint = transform.position + DirFromAngle(-viewAngle / 2f, false) * viewRadius;
+        Vector3 previousPoint = origin + DirFromAngle(-viewAngle / 2f, false) * viewRadius;
         for (int i = 1; i <= segments; i++)
         {
             float angle = -viewAngle / 2f + angleStep * i;
-            Vector3 nextPoint = transform.position + DirFromAngle(angle, false) * viewRadius;
+            Vector3 nextPoint = origin + DirFromAngle(angle, false) * viewRadius;
             Gizmos.DrawLine(previousPoint, nextPoint);
             previousPoint = nextPoint;
         }
@@ -112,7 +130,7 @@ public class FieldOfView : MonoBehaviour
     {
         if (!isGlobal) angleInDegrees += transform.eulerAngles.y;
         float rad = angleInDegrees * Mathf.Deg2Rad;
-        return new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
+        return new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad));
     }
 #endif
 }
