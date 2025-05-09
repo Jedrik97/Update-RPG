@@ -1256,7 +1256,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1286,10 +1286,9 @@ MonoBehaviour:
   arrowPrefab: {fileID: 14455939647841487, guid: 0c3d09e49a2bbbd41879ad78d056e387,
     type: 3}
   initialArrowCount: 10
-  chaseSpeed: 3.5
+  chaseSpeed: 2
   maxChaseDistance: 30
   attackRange: 15
-  deathDuration: 5
 --- !u!95 &4383461572751224824
 Animator:
   serializedVersion: 7
@@ -2060,6 +2059,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 15
   viewAngle: 180
+  eyeHeight: 1.6
+  playerEyeHeight: 1
   checkInterval: 0.2
   obstacleMask:
     serializedVersion: 2

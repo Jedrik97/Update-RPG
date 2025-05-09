@@ -1282,6 +1282,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewRadius: 20
   viewAngle: 180
+  eyeHeight: 1.6
+  playerEyeHeight: 1
+  checkInterval: 0.5
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1590,7 +1593,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2

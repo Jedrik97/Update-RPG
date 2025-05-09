@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,36 +6,25 @@ public class EnemyPathFollower : MonoBehaviour
 {
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float reachThreshold = 1f;
-
-    public delegate void PatrolCompleted();
-    public event PatrolCompleted OnPatrolCompleted;
-
-    private float waitTime = 2f;
-    private float waitTimer = 0f;
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
     private bool isChasing = false;
     private bool isWaiting = false;
+    private float waitTime = 2f;
+    private float waitTimer = 0f;
 
     private NavMeshAgent agent;
     private EnemyBase enemy;
 
-    private void OnEnable()
+        private void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<EnemyBase>();
-        agent.isStopped = false;
         isChasing = false;
         isWaiting = false;
         currentWaypointIndex = 0;
         movingForward = true;
-
         enemy.OnDeath += HandleDeath;
-        
-        if (waypoints != null && waypoints.Length > 0)
-        {
-            agent.SetDestination(waypoints[currentWaypointIndex].position);
-        }
     }
 
     private void OnDisable()
@@ -58,17 +48,29 @@ public class EnemyPathFollower : MonoBehaviour
 
     public void ResumePatrol()
     {
-        if (waypoints == null || waypoints.Length == 0) return;
+        if (waypoints == null || waypoints.Length == 0)
+            return;
+        if (!agent.isOnNavMesh)
+        {
+            StartCoroutine(WaitForNavMeshAndResume());
+            return;
+        }
         isChasing = false;
         isWaiting = false;
         agent.isStopped = false;
         agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
+    private IEnumerator WaitForNavMeshAndResume()
+    {
+        yield return new WaitUntil(() => agent.isOnNavMesh);
+        ResumePatrol();
+    }
+
     private void Patrol()
     {
-        if (waypoints == null || waypoints.Length == 0) return;
-
+        if (waypoints == null || waypoints.Length == 0)
+            return;
         if (!agent.pathPending && agent.remainingDistance <= reachThreshold)
         {
             if (!isWaiting)
@@ -97,7 +99,6 @@ public class EnemyPathFollower : MonoBehaviour
             else
             {
                 movingForward = false;
-                OnPatrolCompleted?.Invoke();
             }
         }
         else
@@ -107,7 +108,6 @@ public class EnemyPathFollower : MonoBehaviour
             else
                 movingForward = true;
         }
-
         agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
@@ -120,13 +120,11 @@ public class EnemyPathFollower : MonoBehaviour
         }
     }
 
-    public void ResetWaypoints()
-    {
-        waypoints = new Transform[0];
-    }
-
     private void HandleDeath(GameObject enemyObj)
     {
-        ResetWaypoints();
+        waypoints = new Transform[0];
+        isChasing = true;
+        agent.isStopped = true;
+        agent.enabled = false;
     }
 }

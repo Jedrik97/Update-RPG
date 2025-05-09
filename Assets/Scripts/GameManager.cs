@@ -1,98 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Zenject;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private List<EnemyBase> enemyPrefabs;
-    [SerializeField] private int _poolSize;
+    [SerializeField] private int poolSize;
     [SerializeField] private List<WayPoint> startPoints;
     [SerializeField] private Transform respawnPoint;
+    [SerializeField] private float experiencePerKill = 100f;
+    [SerializeField] private float respawnDelay = 15f;
+    [SerializeField] private float spawnDelay = 1f;
 
-    private ObjectPool<EnemyBase> _enemyPool;
-    private PlayerStats _playerStats;
-
-    public float experiencePerKill = 100f;
-    public float respawnDelay = 15f;
-    public float spawnDelay = 1f; 
+    private ObjectPool<EnemyBase> enemyPool;
+    private PlayerStats playerStats;
 
     [Inject]
     public void Construct(PlayerStats playerStats)
     {
-        this._playerStats = playerStats;
+        this.playerStats = playerStats;
     }
 
     private void Start()
     {
-        _enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, _poolSize, transform);
+        enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
         StartCoroutine(SpawnEnemiesSequentially());
     }
 
     public void EnemyKilled(GameObject enemy)
     {
-        if (_playerStats)
-        {
-            _playerStats.GainExperience(experiencePerKill);
-        }
-        
-        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-        if (enemyBase)
-        {
-            enemyBase.OnDeath -= EnemyKilled;
-        }
-
-        StartCoroutine(RespawnEnemy());
+        if (playerStats != null)
+            playerStats.GainExperience(experiencePerKill);
+        EnemyBase eb = enemy.GetComponent<EnemyBase>();
+        if (eb != null)
+            eb.OnDeath -= EnemyKilled;
+        StartCoroutine(DelayedSpawn());
     }
 
-    private IEnumerator RespawnEnemy()
+    private IEnumerator DelayedSpawn()
     {
         yield return new WaitForSeconds(respawnDelay);
-        EnemySpawn();
+        while (enemyPool.InactiveCount == 0)
+            yield return null;
+        SpawnEnemy();
     }
-    
-    public void EnemySpawn()
+
+    private void SpawnEnemy()
     {
-        EnemyBase enemy = _enemyPool.Get();
-        enemy.SetPool(_enemyPool);
-        
+        EnemyBase enemy = enemyPool.Get();
+        enemy.SetPool(enemyPool);
         enemy.transform.position = respawnPoint.position;
-        
-        WayPoint startPoint = startPoints[Random.Range(0, startPoints.Count)];
-        
-        List<WayPoint> shuffledWayPoints = new List<WayPoint>(startPoint.WayPoints);
-        ShuffleList(shuffledWayPoints);
-        
-        enemy.GetComponent<EnemyPathFollower>().SetWaypoints(shuffledWayPoints.ToArray());
-        
+        NavMeshAgent nav = enemy.GetComponent<NavMeshAgent>();
+        if (nav != null)
+            nav.Warp(respawnPoint.position);
+        WayPoint start = startPoints[Random.Range(0, startPoints.Count)];
+        List<WayPoint> wps = new List<WayPoint>(start.WayPoints);
+        ShuffleList(wps);
+        EnemyPathFollower follower = enemy.GetComponent<EnemyPathFollower>();
+        follower.SetWaypoints(wps.ToArray());
+        follower.ResumePatrol();
         enemy.OnDeath += EnemyKilled;
     }
-    
+
     private void ShuffleList(List<WayPoint> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
+            int j = Random.Range(i, list.Count);
             WayPoint temp = list[i];
-            int randomIndex = Random.Range(i, list.Count);
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            list[i] = list[j];
+            list[j] = temp;
+        }
+    }
+
+    private IEnumerator SpawnEnemiesSequentially()
+    {
+        foreach (var prefab in enemyPrefabs)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 
     public int GetPlayerLevel()
     {
-        if (_playerStats)
-        {
-            return _playerStats.level;  
-        }
-        return 1; 
-    }
-    private IEnumerator SpawnEnemiesSequentially()
-    {
-        foreach (var enemyPrefab in enemyPrefabs)
-        {
-            EnemySpawn();
-            yield return new WaitForSeconds(spawnDelay); 
-        }
+        if (playerStats != null)
+            return playerStats.level;
+        return 1;
     }
 }

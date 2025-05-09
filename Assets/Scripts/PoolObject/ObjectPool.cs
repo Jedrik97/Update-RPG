@@ -7,6 +7,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     private Queue<T> _poolQueue;
     private List<T> _prefabs;
     private Transform _parent;
+    public int InactiveCount => _poolQueue.Count;
 
     public ObjectPool(List<T> prefabs, int initialSizePerPrefab, Transform parent = null)
     {

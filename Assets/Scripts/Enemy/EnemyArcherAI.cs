@@ -17,10 +17,6 @@ public class EnemyArcherAI : EnemyBase
     [SerializeField] private float maxChaseDistance = 30f;
     [SerializeField] private float attackRange = 15f;
 
-    [Header("Death Settings")]
-    [Tooltip("Time in seconds the archer remains dead before deactivating")]
-    [SerializeField] private float deathDuration = 5f;
-
     private ObjectPool<Arrow> arrowPool;
     private NavMeshAgent agent;
     private Transform player;
@@ -89,7 +85,7 @@ public class EnemyArcherAI : EnemyBase
 
         UpdateWalkingAnimation();
 
-        if (player == null && fieldOfView != null)
+        if (player == null && fieldOfView)
             player = fieldOfView.Player;
         if (player == null)
             return;
@@ -211,17 +207,17 @@ public class EnemyArcherAI : EnemyBase
 
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", false);
-        animator.SetTrigger("Die");
-
+        
+        Collider[] cols = GetComponents<Collider>();
+        
+        foreach (var col in cols)
+        {
+            col.enabled = false;
+        }
+        agent.enabled = false;
         pathFollower?.StopPatrol();
 
-        StartCoroutine(DeathRoutine());
-    }
-
-    private IEnumerator DeathRoutine()
-    {
-        yield return new WaitForSeconds(deathDuration);
-        gameObject.SetActive(false);
+        
     }
 }
 
