@@ -13,7 +13,7 @@ public class EnemyArcherAI : EnemyBase
     [SerializeField] private int initialArrowCount = 10;
 
     [Header("Movement & Detection")]
-    [SerializeField] private float chaseSpeed = 3.5f;
+    [SerializeField] private float chaseSpeed = 2.5f;
     [SerializeField] private float maxChaseDistance = 30f;
     [SerializeField] private float attackRange = 15f;
 

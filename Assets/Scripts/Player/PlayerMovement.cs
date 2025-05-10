@@ -6,31 +6,47 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<float, float, bool> OnMove;
     public static event Action<bool> OnJump;
 
-    public float walkSpeed = 2f;
-    public float runSpeed = 4f;
-    public float rotationSpeed = 100f;
-    public float jumpForce = 2f;
-    public float gravity = 9.81f;
-    public float rotationSmoothTime = 0.1f;
+    [Header("Movement Settings")]
+    public float walkSpeed         = 2f;
+    public float runSpeed          = 4f;
+    public float gravity           = 9.81f;
+    public float jumpForce         = 2f;
+    
+    [Tooltip("Сглаживание поворота при ходьбе")]
+    public float rotationSmoothTime = 0.2f;
+    
+    [Tooltip("Затухание Speed")]
+    public float speedDampTime     = 0.15f;
+    [Tooltip("Затухание Direction")]
+    public float directionDampTime = 0.15f;
 
-    private CharacterController characterController;
-    private Vector3 moveDirection;
-    private bool isJumping = false;
+    [Header("References (assign in Inspector)")]
+    public CharacterController characterController;
+    public Animator            animator;
+
     private Transform cameraTransform;
-    private bool isRunning = false;
-    private float rotationVelocity;
-    private bool canMove = true;
+    private Vector3    moveDirection;
+    private float      rotationVelocity;
+    private bool       isJumping;
+    private bool       isRunning;
+    private bool       canMove = true;
 
     private void OnEnable()
     {
-        PlayerInput.OnMoveInput += HandleMoveInput;
-        PlayerInput.OnJumpInput += HandleJumpInput;
+        PlayerInput.OnMoveInput           += HandleMoveInput;
+        PlayerInput.OnJumpInput           += HandleJumpInput;
         PlayerCombat.OnAttackStateChanged += HandleAttackStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInput.OnMoveInput           -= HandleMoveInput;
+        PlayerInput.OnJumpInput           -= HandleJumpInput;
+        PlayerCombat.OnAttackStateChanged -= HandleAttackStateChanged;
     }
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
     }
 
@@ -39,52 +55,66 @@ public class PlayerMovement : MonoBehaviour
         if (!canMove) return;
 
         isRunning = Input.GetKey(KeyCode.LeftShift);
-        float currentSpeed = isRunning ? runSpeed : walkSpeed;
+        float speed = isRunning ? runSpeed : walkSpeed;
 
         if (input.magnitude < 0.1f)
         {
-            moveDirection.x = 0;
-            moveDirection.z = 0;
-            OnMove?.Invoke(input.x, input.y, isRunning);
+            moveDirection.x = moveDirection.z = 0f;
+
+            animator.SetFloat("Speed",     0f, speedDampTime,     Time.deltaTime);
+            animator.SetFloat("Direction", 0f, directionDampTime, Time.deltaTime);
+            animator.SetBool ("IsRunning", false);
+
+            OnMove?.Invoke(0f, 0f, isRunning);
             return;
         }
-
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
-        forward.y = 0;
-        right.y = 0;
-        forward.Normalize();
-        right.Normalize();
+        
+        Vector3 forward = cameraTransform.forward; forward.y = 0f; forward.Normalize();
+        Vector3 right   = cameraTransform.right;   right.y   = 0f; right.Normalize();
 
         Vector3 movementDirection = (forward * input.y + right * input.x).normalized;
-        moveDirection = new Vector3(movementDirection.x * currentSpeed, moveDirection.y, movementDirection.z * currentSpeed);
-
-        if (movementDirection.magnitude > 0)
+        moveDirection = new Vector3(
+            movementDirection.x * speed,
+            moveDirection.y,
+            movementDirection.z * speed
+        );
+        
+        bool isBackpedal = Vector3.Dot(transform.forward, movementDirection) < 0f;
+        if (movementDirection.magnitude > 0f && !isBackpedal && !isJumping)
         {
             float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
-            float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationVelocity, rotationSmoothTime);
-            transform.rotation = Quaternion.Euler(0, smoothedAngle, 0);
+            float smoothed    = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
+                targetAngle,
+                ref rotationVelocity,
+                rotationSmoothTime
+            );
+            transform.rotation = Quaternion.Euler(0f, smoothed, 0f);
         }
+
+        animator.SetFloat("Speed",     movementDirection.magnitude, speedDampTime,     Time.deltaTime);
+        animator.SetFloat("Direction", input.y,                       directionDampTime, Time.deltaTime);
+        animator.SetBool ("IsRunning", isRunning);
 
         OnMove?.Invoke(input.x, input.y, isRunning);
     }
 
     private void HandleJumpInput()
     {
-        if (characterController.isGrounded && !isJumping && canMove) 
+        if (characterController.isGrounded && !isJumping && canMove)
         {
             isJumping = true;
             moveDirection.y = jumpForce;
+            
+            animator.SetTrigger("Jump");
             OnJump?.Invoke(true);
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (!characterController.isGrounded)
-        {
             moveDirection.y -= gravity * Time.deltaTime;
-        }
         else if (isJumping)
         {
             isJumping = false;
@@ -97,12 +127,6 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAttackStateChanged(bool isAttacking)
     {
         canMove = !isAttacking;
-    }
-
-    private void OnDisable()
-    {
-        PlayerInput.OnMoveInput -= HandleMoveInput;
-        PlayerInput.OnJumpInput -= HandleJumpInput;
-        PlayerCombat.OnAttackStateChanged -= HandleAttackStateChanged;
+        animator.SetBool("IsAttacking", isAttacking);
     }
 }

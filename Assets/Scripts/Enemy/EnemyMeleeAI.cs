@@ -10,7 +10,7 @@ public class EnemyMeleeAI : EnemyBase
     [SerializeField] private EnemyPathFollower pathFollower;
 
     [Header("Movement & Detection")]
-    [SerializeField] private float chaseSpeed = 3.5f;
+    [SerializeField] private float chaseSpeed = 2.5f;
     [SerializeField] private float maxChaseDistance = 25f;
     [SerializeField] private float attackRange = 3f;
 

@@ -11981,10 +11981,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 0.5
   runSpeed: 1
-  rotationSpeed: 100
-  jumpForce: 3
   gravity: 9.81
+  jumpForce: 3
   rotationSmoothTime: 0.1
+  speedDampTime: 0.15
+  directionDampTime: 0.15
+  characterController: {fileID: 1671823296041693767}
+  animator: {fileID: 8174164030211133871}
 --- !u!114 &911510310845381612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13490,8 +13493,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8578717061152252794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00480265, y: 0.9696726, z: -0.24361154, w: 0.019116491}
-  m_LocalPosition: {x: -0.14995956, y: 3.5405498, z: 3.8018265}
+  m_LocalRotation: {x: 0.19868311, y: -0.5690562, z: 0.14406037, w: 0.7848227}
+  m_LocalPosition: {x: 3.6064606, y: 3.5527272, z: -1.1794739}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13574,7 +13577,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 177.74118
+    Value: -71.889946
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -13584,7 +13587,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 27.873554
+    Value: 27.97224
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0

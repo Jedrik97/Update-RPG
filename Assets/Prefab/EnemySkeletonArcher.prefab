@@ -1194,6 +1194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waypoints: []
   reachThreshold: 0.5
+  patrolSpeed: 1
 --- !u!195 &4923603828255121794
 NavMeshAgent:
   m_ObjectHideFlags: 0

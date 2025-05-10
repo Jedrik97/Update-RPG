@@ -6,6 +6,8 @@ public class EnemyPathFollower : MonoBehaviour
 {
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private float reachThreshold = 1f;
+    [SerializeField] private float patrolSpeed = 2f;
+
     private int currentWaypointIndex = 0;
     private bool movingForward = true;
     private bool isChasing = false;
@@ -16,7 +18,7 @@ public class EnemyPathFollower : MonoBehaviour
     private NavMeshAgent agent;
     private EnemyBase enemy;
 
-        private void OnEnable()
+    private void OnEnable()
     {
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<EnemyBase>();
@@ -29,7 +31,8 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void OnDisable()
     {
-        agent.isStopped = true;
+        if(agent != null)
+            agent.isStopped = true;
         isChasing = false;
         enemy.OnDeath -= HandleDeath;
     }
@@ -43,13 +46,18 @@ public class EnemyPathFollower : MonoBehaviour
     public void StopPatrol()
     {
         isChasing = true;
-        agent.isStopped = true;
+        if(agent != null)
+            agent.isStopped = true;
     }
 
     public void ResumePatrol()
     {
         if (waypoints == null || waypoints.Length == 0)
             return;
+        if (agent == null)
+            return;
+
+        agent.speed = patrolSpeed;
         if (!agent.isOnNavMesh)
         {
             StartCoroutine(WaitForNavMeshAndResume());
@@ -92,14 +100,15 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void MoveToNextPoint()
     {
+        if (waypoints == null || waypoints.Length == 0)
+            return;
+
         if (movingForward)
         {
             if (currentWaypointIndex < waypoints.Length - 1)
                 currentWaypointIndex++;
             else
-            {
                 movingForward = false;
-            }
         }
         else
         {
@@ -108,23 +117,25 @@ public class EnemyPathFollower : MonoBehaviour
             else
                 movingForward = true;
         }
-        agent.SetDestination(waypoints[currentWaypointIndex].position);
+        if(agent != null)
+            agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
     public void SetWaypoints(WayPoint[] newWaypoints)
     {
         waypoints = new Transform[newWaypoints.Length];
         for (int i = 0; i < newWaypoints.Length; i++)
-        {
             waypoints[i] = newWaypoints[i].transform;
-        }
     }
 
     private void HandleDeath(GameObject enemyObj)
     {
         waypoints = new Transform[0];
         isChasing = true;
-        agent.isStopped = true;
-        agent.enabled = false;
+        if(agent != null)
+        {
+            agent.isStopped = true;
+            agent.enabled = false;
+        }
     }
 }

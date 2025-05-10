@@ -1,4 +1,3 @@
-// PlayerInput.cs
 using System;
 using UnityEngine;
 
