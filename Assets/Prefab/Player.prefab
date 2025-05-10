@@ -11981,13 +11981,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 0.5
   runSpeed: 1
-  gravity: 9.81
+  rotationSpeed: 100
   jumpForce: 3
+  gravity: 9.81
   rotationSmoothTime: 0.1
-  speedDampTime: 0.15
-  directionDampTime: 0.15
-  characterController: {fileID: 1671823296041693767}
-  animator: {fileID: 8174164030211133871}
 --- !u!114 &911510310845381612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13478,6 +13475,7 @@ GameObject:
   - component: {fileID: 7671890069650135548}
   - component: {fileID: 5313548311633452829}
   - component: {fileID: 5882094519909011004}
+  - component: {fileID: 7424863798410272687}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -13493,8 +13491,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8578717061152252794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19868311, y: -0.5690562, z: 0.14406037, w: 0.7848227}
-  m_LocalPosition: {x: 3.6064606, y: 3.5527272, z: -1.1794739}
+  m_LocalRotation: {x: 0.12422978, y: -0.29139233, z: 0.038195983, w: 0.9477334}
+  m_LocalPosition: {x: 2.479042, y: 2.6770296, z: -3.6503506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13577,7 +13575,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: -71.889946
+    Value: -34.181374
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -13587,7 +13585,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 27.97224
+    Value: 21.01899
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -13637,7 +13635,7 @@ MonoBehaviour:
   IgnoreTag: Enemy
   TransparentLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   MinimumDistanceFromTarget: 0.3
   AvoidObstacles:
     Enabled: 1
@@ -13650,7 +13648,7 @@ MonoBehaviour:
     Strategy: 0
     MaximumEffort: 4
     SmoothingTime: 0
-    Damping: 0.4
+    Damping: 0
     DampingWhenOccluded: 0.2
   ShotQualityEvaluation:
     Enabled: 0
@@ -13743,6 +13741,36 @@ MonoBehaviour:
         Damping:
           Top: {x: 1, y: 1, z: 1}
           Bottom: {x: 1, y: 1, z: 1}
+--- !u!114 &7424863798410272687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578717061152252794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7de3aefa901374ba29464584a3109a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraRadius: 0.4
+  Decollision:
+    Enabled: 1
+    ObstacleLayers:
+      serializedVersion: 2
+      m_Bits: 512
+    UseFollowTarget:
+      Enabled: 0
+      YOffset: 0
+    Damping: 0.5
+    SmoothingTime: 0
+  TerrainResolution:
+    Enabled: 1
+    TerrainLayers:
+      serializedVersion: 2
+      m_Bits: 256
+    MaximumRaycast: 10
+    Damping: 0.5
 --- !u!1 &8701694979984256690
 GameObject:
   m_ObjectHideFlags: 0

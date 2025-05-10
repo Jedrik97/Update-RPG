@@ -6,115 +6,106 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<float, float, bool> OnMove;
     public static event Action<bool> OnJump;
 
-    [Header("Movement Settings")]
-    public float walkSpeed         = 2f;
-    public float runSpeed          = 4f;
-    public float gravity           = 9.81f;
-    public float jumpForce         = 2f;
-    
-    [Tooltip("Сглаживание поворота при ходьбе")]
-    public float rotationSmoothTime = 0.2f;
-    
-    [Tooltip("Затухание Speed")]
-    public float speedDampTime     = 0.15f;
-    [Tooltip("Затухание Direction")]
-    public float directionDampTime = 0.15f;
+    [Header("Настройки")]
+    public float walkSpeed = 2f;
+    public float runSpeed = 4f;
+    public float jumpForce = 2f;
+    public float gravity = 9.81f;
+    public float rotationSmoothTime = 0.1f;
 
-    [Header("References (assign in Inspector)")]
-    public CharacterController characterController;
-    public Animator            animator;
-
+    private CharacterController characterController;
     private Transform cameraTransform;
-    private Vector3    moveDirection;
-    private float      rotationVelocity;
-    private bool       isJumping;
-    private bool       isRunning;
-    private bool       canMove = true;
+
+    private Vector3 moveDirection = Vector3.zero;
+    private bool isJumping = false;
+    private bool isRunning = false;
+    private bool canMove = true;
+    private float rotationVelocity = 0f;
 
     private void OnEnable()
     {
-        PlayerInput.OnMoveInput           += HandleMoveInput;
-        PlayerInput.OnJumpInput           += HandleJumpInput;
+        PlayerInput.OnMoveInput += HandleMoveInput;
+        PlayerInput.OnJumpInput += HandleJumpInput;
         PlayerCombat.OnAttackStateChanged += HandleAttackStateChanged;
     }
 
     private void OnDisable()
     {
-        PlayerInput.OnMoveInput           -= HandleMoveInput;
-        PlayerInput.OnJumpInput           -= HandleJumpInput;
+        PlayerInput.OnMoveInput         -= HandleMoveInput;
+        PlayerInput.OnJumpInput         -= HandleJumpInput;
         PlayerCombat.OnAttackStateChanged -= HandleAttackStateChanged;
     }
 
     private void Start()
     {
+        characterController = GetComponent<CharacterController>();
         cameraTransform = Camera.main.transform;
     }
 
     private void HandleMoveInput(Vector2 input)
     {
-        if (!canMove) return;
+        if (!canMove)
+        {
+            OnMove?.Invoke(0f, 0f, false);
+            return;
+        }
 
+        // Читаем Shift для бега
         isRunning = Input.GetKey(KeyCode.LeftShift);
         float speed = isRunning ? runSpeed : walkSpeed;
 
+        // Если нет значимого ввода — стоим
         if (input.magnitude < 0.1f)
         {
-            moveDirection.x = moveDirection.z = 0f;
-
-            animator.SetFloat("Speed",     0f, speedDampTime,     Time.deltaTime);
-            animator.SetFloat("Direction", 0f, directionDampTime, Time.deltaTime);
-            animator.SetBool ("IsRunning", false);
-
+            moveDirection.x = 0f;
+            moveDirection.z = 0f;
             OnMove?.Invoke(0f, 0f, isRunning);
             return;
         }
-        
-        Vector3 forward = cameraTransform.forward; forward.y = 0f; forward.Normalize();
-        Vector3 right   = cameraTransform.right;   right.y   = 0f; right.Normalize();
 
-        Vector3 movementDirection = (forward * input.y + right * input.x).normalized;
-        moveDirection = new Vector3(
-            movementDirection.x * speed,
-            moveDirection.y,
-            movementDirection.z * speed
-        );
-        
-        bool isBackpedal = Vector3.Dot(transform.forward, movementDirection) < 0f;
-        if (movementDirection.magnitude > 0f && !isBackpedal && !isJumping)
+        // Вычисляем направление в мировых координатах относительно камеры
+        Vector3 f = cameraTransform.forward; f.y = 0f; f.Normalize();
+        Vector3 r = cameraTransform.right;   r.y = 0f; r.Normalize();
+        Vector3 desiredDir = (f * input.y + r * input.x).normalized;
+
+        moveDirection.x = desiredDir.x * speed;
+        moveDirection.z = desiredDir.z * speed;
+
+        // Поворачиваем модель ТОЛЬКО если идём вперёд или вбок (input.y >= 0)
+        if (input.y >= 0f && desiredDir.sqrMagnitude > 0f)
         {
-            float targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
-            float smoothed    = Mathf.SmoothDampAngle(
+            float targetAngle = Mathf.Atan2(desiredDir.x, desiredDir.z) * Mathf.Rad2Deg;
+            float smoothAngle = Mathf.SmoothDampAngle(
                 transform.eulerAngles.y,
                 targetAngle,
                 ref rotationVelocity,
                 rotationSmoothTime
             );
-            transform.rotation = Quaternion.Euler(0f, smoothed, 0f);
+            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
+        // при input.y < 0 (назад или назад+вбок) поворот не выполняется
 
-        animator.SetFloat("Speed",     movementDirection.magnitude, speedDampTime,     Time.deltaTime);
-        animator.SetFloat("Direction", input.y,                       directionDampTime, Time.deltaTime);
-        animator.SetBool ("IsRunning", isRunning);
-
+        // Оповещаем аниматор и другие системы
         OnMove?.Invoke(input.x, input.y, isRunning);
     }
 
     private void HandleJumpInput()
     {
-        if (characterController.isGrounded && !isJumping && canMove)
+        if (canMove && characterController.isGrounded && !isJumping)
         {
             isJumping = true;
             moveDirection.y = jumpForce;
-            
-            animator.SetTrigger("Jump");
             OnJump?.Invoke(true);
         }
     }
 
     private void Update()
     {
+        // Гравитация
         if (!characterController.isGrounded)
+        {
             moveDirection.y -= gravity * Time.deltaTime;
+        }
         else if (isJumping)
         {
             isJumping = false;
@@ -127,6 +118,5 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAttackStateChanged(bool isAttacking)
     {
         canMove = !isAttacking;
-        animator.SetBool("IsAttacking", isAttacking);
     }
 }

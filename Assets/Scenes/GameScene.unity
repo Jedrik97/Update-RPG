@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 7566820}
   - component: {fileID: 7566822}
   - component: {fileID: 7566821}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: BenchSeat (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 10643491}
   - component: {fileID: 10643493}
   - component: {fileID: 10643492}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 32062337}
   - component: {fileID: 32062339}
   - component: {fileID: 32062338}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 38515648}
   - component: {fileID: 38515650}
   - component: {fileID: 38515649}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 48540893}
   - component: {fileID: 48540895}
   - component: {fileID: 48540894}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 72871524}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Graves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -942,17 +942,17 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2786152407621660450, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3891957763334660011, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4484886854507725936, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
@@ -986,7 +986,7 @@ GameObject:
   - component: {fileID: 107656638}
   - component: {fileID: 107656640}
   - component: {fileID: 107656639}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,22 +1122,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -1147,7 +1147,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1171,7 +1171,7 @@ GameObject:
   - component: {fileID: 123634202}
   - component: {fileID: 123634204}
   - component: {fileID: 123634203}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 136183662}
   - component: {fileID: 136183664}
   - component: {fileID: 136183663}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1503,7 +1503,7 @@ PrefabInstance:
     - target: {fileID: 6916478003129015796, guid: 7f9b942d11032b64980b927b03e51f67,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6916478003129015796, guid: 7f9b942d11032b64980b927b03e51f67,
         type: 3}
@@ -1642,7 +1642,7 @@ GameObject:
   - component: {fileID: 180253365}
   - component: {fileID: 180253367}
   - component: {fileID: 180253366}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1887,7 +1887,7 @@ PrefabInstance:
     - target: {fileID: 7130306698040513011, guid: a2d0e5373a1b63a4698a18db0e1839ae,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7130306698040513011, guid: a2d0e5373a1b63a4698a18db0e1839ae,
         type: 3}
@@ -1966,7 +1966,7 @@ GameObject:
   - component: {fileID: 229489812}
   - component: {fileID: 229489814}
   - component: {fileID: 229489813}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2052,7 +2052,7 @@ GameObject:
   - component: {fileID: 232763008}
   - component: {fileID: 232763010}
   - component: {fileID: 232763009}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2143,7 +2143,7 @@ PrefabInstance:
     - target: {fileID: 8238900535562158827, guid: a4300ec32e38bfa45b153f339877e151,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8238900535562158827, guid: a4300ec32e38bfa45b153f339877e151,
         type: 3}
@@ -2328,22 +2328,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -2353,7 +2353,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2862,22 +2862,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -2887,7 +2887,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3139,7 +3139,7 @@ GameObject:
   - component: {fileID: 292986291}
   - component: {fileID: 292986293}
   - component: {fileID: 292986292}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3230,7 +3230,7 @@ PrefabInstance:
     - target: {fileID: 3758258495374528445, guid: 74da8838202e91e4cb48cbb796610a97,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3758258495374528445, guid: 74da8838202e91e4cb48cbb796610a97,
         type: 3}
@@ -3240,7 +3240,7 @@ PrefabInstance:
     - target: {fileID: 3777749630683896059, guid: 74da8838202e91e4cb48cbb796610a97,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4567728217394566407, guid: 74da8838202e91e4cb48cbb796610a97,
         type: 3}
@@ -3295,7 +3295,7 @@ PrefabInstance:
     - target: {fileID: 6957473430780204053, guid: 74da8838202e91e4cb48cbb796610a97,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3369,7 +3369,7 @@ PrefabInstance:
     - target: {fileID: -2732435156467191681, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
@@ -3379,7 +3379,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
@@ -3389,7 +3389,7 @@ PrefabInstance:
     - target: {fileID: 3050834404831772787, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3414,7 +3414,7 @@ GameObject:
   - component: {fileID: 321706385}
   - component: {fileID: 321706387}
   - component: {fileID: 321706386}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3500,7 +3500,7 @@ GameObject:
   - component: {fileID: 322410843}
   - component: {fileID: 322410845}
   - component: {fileID: 322410844}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3729,7 +3729,7 @@ GameObject:
   - component: {fileID: 331713381}
   - component: {fileID: 331713383}
   - component: {fileID: 331713382}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3854,7 +3854,7 @@ GameObject:
   - component: {fileID: 334595274}
   - component: {fileID: 334595276}
   - component: {fileID: 334595275}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3940,7 +3940,7 @@ GameObject:
   - component: {fileID: 344492659}
   - component: {fileID: 344492661}
   - component: {fileID: 344492660}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4076,22 +4076,22 @@ PrefabInstance:
     - target: {fileID: -6580828247892832497, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4966312986812776632, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4721022842482259351, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2165799887626159519, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
@@ -4101,12 +4101,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7372919451289946631, guid: 66d684df6ab669c4c9cf21b2c65db120,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4671,7 +4671,7 @@ GameObject:
   - component: {fileID: 383018349}
   - component: {fileID: 383018351}
   - component: {fileID: 383018350}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4812,7 +4812,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1787c461cd5954f4c88928480d1fc128,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4836,7 +4836,7 @@ GameObject:
   - component: {fileID: 397438635}
   - component: {fileID: 397438637}
   - component: {fileID: 397438636}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4975,7 +4975,7 @@ GameObject:
   - component: {fileID: 420485977}
   - component: {fileID: 420485979}
   - component: {fileID: 420485978}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,7 +5061,7 @@ GameObject:
   - component: {fileID: 422134138}
   - component: {fileID: 422134140}
   - component: {fileID: 422134139}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5202,7 +5202,7 @@ PrefabInstance:
     - target: {fileID: 8700824426363313339, guid: 50b05f5887ffab04cada141d5819faca,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8700824426363313339, guid: 50b05f5887ffab04cada141d5819faca,
         type: 3}
@@ -5286,7 +5286,7 @@ GameObject:
   - component: {fileID: 456360312}
   - component: {fileID: 456360314}
   - component: {fileID: 456360313}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5606,17 +5606,17 @@ PrefabInstance:
     - target: {fileID: -6684574447633755568, guid: b5feab0a6edb21c408a77d0c521a08c8,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4279060502949550520, guid: b5feab0a6edb21c408a77d0c521a08c8,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -3548958784885401978, guid: b5feab0a6edb21c408a77d0c521a08c8,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b5feab0a6edb21c408a77d0c521a08c8,
         type: 3}
@@ -5626,12 +5626,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b5feab0a6edb21c408a77d0c521a08c8,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3084542590017134100, guid: b5feab0a6edb21c408a77d0c521a08c8,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5655,7 +5655,7 @@ GameObject:
   - component: {fileID: 479798141}
   - component: {fileID: 479798143}
   - component: {fileID: 479798142}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5741,7 +5741,7 @@ GameObject:
   - component: {fileID: 496946643}
   - component: {fileID: 496946645}
   - component: {fileID: 496946644}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5827,7 +5827,7 @@ GameObject:
   - component: {fileID: 511571562}
   - component: {fileID: 511571564}
   - component: {fileID: 511571563}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6049,7 +6049,7 @@ GameObject:
   - component: {fileID: 523040654}
   - component: {fileID: 523040656}
   - component: {fileID: 523040655}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6135,7 +6135,7 @@ GameObject:
   - component: {fileID: 524440770}
   - component: {fileID: 524440772}
   - component: {fileID: 524440771}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6236,7 +6236,7 @@ PrefabInstance:
     - target: {fileID: 1141807910198149572, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1255053967005034563, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
@@ -6246,7 +6246,7 @@ PrefabInstance:
     - target: {fileID: 1255053967005034563, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1255053967005034564, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
@@ -6321,22 +6321,22 @@ PrefabInstance:
     - target: {fileID: 3235701488893169939, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3807481148728578608, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4502111466653747097, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7296065346891611915, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6354,7 +6354,7 @@ GameObject:
   - component: {fileID: 532332826}
   - component: {fileID: 532332828}
   - component: {fileID: 532332827}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6488,7 +6488,7 @@ GameObject:
   - component: {fileID: 559730794}
   - component: {fileID: 559730796}
   - component: {fileID: 559730795}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6574,7 +6574,7 @@ GameObject:
   - component: {fileID: 569588503}
   - component: {fileID: 569588505}
   - component: {fileID: 569588504}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6768,7 +6768,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 735c2bfda0a86ea4192d83d69068c28a,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 735c2bfda0a86ea4192d83d69068c28a,
         type: 3}
@@ -6778,7 +6778,7 @@ PrefabInstance:
     - target: {fileID: 1320006325137127501, guid: 735c2bfda0a86ea4192d83d69068c28a,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -6803,7 +6803,7 @@ GameObject:
   - component: {fileID: 588886693}
   - component: {fileID: 588886695}
   - component: {fileID: 588886694}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6901,7 +6901,7 @@ GameObject:
   - component: {fileID: 611398661}
   - component: {fileID: 611398663}
   - component: {fileID: 611398662}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7098,12 +7098,12 @@ PrefabInstance:
     - target: {fileID: -2734227338256917175, guid: 5dac879780bf8f6449dc33303f501b17,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -886053097014555332, guid: 5dac879780bf8f6449dc33303f501b17,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5dac879780bf8f6449dc33303f501b17,
         type: 3}
@@ -7113,7 +7113,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5dac879780bf8f6449dc33303f501b17,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5dac879780bf8f6449dc33303f501b17,
         type: 3}
@@ -7123,7 +7123,7 @@ PrefabInstance:
     - target: {fileID: 4667045346110529969, guid: 5dac879780bf8f6449dc33303f501b17,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7324,22 +7324,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -7349,7 +7349,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7471,12 +7471,12 @@ PrefabInstance:
     - target: {fileID: -5574312487056148746, guid: 5f12756ad52bfb04596d5981f3f8bb67,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -3916876344557763069, guid: 5f12756ad52bfb04596d5981f3f8bb67,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -3497793414691624495, guid: 5f12756ad52bfb04596d5981f3f8bb67,
         type: 3}
@@ -7491,12 +7491,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5f12756ad52bfb04596d5981f3f8bb67,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3502520122443407955, guid: 5f12756ad52bfb04596d5981f3f8bb67,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7576,6 +7576,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_fwOF_Stone_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995143996422936259, guid: 4effbb598921d434f8a5485874752215,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995143996422936259, guid: 4effbb598921d434f8a5485874752215,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534817577271897872, guid: 4effbb598921d434f8a5485874752215,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8657211003174660626, guid: 4effbb598921d434f8a5485874752215,
         type: 3}
@@ -7689,7 +7704,7 @@ GameObject:
   - component: {fileID: 663151227}
   - component: {fileID: 663151229}
   - component: {fileID: 663151228}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7787,7 +7802,7 @@ GameObject:
   - component: {fileID: 671433652}
   - component: {fileID: 671433654}
   - component: {fileID: 671433653}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7873,7 +7888,7 @@ GameObject:
   - component: {fileID: 672497584}
   - component: {fileID: 672497586}
   - component: {fileID: 672497585}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7959,7 +7974,7 @@ GameObject:
   - component: {fileID: 674547057}
   - component: {fileID: 674547059}
   - component: {fileID: 674547058}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8211,7 +8226,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7380418016598425288, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
@@ -8252,7 +8267,7 @@ GameObject:
   - component: {fileID: 702283661}
   - component: {fileID: 702283663}
   - component: {fileID: 702283662}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8338,7 +8353,7 @@ GameObject:
   - component: {fileID: 705455725}
   - component: {fileID: 705455727}
   - component: {fileID: 705455726}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8474,22 +8489,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -8499,7 +8514,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8764,7 +8779,7 @@ GameObject:
   - component: {fileID: 763695680}
   - component: {fileID: 763695682}
   - component: {fileID: 763695681}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8850,7 +8865,7 @@ GameObject:
   - component: {fileID: 764721255}
   - component: {fileID: 764721257}
   - component: {fileID: 764721256}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9034,22 +9049,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -9059,7 +9074,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9321,22 +9336,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -9346,7 +9361,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9370,7 +9385,7 @@ GameObject:
   - component: {fileID: 833951104}
   - component: {fileID: 833951106}
   - component: {fileID: 833951105}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9642,7 +9657,7 @@ PrefabInstance:
     - target: {fileID: -3400840588007079121, guid: 64f219c038228ff4da30bed9d27cff88,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 64f219c038228ff4da30bed9d27cff88,
         type: 3}
@@ -9652,7 +9667,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 64f219c038228ff4da30bed9d27cff88,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 64f219c038228ff4da30bed9d27cff88,
         type: 3}
@@ -9662,12 +9677,12 @@ PrefabInstance:
     - target: {fileID: 4578170563332075404, guid: 64f219c038228ff4da30bed9d27cff88,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7124796524792952368, guid: 64f219c038228ff4da30bed9d27cff88,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9799,7 +9814,7 @@ GameObject:
   - component: {fileID: 874679675}
   - component: {fileID: 874679677}
   - component: {fileID: 874679676}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9885,7 +9900,7 @@ GameObject:
   - component: {fileID: 876852434}
   - component: {fileID: 876852436}
   - component: {fileID: 876852435}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10019,7 +10034,7 @@ GameObject:
   - component: {fileID: 881781660}
   - component: {fileID: 881781662}
   - component: {fileID: 881781661}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10110,7 +10125,7 @@ PrefabInstance:
     - target: {fileID: 6274931372259543853, guid: 95eec7eaaa07f9d4eb9c3defb4ccbe5c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6655995321351164311, guid: 95eec7eaaa07f9d4eb9c3defb4ccbe5c,
         type: 3}
@@ -15270,7 +15285,7 @@ GameObject:
   - component: {fileID: 926741192}
   - component: {fileID: 926741194}
   - component: {fileID: 926741193}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15406,17 +15421,17 @@ PrefabInstance:
     - target: {fileID: -7870915111518396395, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -5620584926437922427, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1234583184605002017, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
@@ -15426,17 +15441,17 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2029857476372711698, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7689899998787515705, guid: 35785de529e345b40bedd1a6b4806220,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15510,22 +15525,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -15535,7 +15550,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15609,22 +15624,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -15634,7 +15649,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15763,22 +15778,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -15788,7 +15803,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15887,8 +15902,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.049619615, y: 0, z: 0, w: 0.9987682}
-  m_LocalPosition: {x: 22.41, y: 5.067165, z: 28.049942}
+  m_LocalRotation: {x: 0.12422978, y: -0.29139233, z: 0.038195983, w: 0.9477334}
+  m_LocalPosition: {x: 24.889042, y: 5.7770295, z: 29.089651}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15937,7 +15952,7 @@ GameObject:
   - component: {fileID: 969618276}
   - component: {fileID: 969618278}
   - component: {fileID: 969618277}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16023,7 +16038,7 @@ GameObject:
   - component: {fileID: 976906956}
   - component: {fileID: 976906958}
   - component: {fileID: 976906957}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Wooden_post (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16254,7 +16269,7 @@ GameObject:
   - component: {fileID: 994440438}
   - component: {fileID: 994440440}
   - component: {fileID: 994440439}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16809,7 +16824,12 @@ PrefabInstance:
     - target: {fileID: 3129320776499935013, guid: 2a98471b12665cd47a24efe0308e3373,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3129320776499935013, guid: 2a98471b12665cd47a24efe0308e3373,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16896,7 +16916,7 @@ PrefabInstance:
     - target: {fileID: 8459777382255285093, guid: aed3188779df2d04db96347951eb6d9b,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8459777382255285093, guid: aed3188779df2d04db96347951eb6d9b,
         type: 3}
@@ -17031,7 +17051,7 @@ PrefabInstance:
     - target: {fileID: 6362847707080742842, guid: 6a5caa44c0844d9439552f508eab067c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6362847707080742842, guid: 6a5caa44c0844d9439552f508eab067c,
         type: 3}
@@ -17228,7 +17248,7 @@ GameObject:
   - component: {fileID: 1069967706}
   - component: {fileID: 1069967708}
   - component: {fileID: 1069967707}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17364,22 +17384,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -17389,7 +17409,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17413,7 +17433,7 @@ GameObject:
   - component: {fileID: 1070843594}
   - component: {fileID: 1070843596}
   - component: {fileID: 1070843595}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17597,12 +17617,12 @@ PrefabInstance:
     - target: {fileID: -4591482627061153955, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -96616038615312342, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
@@ -17612,7 +17632,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
@@ -17622,12 +17642,12 @@ PrefabInstance:
     - target: {fileID: 6802899775072111727, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7390962236318498316, guid: dbdb03b9dd044494ab4e367ff24a1fc5,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17651,7 +17671,7 @@ GameObject:
   - component: {fileID: 1096216631}
   - component: {fileID: 1096216633}
   - component: {fileID: 1096216632}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17737,7 +17757,7 @@ GameObject:
   - component: {fileID: 1097517194}
   - component: {fileID: 1097517196}
   - component: {fileID: 1097517195}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17823,7 +17843,7 @@ GameObject:
   - component: {fileID: 1100694724}
   - component: {fileID: 1100694726}
   - component: {fileID: 1100694725}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18042,7 +18062,7 @@ GameObject:
   - component: {fileID: 1111508793}
   - component: {fileID: 1111508795}
   - component: {fileID: 1111508794}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18128,7 +18148,7 @@ GameObject:
   - component: {fileID: 1118085544}
   - component: {fileID: 1118085546}
   - component: {fileID: 1118085545}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18590,7 +18610,7 @@ GameObject:
   - component: {fileID: 1122596663}
   - component: {fileID: 1122596665}
   - component: {fileID: 1122596664}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18777,7 +18797,7 @@ GameObject:
   - component: {fileID: 1133086999}
   - component: {fileID: 1133087001}
   - component: {fileID: 1133087000}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18984,7 +19004,7 @@ GameObject:
   - component: {fileID: 1144772558}
   - component: {fileID: 1144772560}
   - component: {fileID: 1144772559}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19070,7 +19090,7 @@ GameObject:
   - component: {fileID: 1147813531}
   - component: {fileID: 1147813533}
   - component: {fileID: 1147813532}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19156,7 +19176,7 @@ GameObject:
   - component: {fileID: 1148084440}
   - component: {fileID: 1148084442}
   - component: {fileID: 1148084441}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19242,7 +19262,7 @@ GameObject:
   - component: {fileID: 1151293553}
   - component: {fileID: 1151293555}
   - component: {fileID: 1151293554}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19376,7 +19396,7 @@ GameObject:
   - component: {fileID: 1155030334}
   - component: {fileID: 1155030336}
   - component: {fileID: 1155030335}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19596,9 +19616,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1156192911}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Power Rocks
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19858,7 +19878,7 @@ GameObject:
   - component: {fileID: 1207509780}
   - component: {fileID: 1207509782}
   - component: {fileID: 1207509781}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19994,22 +20014,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -20019,7 +20039,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20041,7 +20061,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1211728678}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Benches
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20129,22 +20149,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -20154,7 +20174,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20274,7 +20294,7 @@ GameObject:
   - component: {fileID: 1236329672}
   - component: {fileID: 1236329674}
   - component: {fileID: 1236329673}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20413,7 +20433,7 @@ GameObject:
   - component: {fileID: 1242438359}
   - component: {fileID: 1242438361}
   - component: {fileID: 1242438360}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20499,7 +20519,7 @@ GameObject:
   - component: {fileID: 1253408411}
   - component: {fileID: 1253408413}
   - component: {fileID: 1253408412}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20635,7 +20655,7 @@ PrefabInstance:
     - target: {fileID: -1949780310088907209, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1466979185729694538, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
@@ -20650,7 +20670,7 @@ PrefabInstance:
     - target: {fileID: -1234583184605002017, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 639963279142174254, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
@@ -20670,12 +20690,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4261907992718082698, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7380418016598425288, guid: e654b65ecb21d204388c7b5216b098bd,
         type: 3}
@@ -21238,7 +21258,7 @@ GameObject:
   - component: {fileID: 1264584822}
   - component: {fileID: 1264584824}
   - component: {fileID: 1264584823}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21463,22 +21483,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -21488,7 +21508,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21512,7 +21532,7 @@ GameObject:
   - component: {fileID: 1275301570}
   - component: {fileID: 1275301572}
   - component: {fileID: 1275301571}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21598,7 +21618,7 @@ GameObject:
   - component: {fileID: 1280757194}
   - component: {fileID: 1280757196}
   - component: {fileID: 1280757195}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21684,7 +21704,7 @@ GameObject:
   - component: {fileID: 1281817862}
   - component: {fileID: 1281817864}
   - component: {fileID: 1281817863}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21770,7 +21790,7 @@ GameObject:
   - component: {fileID: 1293227289}
   - component: {fileID: 1293227291}
   - component: {fileID: 1293227290}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21911,17 +21931,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 89c2620392e26d44cbcb982880738918,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 89c2620392e26d44cbcb982880738918,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 89c2620392e26d44cbcb982880738918,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 5626898870252485958, guid: 89c2620392e26d44cbcb982880738918,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -22033,7 +22058,7 @@ PrefabInstance:
     - target: {fileID: 2073653693290618865, guid: 8b6a94e46a7a3ce4694a73a263603d0e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2073653693290618865, guid: 8b6a94e46a7a3ce4694a73a263603d0e,
         type: 3}
@@ -22061,7 +22086,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1343887443}
   - component: {fileID: 1343887444}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Point Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22159,7 +22184,7 @@ GameObject:
   - component: {fileID: 1356337717}
   - component: {fileID: 1356337719}
   - component: {fileID: 1356337718}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22411,7 +22436,7 @@ GameObject:
   - component: {fileID: 1387386669}
   - component: {fileID: 1387386671}
   - component: {fileID: 1387386670}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22497,7 +22522,7 @@ GameObject:
   - component: {fileID: 1389771218}
   - component: {fileID: 1389771220}
   - component: {fileID: 1389771219}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (37)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22583,7 +22608,7 @@ GameObject:
   - component: {fileID: 1397909481}
   - component: {fileID: 1397909483}
   - component: {fileID: 1397909482}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22709,7 +22734,7 @@ GameObject:
   - component: {fileID: 1413376515}
   - component: {fileID: 1413376517}
   - component: {fileID: 1413376516}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22850,12 +22875,12 @@ PrefabInstance:
     - target: {fileID: -2851906625860998713, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2203908487048126162, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1878957455951711360, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
@@ -22885,7 +22910,7 @@ PrefabInstance:
     - target: {fileID: -607631865593771928, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
@@ -22895,12 +22920,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1567416704318455051, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2674308686717378713, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
@@ -22915,7 +22940,7 @@ PrefabInstance:
     - target: {fileID: 4163332320665848883, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4707693605051354577, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
@@ -22940,7 +22965,7 @@ PrefabInstance:
     - target: {fileID: 5116564715516294729, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5817683498014688877, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
@@ -22950,7 +22975,7 @@ PrefabInstance:
     - target: {fileID: 7229888144256755123, guid: c38879948c278314c890d12cf91f1dc4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23024,22 +23049,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -23049,7 +23074,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23073,7 +23098,7 @@ GameObject:
   - component: {fileID: 1439770578}
   - component: {fileID: 1439770580}
   - component: {fileID: 1439770579}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23217,7 +23242,7 @@ PrefabInstance:
     - target: {fileID: 2563416599362055880, guid: 2146705ef107259438aca88b0e511407,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2563416599362055880, guid: 2146705ef107259438aca88b0e511407,
         type: 3}
@@ -23296,7 +23321,7 @@ GameObject:
   - component: {fileID: 1471682375}
   - component: {fileID: 1471682377}
   - component: {fileID: 1471682376}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23619,7 +23644,7 @@ GameObject:
   - component: {fileID: 1483534970}
   - component: {fileID: 1483534972}
   - component: {fileID: 1483534971}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23788,9 +23813,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1499429786}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Environment
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24046,7 +24071,7 @@ GameObject:
   - component: {fileID: 1546378500}
   - component: {fileID: 1546378502}
   - component: {fileID: 1546378501}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24230,22 +24255,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -24255,7 +24280,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -24279,7 +24304,7 @@ GameObject:
   - component: {fileID: 1560822902}
   - component: {fileID: 1560822904}
   - component: {fileID: 1560822903}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (46)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24365,7 +24390,7 @@ GameObject:
   - component: {fileID: 1562237661}
   - component: {fileID: 1562237663}
   - component: {fileID: 1562237662}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24575,7 +24600,7 @@ GameObject:
   - component: {fileID: 1570453239}
   - component: {fileID: 1570453241}
   - component: {fileID: 1570453240}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24666,7 +24691,7 @@ PrefabInstance:
     - target: {fileID: 6274931372259543853, guid: 95eec7eaaa07f9d4eb9c3defb4ccbe5c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6655995321351164311, guid: 95eec7eaaa07f9d4eb9c3defb4ccbe5c,
         type: 3}
@@ -24734,7 +24759,7 @@ GameObject:
   - component: {fileID: 1583780246}
   - component: {fileID: 1583780248}
   - component: {fileID: 1583780247}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24820,7 +24845,7 @@ GameObject:
   - component: {fileID: 1584807611}
   - component: {fileID: 1584807613}
   - component: {fileID: 1584807612}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24905,7 +24930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1593645163}
   - component: {fileID: 1593645164}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Point Light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25001,7 +25026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1598114004}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25035,7 +25060,7 @@ GameObject:
   - component: {fileID: 1598907112}
   - component: {fileID: 1598907114}
   - component: {fileID: 1598907113}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25121,7 +25146,7 @@ GameObject:
   - component: {fileID: 1603710255}
   - component: {fileID: 1603710257}
   - component: {fileID: 1603710256}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25207,7 +25232,7 @@ GameObject:
   - component: {fileID: 1611159408}
   - component: {fileID: 1611159410}
   - component: {fileID: 1611159409}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25293,7 +25318,7 @@ GameObject:
   - component: {fileID: 1613454403}
   - component: {fileID: 1613454405}
   - component: {fileID: 1613454404}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25379,7 +25404,7 @@ GameObject:
   - component: {fileID: 1616343874}
   - component: {fileID: 1616343876}
   - component: {fileID: 1616343875}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: BenchSeat (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25571,17 +25596,17 @@ PrefabInstance:
     - target: {fileID: -6215489016077816892, guid: 7b290040708901e498ea92d5d6be8f90,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4436971348348691600, guid: 7b290040708901e498ea92d5d6be8f90,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -148403666155803262, guid: 7b290040708901e498ea92d5d6be8f90,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7b290040708901e498ea92d5d6be8f90,
         type: 3}
@@ -25591,7 +25616,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7b290040708901e498ea92d5d6be8f90,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7b290040708901e498ea92d5d6be8f90,
         type: 3}
@@ -25728,12 +25753,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2786152407621660450, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4484886854507725936, guid: 0d2fc0e6a3543684487c99ca470c0486,
         type: 3}
@@ -25768,7 +25793,7 @@ GameObject:
   - component: {fileID: 1645955077}
   - component: {fileID: 1645955079}
   - component: {fileID: 1645955078}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25854,7 +25879,7 @@ GameObject:
   - component: {fileID: 1651796388}
   - component: {fileID: 1651796390}
   - component: {fileID: 1651796389}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25945,7 +25970,7 @@ PrefabInstance:
     - target: {fileID: 5948607858795106357, guid: c80546d16d938c04990c6d33d46e4952,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5948607858795106357, guid: c80546d16d938c04990c6d33d46e4952,
         type: 3}
@@ -26036,7 +26061,7 @@ GameObject:
   - component: {fileID: 1657257300}
   - component: {fileID: 1657257302}
   - component: {fileID: 1657257301}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26122,7 +26147,7 @@ GameObject:
   - component: {fileID: 1666185352}
   - component: {fileID: 1666185354}
   - component: {fileID: 1666185353}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26212,7 +26237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1672682089}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Lamps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26305,7 +26330,7 @@ GameObject:
   - component: {fileID: 1674806293}
   - component: {fileID: 1674806295}
   - component: {fileID: 1674806294}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26439,7 +26464,7 @@ GameObject:
   - component: {fileID: 1697287359}
   - component: {fileID: 1697287361}
   - component: {fileID: 1697287360}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26684,7 +26709,7 @@ GameObject:
   - component: {fileID: 1713165322}
   - component: {fileID: 1713165324}
   - component: {fileID: 1713165323}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26820,22 +26845,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -26845,7 +26870,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27013,7 +27038,7 @@ PrefabInstance:
     - target: {fileID: 8700824426363313339, guid: 50b05f5887ffab04cada141d5819faca,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27037,22 +27062,22 @@ PrefabInstance:
     - target: {fileID: 10242811880629119, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 66880804547416719, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 81707317226417643, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 126091429162256680, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 146281183362743499, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
@@ -27107,52 +27132,52 @@ PrefabInstance:
     - target: {fileID: 176348288028942320, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 250295422529827916, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 289671393156896531, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 290904402308112457, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 344139293548886927, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 344516621301451250, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 475031058351305115, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 616697200267725708, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 627846571451985682, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 665322302059670433, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
@@ -27162,227 +27187,232 @@ PrefabInstance:
     - target: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
+        type: 3}
+      propertyPath: m_TagString
+      value: Terrain
+      objectReference: {fileID: 0}
     - target: {fileID: 674914898524229367, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 743143975610821049, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 810337255575553272, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 819299096056615474, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 839088781419750227, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 994953833380959805, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1111070309915778444, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1121545160238591446, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1183161088717891786, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1272036067133839671, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1292672967312111523, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1322003398490277463, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1339881662481454691, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1370795236299000999, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1463775431748705876, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1469256740344344575, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1556568853451844160, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1600470153529429196, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1713742054171133486, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1740632028416837280, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1803691553232920277, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1902502367006157658, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2019613493015120247, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2047363426138481974, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2076262913839156880, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2079819629247489318, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2173200366166746024, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2193501298980660300, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2493685481585908643, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2540454117607383831, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2557233929847432353, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2667064521985243940, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2847904649854760659, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2877164441788041089, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2979836221927748061, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3024042276053450515, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3100754479468473678, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3163931313550672324, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3212334686562076979, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3287264869002662959, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3319450587409834830, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3359606506119930241, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3393435435381251103, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3436436919678278325, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
@@ -27397,357 +27427,365 @@ PrefabInstance:
     - target: {fileID: 3498803556287865073, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3765722294314656243, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3771345279034035967, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3789938505013310532, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3917065051300604504, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3942917306714721336, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3958543542428708672, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3966428910145385416, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3979410571717811230, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3982651106334852962, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4024994506843497420, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4027488948008195907, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4060897619788344960, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4139817528833030846, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4221616258760519681, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4279236344165716557, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4369465863763295204, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4447722929496868258, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4468236296283582009, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4494651509981196452, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4556705560816008177, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4558074774237607779, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4740764980067056393, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4765502625046202925, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4822860274901805368, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4891971197842742668, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4975997583806729805, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5233780365444041057, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5267944454168824263, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5369088617102749374, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5376852259774887966, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5459848878881455552, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5474676500953306672, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5492648537604724104, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5503175006010853656, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5823722860708444498, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5984215225055933102, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6152844867369951162, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6488849221030739078, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6489477885529849349, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6498839904688503153, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6519427876723146603, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6559977521214457935, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6714466327081012500, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6728095648698730561, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6852160423920352832, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7047672415074965006, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7049899506829855398, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7220669473835864052, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7246536455408554311, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7275755891374360262, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7548210451894910079, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7635734902715022906, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7761046585219591338, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8027464449665085356, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8028126267645079910, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8057222771259611249, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8246560782956647597, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8257520548833404278, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8331212693643243568, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8397611488579319644, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8460908730663497471, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8552956514176911112, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8559827098016232131, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8591153805755681339, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8697493564765318983, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8794550627939167427, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9004361536634490639, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9081023712352682571, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9212769085194734443, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1998507786}
+    - targetCorrespondingSourceObject: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1998507787}
   m_SourcePrefab: {fileID: 100100000, guid: 962b3bc8cfb64ac4cbdf99003a38ce22, type: 3}
 --- !u!4 &1732924391 stripped
 Transform:
@@ -27804,7 +27842,7 @@ GameObject:
   - component: {fileID: 1748514920}
   - component: {fileID: 1748514922}
   - component: {fileID: 1748514921}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27888,9 +27926,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763328325}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Graveyard
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27991,7 +28029,7 @@ GameObject:
   - component: {fileID: 1777739301}
   - component: {fileID: 1777739303}
   - component: {fileID: 1777739302}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: BenchSeat (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28139,7 +28177,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1787c461cd5954f4c88928480d1fc128,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28266,7 +28304,7 @@ GameObject:
   - component: {fileID: 1804688049}
   - component: {fileID: 1804688051}
   - component: {fileID: 1804688050}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: fence_ (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28352,7 +28390,7 @@ GameObject:
   - component: {fileID: 1810386978}
   - component: {fileID: 1810386980}
   - component: {fileID: 1810386979}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28543,17 +28581,17 @@ PrefabInstance:
     - target: {fileID: -4274128822402974387, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -298875227356676098, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 750016235004561119, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
@@ -28563,7 +28601,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
@@ -28573,7 +28611,7 @@ PrefabInstance:
     - target: {fileID: 7905620642271069425, guid: c579842f752458e408cd9c35f7d03c0c,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28612,7 +28650,7 @@ PrefabInstance:
     - target: {fileID: 1141807910198149572, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1255053967005034563, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
@@ -28622,7 +28660,7 @@ PrefabInstance:
     - target: {fileID: 1255053967005034563, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1255053967005034564, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
@@ -28697,22 +28735,22 @@ PrefabInstance:
     - target: {fileID: 3235701488893169939, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3807481148728578608, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4502111466653747097, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7296065346891611915, guid: 2ee7574cb1211da4ba89d1838327b5c4,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28929,22 +28967,22 @@ PrefabInstance:
     - target: {fileID: -5041680104280202014, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2473544792401275038, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -1807497458963052081, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -288120865736603969, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
@@ -28954,7 +28992,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6b380b6f827da59479f7e3cca44eb56e,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28978,7 +29016,7 @@ GameObject:
   - component: {fileID: 1884751281}
   - component: {fileID: 1884751283}
   - component: {fileID: 1884751282}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29062,9 +29100,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1912487186}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: House
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29181,7 +29219,7 @@ GameObject:
   - component: {fileID: 1926504842}
   - component: {fileID: 1926504844}
   - component: {fileID: 1926504843}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29334,12 +29372,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 89c2620392e26d44cbcb982880738918,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5626898870252485958, guid: 89c2620392e26d44cbcb982880738918,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6654178346307536642, guid: 89c2620392e26d44cbcb982880738918,
         type: 3}
@@ -29430,7 +29468,7 @@ GameObject:
   - component: {fileID: 1954521547}
   - component: {fileID: 1954521549}
   - component: {fileID: 1954521548}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29607,7 +29645,7 @@ GameObject:
   - component: {fileID: 1960309929}
   - component: {fileID: 1960309931}
   - component: {fileID: 1960309930}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29693,7 +29731,7 @@ GameObject:
   - component: {fileID: 1961505921}
   - component: {fileID: 1961505923}
   - component: {fileID: 1961505922}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30051,7 +30089,7 @@ GameObject:
   - component: {fileID: 1984610260}
   - component: {fileID: 1984610262}
   - component: {fileID: 1984610261}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30187,12 +30225,12 @@ PrefabInstance:
     - target: {fileID: -3506988821097246598, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -2732435156467191681, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
@@ -30202,7 +30240,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
@@ -30212,7 +30250,7 @@ PrefabInstance:
     - target: {fileID: 3050834404831772787, guid: d2c368b9ef327ce469032a7c1031899d,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30236,7 +30274,7 @@ GameObject:
   - component: {fileID: 1992604915}
   - component: {fileID: 1992604917}
   - component: {fileID: 1992604916}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30311,6 +30349,60 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992604914}
   m_Mesh: {fileID: 7457832052185200765, guid: e654b65ecb21d204388c7b5216b098bd, type: 3}
+--- !u!1 &1998507785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 670017486046406257, guid: 962b3bc8cfb64ac4cbdf99003a38ce22,
+    type: 3}
+  m_PrefabInstance: {fileID: 1732924390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1998507786
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998507785}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.2906976, y: 2.3401458, z: 6.4788866}
+  m_Center: {x: -0.34980848, y: 0.6700698, z: -0.8338379}
+--- !u!54 &1998507787
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998507785}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1998904121
 GameObject:
   m_ObjectHideFlags: 0
@@ -30322,7 +30414,7 @@ GameObject:
   - component: {fileID: 1998904122}
   - component: {fileID: 1998904124}
   - component: {fileID: 1998904123}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30456,7 +30548,7 @@ GameObject:
   - component: {fileID: 2013205914}
   - component: {fileID: 2013205916}
   - component: {fileID: 2013205915}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30542,7 +30634,7 @@ GameObject:
   - component: {fileID: 2013556087}
   - component: {fileID: 2013556089}
   - component: {fileID: 2013556088}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30627,7 +30719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2018717270}
   - component: {fileID: 2018717271}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Point Light (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30725,7 +30817,7 @@ GameObject:
   - component: {fileID: 2026056228}
   - component: {fileID: 2026056230}
   - component: {fileID: 2026056229}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30811,7 +30903,7 @@ GameObject:
   - component: {fileID: 2031627375}
   - component: {fileID: 2031627377}
   - component: {fileID: 2031627376}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30950,7 +31042,7 @@ GameObject:
   - component: {fileID: 2041321562}
   - component: {fileID: 2041321564}
   - component: {fileID: 2041321563}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31226,7 +31318,7 @@ GameObject:
   - component: {fileID: 2066655986}
   - component: {fileID: 2066655988}
   - component: {fileID: 2066655987}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31448,7 +31540,7 @@ GameObject:
   - component: {fileID: 2073642411}
   - component: {fileID: 2073642413}
   - component: {fileID: 2073642412}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31534,7 +31626,7 @@ GameObject:
   - component: {fileID: 2076748869}
   - component: {fileID: 2076748871}
   - component: {fileID: 2076748870}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31668,7 +31760,7 @@ GameObject:
   - component: {fileID: 2080118070}
   - component: {fileID: 2080118072}
   - component: {fileID: 2080118071}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence.001 (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31855,7 +31947,7 @@ GameObject:
   - component: {fileID: 2096726425}
   - component: {fileID: 2096726427}
   - component: {fileID: 2096726426}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Ironfence (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32036,7 +32128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133642852}
   - component: {fileID: 2133642851}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
