@@ -71,7 +71,6 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-
     private void Die()
     {
         if (animator)

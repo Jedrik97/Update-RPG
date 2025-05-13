@@ -1,11 +1,12 @@
-using System;
 using UnityEngine;
+using System;
 
 public class PlayerInput : MonoBehaviour
 {
     public static event Action<Vector2> OnMoveInput;
     public static event Action OnJumpInput;
     public static event Action OnPauseInput;
+    public static event Action OnUsePotion;
 
     void Update()
     {
@@ -17,6 +18,9 @@ public class PlayerInput : MonoBehaviour
             OnJumpInput?.Invoke();
 
         if (Input.GetKeyDown(KeyCode.Escape))
-            OnPauseInput?.Invoke();  
+            OnPauseInput?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            OnUsePotion?.Invoke();
     }
 }

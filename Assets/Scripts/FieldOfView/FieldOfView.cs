@@ -26,8 +26,7 @@ public class FieldOfView : MonoBehaviour
 
     public event Action<bool> OnPlayerVisibilityChanged;
     public Transform Player => player;
-
-    private bool playerVisible = false;
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,7 +50,6 @@ public class FieldOfView : MonoBehaviour
             }
 
             player = null;
-            playerVisible = false;
             OnPlayerVisibilityChanged?.Invoke(false);
         }
     }
@@ -62,7 +60,6 @@ public class FieldOfView : MonoBehaviour
         {
             if (CheckPlayerInFOV())
             {
-                playerVisible = true;
                 OnPlayerVisibilityChanged?.Invoke(true);
                 Debug.Log("Player detected by FieldOfView");
                 yield break;

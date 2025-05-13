@@ -29,7 +29,7 @@ public class EnemyMeleeAI : EnemyBase
     private enum EnemyState { Patrolling, Chasing, Attacking, Returning, Dead }
     private EnemyState currentState = EnemyState.Patrolling;
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();

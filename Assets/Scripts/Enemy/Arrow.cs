@@ -12,7 +12,6 @@ public class Arrow : MonoBehaviour
     private Vector3 startPosition;
     private ObjectPool<Arrow> pool;
     private Rigidbody rb;
-    private bool isInPool = false;
 
     private void Awake()
     {

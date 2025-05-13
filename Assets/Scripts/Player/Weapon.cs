@@ -1,4 +1,3 @@
-// Weapon.cs
 using UnityEngine;
 using Zenject;
 

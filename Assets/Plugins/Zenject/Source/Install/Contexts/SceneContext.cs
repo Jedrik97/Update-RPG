@@ -240,12 +240,7 @@ namespace Zenject
             {
                 _container.DefaultParent = null;
             }
-
-            // Record all the injectable components in the scene BEFORE installing the installers
-            // This is nice for cases where the user calls InstantiatePrefab<>, etc. in their installer
-            // so that it doesn't inject on the game object twice
-            // InitialComponentsInjecter will also guarantee that any component that is injected into
-            // another component has itself been injected
+            
             var injectableMonoBehaviours = new List<MonoBehaviour>();
             GetInjectableMonoBehaviours(injectableMonoBehaviours);
             foreach (var instance in injectableMonoBehaviours)

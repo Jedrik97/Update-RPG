@@ -11,7 +11,6 @@ public class Fireball : MonoBehaviour
     private Vector3 startPosition;
     private ObjectPool<Fireball> pool;
     private Rigidbody rb;
-    private bool isInPool = false;
 
     private void Awake()
     {

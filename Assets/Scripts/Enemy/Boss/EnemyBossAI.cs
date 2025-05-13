@@ -21,7 +21,6 @@ public class EnemyBossAI : EnemyBase
     [SerializeField] private float meleeTriggerDistance = 2f;
 
         [Header("Boss Attack Settings")]
-    [SerializeField] private float aoeDuration = 1.5f;
     [SerializeField] private float meleeDuration = 10f;
 
     [Header("Teleportation")]

@@ -31,8 +31,9 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled(GameObject enemy)
     {
-        if (playerStats != null)
+        if (playerStats)
             playerStats.GainExperience(experiencePerKill);
+        
         EnemyBase eb = enemy.GetComponent<EnemyBase>();
         if (eb != null)
             eb.OnDeath -= EnemyKilled;

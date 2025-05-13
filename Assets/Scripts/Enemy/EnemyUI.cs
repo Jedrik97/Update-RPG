@@ -6,9 +6,7 @@ public class EnemyUI : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text enemyNameText;
     [SerializeField] private UnityEngine.UI.Slider healthBar;
     [SerializeField] private UnityEngine.UI.Image enemyCircle;
-
-    [Header("Detection Settings")]
-    [SerializeField] private float detectionRange = 15f;
+    
 
     [Header("Enemy Base")]
     [SerializeField] private EnemyBase enemyBase;

@@ -1,20 +1,17 @@
 using UnityEngine;
 using Zenject;
-using Unity.Cinemachine;
 
 public class GameSceneInstaller : MonoInstaller
 {
     [Header("Player Setup")]
     public GameObject playerPrefab;
-
     public Transform spawnPoint;
 
     [Header("Other Controllers")]
     public GameObject GameManager;
-
     public GameObject PauseMenuController;
-    
     public GameObject SlotSelectController;
+    public GameObject TemporaryMessageUI;
 
     public override void InstallBindings()
     {
@@ -30,6 +27,11 @@ public class GameSceneInstaller : MonoInstaller
         
         Container.Bind<SlotSelectController>()
             .FromComponentInHierarchy(SlotSelectController)
+            .AsSingle()
+            .Lazy();
+        
+        Container.Bind<TemporaryMessageUI>()
+            .FromComponentInHierarchy(TemporaryMessageUI)
             .AsSingle()
             .Lazy();
         
@@ -52,6 +54,10 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<CharacterController>()
             .FromComponentOn(playerGO)
             .AsSingle();
+        Container.Bind<PlayerInventory>()
+            .FromComponentOn(playerGO)
+            .AsSingle();
+        
         
         Container.InjectGameObject(playerGO);
     }

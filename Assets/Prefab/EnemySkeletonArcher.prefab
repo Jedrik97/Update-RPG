@@ -787,7 +787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2326578268591666419}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.001758708, z: -0, w: -0.99999845}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
@@ -1167,8 +1167,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3773272488793522301}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.001758708, z: -0, w: -0.99999845}
-  m_LocalPosition: {x: 17.867434, y: 2.6287568, z: 0.7688105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1179,7 +1179,7 @@ Transform:
   - {fileID: 2245367856611556634}
   - {fileID: 1611100210079222196}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 359.798, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8658316750880303974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1216,7 +1216,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!143 &5898405156120091323
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1236,9 +1236,9 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.6
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -2044,7 +2044,6 @@ MonoBehaviour:
   enemyNameText: {fileID: 4835365925414855002}
   healthBar: {fileID: 5646557584491775712}
   enemyCircle: {fileID: 1366117232057102156}
-  detectionRange: 30
   enemyBase: {fileID: 7312602864059615199}
 --- !u!114 &2336879378399530136
 MonoBehaviour:

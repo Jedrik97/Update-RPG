@@ -19,8 +19,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         const float deadZone = 0.1f;
         Vector2 input = new Vector2(x, z);
-
-        // Если почти не движемся — встанем в Idle
+        
         if (input.magnitude < deadZone)
         {
             animator.SetFloat("MoveX", 0f);
@@ -28,17 +27,14 @@ public class PlayerAnimator : MonoBehaviour
         }
         else
         {
-            // MoveZ: +1 — вперёд, –1 — назад
             float moveZ = Mathf.Sign(z);
-
-            // MoveX: –1 — ходьба, +1 — бег
+            
             float moveX = running ? 1f : -1f;
 
             animator.SetFloat("MoveX", moveX);
             animator.SetFloat("MoveZ", moveZ);
         }
-
-        // Сбрасываем флаг прыжка при ходьбе/беге
+        
         animator.SetBool("IsJumping", false);
     }
 
