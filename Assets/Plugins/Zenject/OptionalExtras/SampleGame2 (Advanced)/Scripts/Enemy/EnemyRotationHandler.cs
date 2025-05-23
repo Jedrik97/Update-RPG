@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Zenject.SpaceFighter
 {
-    
-    
-    
+    // Responsibilities:
+    // - Interpolate rotation of enemy towards the current desired
+    // direction
     public class EnemyRotationHandler : IFixedTickable
     {
         readonly Settings _settings;

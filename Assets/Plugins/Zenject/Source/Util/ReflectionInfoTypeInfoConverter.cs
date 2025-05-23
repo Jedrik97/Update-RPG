@@ -1,4 +1,4 @@
-
+//#define ZEN_DO_NOT_USE_COMPILED_EXPRESSIONS
 
 using System;
 using System.Collections.Generic;
@@ -77,11 +77,11 @@ namespace Zenject.Internal
             {
                 if (constructor == null)
                 {
-                    
-                    
-                    
-                    
-                    
+                    // No choice in this case except to use the slow Activator.CreateInstance
+                    // as far as I know
+                    // This should be rare though and only seems to occur when instantiating
+                    // structs on platforms that don't support lambda expressions
+                    // Non-structs should always have a default constructor
                     factoryMethod = args =>
                     {
                         Assert.That(args.Length == 0);
@@ -247,9 +247,9 @@ namespace Zenject.Internal
             var fieldInfo = memInfo as FieldInfo;
             var propInfo = memInfo as PropertyInfo;
 
-            
-            
-            
+            // It seems that for readonly fields, we have to use the slower approach below
+            // As discussed here: https://www.productiverage.com/trying-to-set-a-readonly-autoproperty-value-externally-plus-a-little-benchmarkdotnet
+            // We have to skip value types because those can only be set by reference using an lambda expression
             if (!parentType.IsValueType() && (fieldInfo == null || !fieldInfo.IsInitOnly) && (propInfo == null || propInfo.CanWrite))
             {
                 Type memberType = fieldInfo != null

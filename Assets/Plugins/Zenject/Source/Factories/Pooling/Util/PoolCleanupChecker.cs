@@ -5,9 +5,9 @@ using ModestTree;
 
 namespace Zenject
 {
-    
-    
-    
+    // If you want to ensure that all items are always returned to the pool, include the following
+    // in an installer
+    // Container.BindInterfacesTo<PoolCleanupChecker>().AsSingle()
     public class PoolCleanupChecker : ILateDisposable
     {
         readonly List<IMemoryPool> _poolFactories;

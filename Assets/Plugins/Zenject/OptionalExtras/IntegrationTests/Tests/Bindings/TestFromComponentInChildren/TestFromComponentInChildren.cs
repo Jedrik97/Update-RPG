@@ -119,8 +119,8 @@ namespace Zenject.Tests.Bindings
 
             PostInstall();
 
-            
-            
+            // The FromComponentInChildren call should match nothing when optional like in
+            // list bindings
             Assert.That(root.Childs.IsEmpty());
 
             yield break;

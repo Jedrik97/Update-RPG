@@ -20,11 +20,11 @@ namespace Zenject.SpaceFighter
         None
     }
 
-    
-    
-    
-    
-    
+    // This class controls the basic "AI" of our enemy
+    // Which works as a finite state machine, between three states:
+    // - Attack
+    // - Follow/Chase
+    // - Idle
     public class EnemyStateManager : ITickable, IFixedTickable, IInitializable
     {
         IEnemyState _currentStateHandler;
@@ -33,7 +33,7 @@ namespace Zenject.SpaceFighter
 
         List<IEnemyState> _states;
 
-        
+        // We can't use a constructor due to a circular dependency issue
         [Inject]
         public void Construct(
             EnemyView view,
@@ -42,7 +42,7 @@ namespace Zenject.SpaceFighter
             _view = view;
             _states = new List<IEnemyState>
             {
-                
+                // This needs to follow the enum order
                 idle, attack, follow
             };
         }
@@ -64,11 +64,11 @@ namespace Zenject.SpaceFighter
         {
             if (_currentState == state)
             {
-                
+                // Already in state
                 return;
             }
 
-            
+            //Log.Trace("View Changing state from {0} to {1}", _currentState, state);
 
             _currentState = state;
 
@@ -84,7 +84,7 @@ namespace Zenject.SpaceFighter
 
         public void Tick()
         {
-            
+            // Always ensure we are on the main plane
             _view.Position = new Vector3(_view.Position.x, _view.Position.y, 0);
 
             _currentStateHandler.Update();

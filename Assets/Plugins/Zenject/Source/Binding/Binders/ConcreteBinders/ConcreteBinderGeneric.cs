@@ -16,7 +16,7 @@ namespace Zenject
             ToSelf();
         }
 
-        
+        // Note that this is the default, so not necessary to call
         public FromBinderGeneric<TContract> ToSelf()
         {
             Assert.IsEqual(BindInfo.ToChoice, ToChoices.Self);
@@ -66,7 +66,7 @@ namespace Zenject
         {
             var bindInfo = new ConventionBindInfo();
 
-            
+            // Automatically filter by the given contract types
             bindInfo.AddTypeFilter(
                 concreteType => BindInfo.ContractTypes.All(contractType => concreteType.DerivesFromOrEqual(contractType)));
 

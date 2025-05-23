@@ -17,7 +17,7 @@ namespace Zenject.Tests.Other
             var f1 = new Foo();
             var f2 = new Foo();
 
-            
+            // Should always choose the binding with condition when forced to choose
             Container.BindInstance(f1);
             Container.BindInstance(f2).When(_ => true);
 
@@ -31,7 +31,7 @@ namespace Zenject.Tests.Other
             var f1 = new Foo();
             var f2 = new Foo();
 
-            
+            // Order shouldn't matter
             Container.BindInstance(f2).When(_ => true);
             Container.BindInstance(f1);
 
@@ -51,7 +51,7 @@ namespace Zenject.Tests.Other
 
             Container.BindInstance(l1);
 
-            
+            // Direct list bindings should override the automatic list bindings
             Assert.IsEqual(Container.Instantiate<Bar>().Foos, l1);
         }
 

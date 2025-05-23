@@ -9,7 +9,7 @@ namespace Zenject.Tests.Injection
         static int InjectCounter;
 
         [Test]
-        
+        // Test all variations of injection
         public void TestCase1()
         {
             Container.Bind<Test0>().FromInstance(new Test0()).NonLazy();
@@ -100,7 +100,7 @@ namespace Zenject.Tests.Injection
                 set;
             }
 
-            
+            // Instance
             [Inject]
             public Test0 BaseFieldPublic = null;
 
@@ -236,7 +236,7 @@ namespace Zenject.Tests.Injection
                 set;
             }
 
-            
+            // Instance
             public FooDerived(Test0 param)
             {
                 ConstructorParam = param;

@@ -21,10 +21,10 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void TestSingle5()
         {
-            
-            
-            
-            
+            // This is weird but consistent with how AsSingle is interpreted for other From types
+            // like FromSubcontainerResolve, FromComponentInPrefab, etc.
+            // The 'single' is really refering to the fact that it's a single resolve handler, not a
+            // single instance
             Container.Bind<Foo>().FromMethodMultiple(ctx => new[] { new Foo(), new Foo() }).AsSingle().NonLazy();
 
             Assert.IsEqual(Container.ResolveAll<Foo>().Count, 2);

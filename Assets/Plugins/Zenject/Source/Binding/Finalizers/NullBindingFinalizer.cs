@@ -10,7 +10,7 @@ namespace Zenject
 
         public void FinalizeBinding(DiContainer container)
         {
-            
+            // Do nothing
         }
     }
 }

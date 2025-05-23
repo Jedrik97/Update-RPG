@@ -62,7 +62,7 @@ namespace Zenject
 
             if (_container.IsValidating)
             {
-                
+                // All we can do is validate that the getter object can be resolved
                 if (_matchAll)
                 {
                     _container.ResolveAll(GetSubContext(context));

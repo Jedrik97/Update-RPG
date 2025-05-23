@@ -30,7 +30,7 @@ namespace Zenject.Tests.Bindings
         [Test]
         public void Test4()
         {
-            
+            // This case is more lenient and just ignores invalid bindings
             Container.Bind(typeof(IFoo), typeof(IBar)).To(typeof(Foo), typeof(Bar)).AsCached();
 
             Assert.IsNotNull(Container.Resolve<IFoo>());

@@ -6,17 +6,17 @@ using ModestTree;
 
 namespace Zenject
 {
-    
-    
-    
-    
+    // Responsibilities:
+    // - Output a file specifying the full object graph for a given root dependency
+    // - This file uses the DOT language with can be fed into GraphViz to generate an image
+    // - http://www.graphviz.org/
     public static class ObjectGraphVisualizer
     {
         public static void OutputObjectGraphToFile(
             DiContainer container, string outputPath,
             IEnumerable<Type> externalIgnoreTypes, IEnumerable<Type> contractTypes)
         {
-            
+            // Output the entire object graph to file
             var graph = CalculateObjectGraph(container, contractTypes);
 
             var ignoreTypes = new List<Type>
@@ -113,7 +113,7 @@ namespace Zenject
         {
             var str = type.PrettyName();
 
-            
+            // GraphViz does not read names with <, >, or . characters so replace them
             str = str.Replace(">", "_");
             str = str.Replace("<", "_");
             str = str.Replace(".", "_");

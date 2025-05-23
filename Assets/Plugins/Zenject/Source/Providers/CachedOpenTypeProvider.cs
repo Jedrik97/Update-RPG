@@ -32,7 +32,7 @@ namespace Zenject
         {
             get
             {
-                
+                // Should not call this
                 throw Assert.CreateException();
             }
         }
@@ -50,8 +50,8 @@ namespace Zenject
             }
         }
 
-        
-        
+        // This method can be called if you want to clear the memory for an AsSingle instance,
+        // See isssue https://github.com/svermeulen/Zenject/issues/441
         public void ClearCache()
         {
 #if ZEN_MULTITHREADING
@@ -101,7 +101,7 @@ namespace Zenject
 
                 if (matchesAll) 
                 {
-                    Assert.IsNull(result); 
+                    Assert.IsNull(result); // Is there any case where this is hit?
                     result = instanceList;
                 }
             }
@@ -128,8 +128,8 @@ namespace Zenject
                 }
 
 #if !ZEN_MULTITHREADING
-                
-                
+                // This should only happen with constructor injection
+                // Field or property injection should allow circular dependencies
                 if (_isCreatingInstance)
                 {
                     var instanceType = _creator.GetInstanceType(context);

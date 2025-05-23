@@ -13,7 +13,7 @@ namespace Zenject
         readonly Type _componentType;
         readonly bool _matchSingle;
 
-        
+        // if concreteType is null we use the contract type from inject context
         public GetFromPrefabComponentProvider(
             Type componentType,
             IPrefabInstantiator prefabInstantiator, bool matchSingle)
@@ -45,9 +45,9 @@ namespace Zenject
 
             var gameObject = _prefabInstantiator.Instantiate(context, args, out injectAction);
 
-            
-            
-            
+            // NOTE: Need to set includeInactive to true here, because prefabs are always
+            // instantiated as disabled until injection occurs, so that Awake / OnEnabled is executed
+            // after injection has occurred
 
             if (_matchSingle)
             {

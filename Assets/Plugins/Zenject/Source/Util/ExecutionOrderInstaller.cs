@@ -14,8 +14,8 @@ namespace Zenject
 
         public override void InstallBindings()
         {
-            
-            
+            // All tickables without explicit priorities assigned are given order of zero,
+            // so put all of these before that (ie. negative)
             int order = -1 * _typeOrder.Count;
 
             foreach (var type in _typeOrder)

@@ -8,7 +8,7 @@ namespace Zenject
     public abstract class StaticMemoryPoolBaseBase<TValue> : IDespawnableMemoryPool<TValue>, IDisposable
         where TValue : class
     {
-        
+        // I also tried using ConcurrentBag instead of Stack + lock here but that performed much much worse
         readonly Stack<TValue> _stack = new Stack<TValue>();
 
         Action<TValue> _onDespawnedMethod;
@@ -78,7 +78,7 @@ namespace Zenject
             }
         }
 
-        
+        // We assume here that we're in a lock
         void ResizeInternal(int desiredPoolSize)
         {
             Assert.That(desiredPoolSize >= 0, "Attempted to resize the pool to a negative amount");
@@ -138,7 +138,7 @@ namespace Zenject
             }
         }
 
-        
+        // We assume here that we're in a lock
         protected TValue SpawnInternal()
         {
             TValue element;
@@ -197,7 +197,7 @@ namespace Zenject
         }
     }
 
-    
+    // Zero parameters
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TValue>
@@ -235,7 +235,7 @@ namespace Zenject
         }
     }
 
-    
+    // One parameter
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TValue>
@@ -247,7 +247,7 @@ namespace Zenject
             Action<TParam1, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }
@@ -275,7 +275,7 @@ namespace Zenject
         }
     }
 
-    
+    // Two parameter
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TParam2, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TValue>
@@ -287,7 +287,7 @@ namespace Zenject
             Action<TParam1, TParam2, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }
@@ -315,7 +315,7 @@ namespace Zenject
         }
     }
 
-    
+    // Three parameters
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TParam2, TParam3, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TValue>
@@ -327,7 +327,7 @@ namespace Zenject
             Action<TParam1, TParam2, TParam3, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }
@@ -355,7 +355,7 @@ namespace Zenject
         }
     }
 
-    
+    // Four parameters
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TValue>
@@ -373,7 +373,7 @@ namespace Zenject
             Action<TParam1, TParam2, TParam3, TParam4, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }
@@ -405,7 +405,7 @@ namespace Zenject
         }
     }
 
-    
+    // Five parameters
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
@@ -423,7 +423,7 @@ namespace Zenject
             Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }
@@ -455,7 +455,7 @@ namespace Zenject
         }
     }
 
-    
+    // Six parameters
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
@@ -473,7 +473,7 @@ namespace Zenject
             Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }
@@ -505,7 +505,7 @@ namespace Zenject
         }
     }
 
-    
+    // Seven parameters
 
     [NoReflectionBaking]
     public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> : StaticMemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>
@@ -523,7 +523,7 @@ namespace Zenject
             Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> onSpawnMethod, Action<TValue> onDespawnedMethod = null)
             : base(onDespawnedMethod)
         {
-            
+            // What's the point of having a param otherwise?
             Assert.IsNotNull(onSpawnMethod);
             _onSpawnMethod = onSpawnMethod;
         }

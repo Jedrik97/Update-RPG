@@ -124,7 +124,7 @@ namespace Zenject
 
         protected override void RunInternal()
         {
-            
+            // We always want to initialize ProjectContext as early as possible
             ProjectContext.Instance.EnsureIsInitialized();
 
 #if UNITY_EDITOR
@@ -157,8 +157,8 @@ namespace Zenject
                 {
                     var tempParentContainer = ParentContainers;
 
-                    
-                    
+                    // Always reset after using it - it is only used to pass the reference
+                    // between scenes via ZenjectSceneLoader
                     ParentContainers = null;
 
                     return tempParentContainer;
@@ -218,7 +218,7 @@ namespace Zenject
 
             _container = new DiContainer(parents, parents.First().IsValidating);
 
-            
+            // Do this after creating DiContainer in case it's needed by the pre install logic
             if (PreInstall != null)
             {
                 PreInstall();
@@ -309,7 +309,7 @@ namespace Zenject
             _container.Bind(typeof(Context), typeof(SceneContext)).To<SceneContext>().FromInstance(this);
             _container.BindInterfacesTo<SceneContextRegistryAdderAndRemover>().AsSingle();
 
-            
+            // Add to registry first and remove from registry last
             _container.BindExecutionOrder<SceneContextRegistryAdderAndRemover>(-1);
 
             foreach (var decoratorContext in _decoratorContexts)
@@ -327,12 +327,12 @@ namespace Zenject
             if (ExtraBindingsInstallMethod != null)
             {
                 ExtraBindingsInstallMethod(_container);
-                
+                // Reset extra bindings for next time we change scenes
                 ExtraBindingsInstallMethod = null;
             }
 
-            
-            
+            // Always install the installers last so they can be injected with
+            // everything above
             foreach (var decoratorContext in _decoratorContexts)
             {
                 decoratorContext.InstallDecoratorInstallers();
@@ -348,7 +348,7 @@ namespace Zenject
             if (ExtraBindingsLateInstallMethod != null)
             {
                 ExtraBindingsLateInstallMethod(_container);
-                
+                // Reset extra bindings for next time we change scenes
                 ExtraBindingsLateInstallMethod = null;
             }
         }
@@ -361,10 +361,10 @@ namespace Zenject
             ZenUtilInternal.GetInjectableMonoBehavioursInScene(scene, monoBehaviours);
         }
 
-        
-        
-        
-        
+        // These methods can be used for cases where you need to create the SceneContext entirely in code
+        // Note that if you use these methods that you have to call Run() yourself
+        // This is useful because it allows you to create a SceneContext and configure it how you want
+        // and add what installers you want before kicking off the Install/Resolve
         public static SceneContext Create()
         {
             return CreateComponent<SceneContext>(

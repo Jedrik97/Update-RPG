@@ -23,7 +23,7 @@ namespace Zenject
         {
             if (that._disposables != null)
             {
-                
+                // Dispose in reverse order since usually that makes the most sense
                 for (int i = that._disposables.Count - 1; i >= 0; i--)
                 {
                     that._disposables[i].Dispose();
@@ -34,7 +34,7 @@ namespace Zenject
 
             if (that._objectPoolPairs != null)
             {
-                
+                // Dispose in reverse order since usually that makes the most sense
                 for (int i = that._objectPoolPairs.Count - 1; i >= 0; i--)
                 {
                     var pair = that._objectPoolPairs[i];
@@ -84,7 +84,7 @@ namespace Zenject
             }
             else
             {
-                
+                // This allocation is ok because it's a struct
                 var pair = new SpawnedObjectPoolPair
                 {
                     Pool = pool,

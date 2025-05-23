@@ -69,10 +69,10 @@ namespace Zenject.Internal
         {
             var injectMethodInfos = new List<ReflectionTypeInfo.InjectMethodInfo>();
 
-            
-            
-            
-            
+            // Note that unlike with fields and properties we use GetCustomAttributes
+            // This is so that we can ignore inherited attributes, which is necessary
+            // otherwise a base class method marked with [Inject] would cause all overridden
+            // derived methods to be added as well
             var methodInfos = type.DeclaredInstanceMethods()
                 .Where(x => _injectAttributeTypes.Any(a => x.GetCustomAttributes(a, false).Any())).ToList();
 
@@ -195,8 +195,8 @@ namespace Zenject.Internal
             var constructors = type.Constructors();
 
 #if UNITY_WSA && ENABLE_DOTNET && !UNITY_EDITOR
-            
-            
+            // WP8 generates a dummy constructor with signature (internal Classname(UIntPtr dummy))
+            // So just ignore that
             constructors = constructors.Where(c => !IsWp8GeneratedConstructor(c)).ToArray();
 #endif
 
@@ -214,9 +214,9 @@ namespace Zenject.Internal
                     return explicitConstructor;
                 }
 
-                
-                
-                
+                // If there is only one public constructor then use that
+                // This makes decent sense but is also necessary on WSA sometimes since the WSA generated
+                // constructor can sometimes be private with zero parameters
                 var singlePublicConstructor = constructors.Where(x => x.IsPublic).OnlyOrDefault();
 
                 if (singlePublicConstructor != null)
@@ -224,11 +224,11 @@ namespace Zenject.Internal
                     return singlePublicConstructor;
                 }
 
-                
-                
-                
-                
-                
+                // Choose the one with the least amount of arguments
+                // This might result in some non obvious errors like null reference exceptions
+                // but is probably the best trade-off since it allows zenject to be more compatible
+                // with libraries that don't depend on zenject at all
+                // Discussion here - https://github.com/svermeulen/Zenject/issues/416
                 return constructors.OrderBy(x => x.GetParameters().Count()).First();
             }
 

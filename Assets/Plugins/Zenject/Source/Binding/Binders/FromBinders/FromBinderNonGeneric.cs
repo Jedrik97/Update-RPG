@@ -17,7 +17,7 @@ namespace Zenject
         {
         }
 
-        
+        // Shortcut for FromIFactory and also for backwards compatibility
         public ScopeConcreteIdArgConditionCopyNonLazyBinder FromFactory<TConcrete, TFactory>()
             where TFactory : IFactory<TConcrete>
         {

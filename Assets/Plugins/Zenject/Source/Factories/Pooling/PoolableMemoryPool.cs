@@ -1,6 +1,6 @@
 namespace Zenject
 {
-    
+    // Zero parameters
     public class PoolableMemoryPool<TValue>
         : MemoryPool<TValue>
         where TValue : IPoolable
@@ -16,7 +16,7 @@ namespace Zenject
         }
     }
 
-    
+    // One parameters
     public class PoolableMemoryPool<TParam1, TValue>
         : MemoryPool<TParam1, TValue>
         where TValue : IPoolable<TParam1>
@@ -32,7 +32,7 @@ namespace Zenject
         }
     }
 
-    
+    // Two parameters
     public class PoolableMemoryPool<TParam1, TParam2, TValue>
         : MemoryPool<TParam1, TParam2, TValue>
         where TValue : IPoolable<TParam1, TParam2>
@@ -48,7 +48,7 @@ namespace Zenject
         }
     }
 
-    
+    // Three parameters
     public class PoolableMemoryPool<TParam1, TParam2, TParam3, TValue>
         : MemoryPool<TParam1, TParam2, TParam3, TValue>
         where TValue : IPoolable<TParam1, TParam2, TParam3>
@@ -64,7 +64,7 @@ namespace Zenject
         }
     }
 
-    
+    // Four parameters
     public class PoolableMemoryPool<TParam1, TParam2, TParam3, TParam4, TValue>
         : MemoryPool<TParam1, TParam2, TParam3, TParam4, TValue>
         where TValue : IPoolable<TParam1, TParam2, TParam3, TParam4>
@@ -80,7 +80,7 @@ namespace Zenject
         }
     }
 
-    
+    // Five parameters
     public class PoolableMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
         : MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
         where TValue : IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5>
@@ -96,7 +96,7 @@ namespace Zenject
         }
     }
 
-    
+    // Six parameters
     public class PoolableMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
         : MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
         where TValue : IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6>
@@ -112,7 +112,7 @@ namespace Zenject
         }
     }
 
-    
+    // Seven parameters
     public class PoolableMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>
         : MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>
         where TValue : IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7>
@@ -128,7 +128,7 @@ namespace Zenject
         }
     }
 
-    
+    // Eight parameters
     public class PoolableMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TValue>
         : MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TValue>
         where TValue : IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8>

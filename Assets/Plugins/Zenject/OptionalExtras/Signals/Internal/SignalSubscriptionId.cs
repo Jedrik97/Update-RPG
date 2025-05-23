@@ -27,7 +27,7 @@ namespace Zenject
 
         public override int GetHashCode()
         {
-            unchecked 
+            unchecked // Overflow is fine, just wrap
             {
                 int hash = 17;
                 hash = hash * 29 + _signalId.GetHashCode();

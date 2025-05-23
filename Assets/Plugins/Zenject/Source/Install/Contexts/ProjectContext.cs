@@ -21,7 +21,7 @@ namespace Zenject
 
         static ProjectContext _instance;
 
-        
+        // TODO: Set this to false the next time major version is incremented
         [Tooltip("When true, objects that are created at runtime will be parented to the ProjectContext")]
         [SerializeField]
         bool _parentNewObjectsUnderContext = true;
@@ -125,7 +125,7 @@ namespace Zenject
 #if UNITY_EDITOR
                     if(prefabWasActive)
                     {
-                        
+                        // This ensures the prefab's Awake() methods don't fire (and, if in the editor, that the prefab file doesn't get modified)
                         gameObjectInstance = GameObject.Instantiate(prefab, ZenUtilInternal.GetOrCreateInactivePrefabParent());
                         gameObjectInstance.SetActive(false);
                         gameObjectInstance.transform.SetParent(null, false);
@@ -154,8 +154,8 @@ namespace Zenject
                 }
             }
 
-            
-            
+            // Note: We use Initialize instead of awake here in case someone calls
+            // ProjectContext.Instance while ProjectContext is initializing
             _instance.Initialize();
 
             if (prefabWasActive)
@@ -164,7 +164,7 @@ namespace Zenject
                 using (ProfileTimers.CreateTimedBlock("User Code"))
 #endif
                 {
-                    
+                    // We always instantiate it as disabled so that Awake and Start events are triggered after inject
                     _instance.gameObject.SetActive(true);
                 }
             }
@@ -178,16 +178,16 @@ namespace Zenject
 
         public void EnsureIsInitialized()
         {
-            
+            // Do nothing - Initialize occurs in Instance property
         }
 
         public void Awake()
         {
             if (Application.isPlaying)
-                
-                
-                
-                
+                // DontDestroyOnLoad can only be called when in play mode and otherwise produces errors
+                // ProjectContext is created during design time (in an empty scene) when running validation
+                // and also when running unit tests
+                // In these cases we don't need DontDestroyOnLoad so just skip it
             {
                 DontDestroyOnLoad(gameObject);
             }
@@ -208,13 +208,13 @@ namespace Zenject
 
             var isValidating = ValidateOnNextRun;
 
-            
+            // Reset immediately to ensure it doesn't get used in another run
             ValidateOnNextRun = false;
 
             _container = new DiContainer(
                 new[] { StaticContext.Container }, isValidating);
 
-            
+            // Do this after creating DiContainer in case it's needed by the pre install logic
             if (PreInstall != null)
             {
                 PreInstall();

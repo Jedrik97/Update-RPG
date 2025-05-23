@@ -26,8 +26,8 @@ namespace Zenject
         {
             foreach (var disposable in disposables)
             {
-                
-                
+                // Note that we use zero for unspecified priority
+                // This is nice because you can use negative or positive for before/after unspecified
                 var match = priorities.Where(x => disposable.GetType().DerivesFromOrEqual(x.First)).Select(x => (int?)x.Second).SingleOrDefault();
                 int priority = match.HasValue ? match.Value : 0;
 
@@ -76,7 +76,7 @@ namespace Zenject
             Assert.That(!_lateDisposed, "Tried to late dispose DisposableManager twice!");
             _lateDisposed = true;
 
-            
+            // Dispose in the reverse order that they are initialized in
             var disposablesOrdered = _lateDisposables.OrderBy(x => x.Priority).Reverse().ToList();
 
 #if UNITY_EDITOR
@@ -105,7 +105,7 @@ namespace Zenject
             Assert.That(!_disposed, "Tried to dispose DisposableManager twice!");
             _disposed = true;
 
-            
+            // Dispose in the reverse order that they are initialized in
             var disposablesOrdered = _disposables.OrderBy(x => x.Priority).Reverse().ToList();
 
 #if UNITY_EDITOR

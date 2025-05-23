@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using Zenject.Internal;
 using Assert = ModestTree.Assert;
 
-
+// Ignore warning about using SceneManager.UnloadScene instead of SceneManager.UnloadSceneAsync
 #pragma warning disable 618
 
 namespace Zenject
@@ -40,7 +40,7 @@ namespace Zenject
             Assert.That(!_hasLoadedScene, "Attempted to load scene twice!");
             _hasLoadedScene = true;
 
-            
+            // Clean up any leftovers from previous test
             ZenjectTestUtil.DestroyEverythingExceptTestRunner(false);
 
             Assert.That(SceneContainers.IsEmpty());
@@ -65,7 +65,7 @@ namespace Zenject
                 SceneContext sceneContext = null;
 
                 if (ProjectContext.HasInstance)
-                
+                // ProjectContext might be null if scene does not have a scene context
                 {
                     var scene = SceneManager.GetSceneByName(sceneName);
 

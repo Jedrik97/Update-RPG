@@ -80,7 +80,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithArgumentsFail()
         {
             PreInstall();
-            
+            // They have required arguments
             Container.Bind(typeof(Gorp), typeof(Qux)).FromComponentInNewPrefab(GorpAndQuxPrefab).AsSingle().NonLazy();
 
             Assert.Throws(() => PostInstall());
@@ -119,7 +119,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithAbstractSearchSingleMatch()
         {
             PreInstall();
-            
+            // There are three components that implement INorf on this prefab
             Container.Bind<INorf>().FromComponentInNewPrefab(NorfPrefab).AsCached().NonLazy();
 
             PostInstall();
@@ -134,7 +134,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithAbstractSearchMultipleMatch()
         {
             PreInstall();
-            
+            // There are three components that implement INorf on this prefab
             Container.Bind<INorf>().FromComponentsInNewPrefab(NorfPrefab).AsCached().NonLazy();
 
             PostInstall();
@@ -149,7 +149,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestAbstractBindingConcreteSearch()
         {
             PreInstall();
-            
+            // Should ignore the Norf2 component on it
             Container.Bind<INorf>().To<Norf>().FromComponentsInNewPrefab(NorfPrefab).AsCached().NonLazy();
 
             PostInstall();
@@ -185,7 +185,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestCircularDependencies()
         {
             PreInstall();
-            
+            // Jim and Bob both depend on each other
             Container.Bind(typeof(Jim), typeof(Bob)).FromComponentInNewPrefab(JimAndBobPrefab).AsSingle().NonLazy();
             Container.BindInterfacesTo<JimAndBobRunner>().AsSingle().NonLazy();
 

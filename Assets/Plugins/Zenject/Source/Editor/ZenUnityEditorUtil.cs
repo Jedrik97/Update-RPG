@@ -14,7 +14,7 @@ namespace Zenject.Internal
 {
     public static class ZenUnityEditorUtil
     {
-        
+        // Returns true if succeeds without errors
         public static bool SaveThenRunPreserveSceneSetup(Action action)
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
@@ -40,8 +40,8 @@ namespace Zenject.Internal
             return false;
         }
 
-        
-        
+        // Feel free to call this method from an editor script, or a unit test, etc.
+        // An exception will be thrown if any validation errors are encountered
         public static void ValidateCurrentSceneSetup()
         {
             bool encounteredError = false;
@@ -83,8 +83,8 @@ namespace Zenject.Internal
             }
         }
 
-        
-        
+        // NOTE: An exception will be thrown if any validation errors are encountered
+        // Returns the number of scenes that successfully validated
         public static int ValidateAllActiveScenes()
         {
             var activeScenePaths = EditorBuildSettings.scenes.Where(x => x.enabled)
@@ -99,7 +99,7 @@ namespace Zenject.Internal
             return activeScenePaths.Count;
         }
 
-        
+        // Don't use this
         public static void RunCurrentSceneSetup()
         {
             Assert.That(!ProjectContext.HasInstance);
@@ -112,7 +112,7 @@ namespace Zenject.Internal
                 }
                 catch (Exception e)
                 {
-                    
+                    // Add a bit more context
                     throw new ZenjectException(
                         "Scene '{0}' Failed To Start!".Fmt(sceneContext.gameObject.scene.name), e);
                 }
@@ -315,7 +315,7 @@ namespace Zenject.Internal
             return paths;
         }
 
-        
+        // Taken from http://wiki.unity3d.com/index.php?title=CreateScriptableObjectAsset
         public static void SaveScriptableObjectAsset(
             string path, ScriptableObject asset)
         {
@@ -331,17 +331,17 @@ namespace Zenject.Internal
             Selection.activeObject = asset;
         }
 
-        
+        // Note that the path is relative to the Assets folder
         public static List<string> GetSelectedFolderPathsInProjectsTab()
         {
             return GetSelectedPathsInProjectsTab()
                 .Where(x => Directory.Exists(x)).ToList();
         }
 
-        
-        
-        
-        
+        // Returns the best guess directory in projects pane
+        // Useful when adding to Assets -> Create context menu
+        // Returns null if it can't find one
+        // Note that the path is relative to the Assets folder for use in AssetDatabase.GenerateUniqueAssetPath etc.
         public static string TryGetSelectedFolderPathInProjectsTab()
         {
             return GetSelectedFolderPathsInProjectsTab().OnlyOrDefault();

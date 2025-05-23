@@ -76,8 +76,8 @@ namespace Zenject
             _signalSettings = signalSettings ?? SignalSettings.Default;
         }
 
-        
-        
+        // Need to define an emtpy constructor since this is created by unity serialization
+        // even if the above constructor has defaults for all
         public ZenjectSettings()
             : this(ValidationErrorResponses.Log)
         {
@@ -88,17 +88,17 @@ namespace Zenject
             get { return _signalSettings; }
         }
 
-        
-        
-        
+        // Setting this to Log can be more useful because it will print out
+        // multiple validation errors at once so you can fix multiple problems before
+        // attempting validation again
         public ValidationErrorResponses ValidationErrorResponse
         {
             get { return _validationErrorResponse; }
         }
 
-        
-        
-        
+        // Settings this to true will ensure that every binding in the container can be
+        // instantiated with all its dependencies, and not just those bindings that will be
+        // constructed as part of the object graph generated from the nonlazy bindings
         public RootResolveMethods ValidationRootResolveMethod
         {
             get { return _validationRootResolveMethod; }
@@ -109,12 +109,12 @@ namespace Zenject
             get { return _displayWarningWhenResolvingDuringInstall; }
         }
 
-        
-        
-        
-        
-        
-        
+        // When this is set to true and the application is exitted, all the scenes will be
+        // destroyed in the reverse order in which they were loaded, and then the project context
+        // will be destroyed last
+        // When this is set to false (the default) the order that this occurs in is not predictable
+        // It is set to false by default because manually destroying objects during OnApplicationQuit
+        // event can cause crashes on android (see github issue #468)
         public bool EnsureDeterministicDestructionOrderOnApplicationQuit
         {
             get { return _ensureDeterministicDestructionOrderOnApplicationQuit; }
@@ -149,8 +149,8 @@ namespace Zenject
                 SignalDefaultSyncModes defaultSyncMode,
                 SignalMissingHandlerResponses missingHandlerDefaultResponse = SignalMissingHandlerResponses.Warn,
                 bool requireStrictUnsubscribe = false,
-                
-                
+                // Run right after all the unspecified tick priorities so that the effects of the
+                // signal are handled during the same frame when they are triggered
                 int defaultAsyncTickPriority = 1)
             {
                 _defaultSyncMode = defaultSyncMode;
@@ -159,8 +159,8 @@ namespace Zenject
                 _defaultAsyncTickPriority = defaultAsyncTickPriority;
             }
 
-            
-            
+            // Need to define an emtpy constructor since this is created by unity serialization
+            // even if the above constructor has defaults for all
             public SignalSettings()
                 : this(SignalDefaultSyncModes.Synchronous)
             {

@@ -14,7 +14,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestTransientError()
         {
             PreInstall();
-            
+            // Validation should detect that it doesn't exist
             Container.Bind<Foo>().FromComponentInNewPrefabResource(PathPrefix + "asdfasdfas").AsTransient().NonLazy();
 
             Assert.Throws(() => PostInstall());
@@ -66,7 +66,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithArgumentsFail()
         {
             PreInstall();
-            
+            // They have required arguments
             Container.Bind(typeof(Gorp), typeof(Qux)).FromComponentInNewPrefabResource(PathPrefix + "GorpAndQux").AsSingle().NonLazy();
 
             Assert.Throws(() => PostInstall());
@@ -93,7 +93,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithAbstractSearchSingleMatch()
         {
             PreInstall();
-            
+            // There are three components that implement INorf on this prefab
             Container.Bind<INorf>().FromComponentInNewPrefabResource(PathPrefix + "Norf").AsCached().NonLazy();
 
             PostInstall();
@@ -108,7 +108,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestWithAbstractSearchMultipleMatch()
         {
             PreInstall();
-            
+            // There are three components that implement INorf on this prefab
             Container.Bind<INorf>().FromComponentsInNewPrefabResource(PathPrefix + "Norf").AsCached().NonLazy();
 
             PostInstall();
@@ -123,7 +123,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestAbstractBindingConcreteSearch()
         {
             PreInstall();
-            
+            // Should ignore the Norf2 component on it
             Container.Bind<INorf>().To<Norf>().FromComponentsInNewPrefabResource(PathPrefix + "Norf").AsCached().NonLazy();
 
             PostInstall();
@@ -146,7 +146,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestCircularDependencies()
         {
             PreInstall();
-            
+            // Jim and Bob both depend on each other
             Container.Bind(typeof(Jim), typeof(Bob)).FromComponentInNewPrefabResource(PathPrefix + "JimAndBob").AsSingle().NonLazy();
 
             Container.BindInterfacesTo<JimAndBobRunner>().AsSingle().NonLazy();

@@ -59,30 +59,30 @@ namespace Zenject.Tests.Other
         }
 
         [Test]
-        
+        // Test speed of resolve function
         public void Test()
         {
-            
-            
-            
-            
+            //var container = new DiContainer();
+            //container.Bind<Test0>().AsTransient();
+            //container.Bind<Test1>().AsTransient();
+            //container.Bind<Test2>().AsTransient();
 
-            
+            //var stopwatch = new Stopwatch();
 
-            
+            //stopwatch.Start();
 
-            
-            
-                
-                
-                
-            
+            //for (int i = 0; i < 1000; i++)
+            //{
+                //var test0 = container.Resolve<Test2>();
+                //var test1 = container.Resolve<Test2>();
+                //var test2 = container.Resolve<Test2>();
+            //}
 
-            
+            //stopwatch.Stop();
 
-            
+            //Log.InfoFormat("time = {0}", stopwatch.Elapsed.TotalSeconds);
 
-            
+            //Assert.That(false);
         }
     }
 }

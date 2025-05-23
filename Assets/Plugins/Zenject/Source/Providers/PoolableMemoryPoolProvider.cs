@@ -44,7 +44,7 @@ namespace Zenject
             InjectContext context, List<TypeValuePair> args, out Action injectAction, List<object> buffer);
     }
 
-    
+    // Zero parameters
 
     [NoReflectionBaking]
     public class PoolableMemoryPoolProvider<TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
@@ -84,7 +84,7 @@ namespace Zenject
         }
     }
 
-    
+    // One parameters
 
     [NoReflectionBaking]
     public class PoolableMemoryPoolProvider<TParam1, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
@@ -124,7 +124,7 @@ namespace Zenject
         }
     }
 
-    
+    // Two parameters
 
     [NoReflectionBaking]
     public class PoolableMemoryPoolProvider<TParam1, TParam2, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
@@ -168,7 +168,7 @@ namespace Zenject
         }
     }
 
-    
+    // Three parameters
 
     [NoReflectionBaking]
     public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
@@ -214,7 +214,7 @@ namespace Zenject
         }
     }
 
-    
+    // Four parameters
 
     [NoReflectionBaking]
     public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable
@@ -262,7 +262,7 @@ namespace Zenject
         }
     }
 
-    
+    // Five parameters
 
     [NoReflectionBaking]
     public class PoolableMemoryPoolProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TContract, TMemoryPool> : PoolableMemoryPoolProviderBase<TContract>, IValidatable

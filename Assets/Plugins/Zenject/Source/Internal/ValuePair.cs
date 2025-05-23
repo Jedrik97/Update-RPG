@@ -44,7 +44,7 @@ namespace ModestTree.Util
 
         public override int GetHashCode()
         {
-            unchecked 
+            unchecked // Overflow is fine, just wrap
             {
                 int hash = 17;
                 hash = hash * 29 + (First == null ? 0 : First.GetHashCode());
@@ -98,7 +98,7 @@ namespace ModestTree.Util
 
         public override int GetHashCode()
         {
-            unchecked 
+            unchecked // Overflow is fine, just wrap
             {
                 int hash = 17;
                 hash = hash * 29 + (First == null ? 0 : First.GetHashCode());
@@ -157,7 +157,7 @@ namespace ModestTree.Util
 
         public override int GetHashCode()
         {
-            unchecked 
+            unchecked // Overflow is fine, just wrap
             {
                 int hash = 17;
                 hash = hash * 29 + (First == null ? 0 : First.GetHashCode());

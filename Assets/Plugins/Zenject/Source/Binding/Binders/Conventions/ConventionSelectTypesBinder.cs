@@ -19,7 +19,7 @@ namespace Zenject
 
         public ConventionFilterTypesBinder AllTypes()
         {
-            
+            // Do nothing (this is the default)
             return CreateNextBinder();
         }
 

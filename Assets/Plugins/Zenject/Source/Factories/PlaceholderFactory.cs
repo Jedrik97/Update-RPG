@@ -6,11 +6,11 @@ using JetBrains.Annotations;
 
 namespace Zenject
 {
-    
+    // Zero parameters
     public class PlaceholderFactory<TValue> : PlaceholderFactoryBase<TValue>, IFactory<TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -30,12 +30,12 @@ namespace Zenject
     {
     }
 
-    
+    // One parameter
     public class PlaceholderFactory<TParam1, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -59,12 +59,12 @@ namespace Zenject
     {
     }
 
-    
+    // Two parameters
     public class PlaceholderFactory<TParam1, TParam2, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TParam2, TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -93,12 +93,12 @@ namespace Zenject
     {
     }
 
-    
+    // Three parameters
     public class PlaceholderFactory<TParam1, TParam2, TParam3, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TParam2, TParam3, TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -129,12 +129,12 @@ namespace Zenject
     {
     }
 
-    
+    // Four parameters
     public class PlaceholderFactory<TParam1, TParam2, TParam3, TParam4, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TParam2, TParam3, TParam4, TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -168,12 +168,12 @@ namespace Zenject
     {
     }
 
-    
+    // Five parameters
     public class PlaceholderFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -209,12 +209,12 @@ namespace Zenject
     {
     }
 
-    
+    // Six parameters
     public class PlaceholderFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
     {
-        
-        
+        // Note: Most of the time you should not override this method and should instead
+        // use BindFactory<>.FromIFactory if you want to do some custom logic
 #if !NOT_UNITY3D
         [NotNull]
 #endif
@@ -252,11 +252,11 @@ namespace Zenject
     {
     }
 
-    
+    // Ten parameters
     public class PlaceholderFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TValue>
         : PlaceholderFactoryBase<TValue>, IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TValue>
     {
-        
+        // If you were hoping to override this method, use BindFactory<>.ToFactory instead
         public virtual TValue Create(TParam1 param1, TParam2 param2, TParam3 param3, TParam4 param4, TParam5 param5, TParam6 param6, TParam7 param7, TParam8 param8, TParam9 param9, TParam10 param10)
         {
             return CreateInternal(

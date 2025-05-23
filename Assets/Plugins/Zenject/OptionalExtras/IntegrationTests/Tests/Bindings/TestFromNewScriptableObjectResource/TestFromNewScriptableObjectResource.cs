@@ -14,7 +14,7 @@ namespace Zenject.Tests.Bindings
         public IEnumerator TestTransientError()
         {
             PreInstall();
-            
+            // Validation should detect that it doesn't exist
             Container.Bind<Foo>().FromNewScriptableObjectResource(PathPrefix + "asdfasdfas").AsTransient().NonLazy();
 
             Assert.Throws(() => PostInstall());

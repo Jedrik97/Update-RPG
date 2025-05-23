@@ -70,7 +70,7 @@ namespace Zenject.Tests.Signals
             Assert.That(!received);
             signalBus.Fire<FooSignal>();
             Assert.That(!received);
-            
+            // handler2 is subscribed now
 
             signalBus.Unsubscribe<FooSignal>(handler);
 
@@ -82,7 +82,7 @@ namespace Zenject.Tests.Signals
             signalBus.Subscribe<FooSignal>(handler3);
             Assert.That(!received);
             signalBus.Fire<FooSignal>();
-            
+            // Should be called before handler 3 so should receive it
             Assert.That(received);
             received = false;
             signalBus.Unsubscribe<FooSignal>(handler3);
@@ -94,7 +94,7 @@ namespace Zenject.Tests.Signals
 
             Assert.IsEqual(signalBus.NumSubscribers, 0);
 
-            
+            // Now test unsubscribing ourself in our own handler
 
             Action handler4 = null;
             handler4 = () =>
@@ -135,7 +135,7 @@ namespace Zenject.Tests.Signals
 
             subContainer.Resolve<DisposableManager>().LateDispose();
 
-            
+            // Signal should unregister automatically when the subcontainer is disposed
             received = false;
             signalBus1.Fire<FooSignal>();
             Assert.That(!received);

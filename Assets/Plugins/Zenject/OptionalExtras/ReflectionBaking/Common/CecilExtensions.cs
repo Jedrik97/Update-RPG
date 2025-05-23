@@ -139,8 +139,8 @@ namespace Zenject.ReflectionBaking
                 for (int i = 0; i < instance.Methods.Count; i++)
                 {
                     MethodDefinition methodDefinition = instance.Methods[i];
-                    if (string.Equals(methodDefinition.Name, name, StringComparison.Ordinal) 
-                        && parameterTypes.Length == methodDefinition.Parameters.Count) 
+                    if (string.Equals(methodDefinition.Name, name, StringComparison.Ordinal) // Names Match
+                        && parameterTypes.Length == methodDefinition.Parameters.Count) // The same number of parameters
                     {
                         MethodDefinition result = methodDefinition;
                         for (int x = methodDefinition.Parameters.Count - 1; x >= 0; x--)
@@ -182,7 +182,7 @@ namespace Zenject.ReflectionBaking
             {
                 PropertyDefinition preopertyDef = instance.Properties[i];
 
-                
+                // Properties can only have one argument or they are an indexer.
                 if (string.CompareOrdinal(preopertyDef.Name, name) == 0 && preopertyDef.Parameters.Count == 0)
                 {
                     return preopertyDef;

@@ -4,7 +4,7 @@ using ModestTree;
 
 namespace Zenject
 {
-    
+    // Zero params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TValue> : IProvider
@@ -42,7 +42,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -52,7 +52,7 @@ namespace Zenject
         }
     }
 
-    
+    // One params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TValue> : IProvider
@@ -91,7 +91,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -104,7 +104,7 @@ namespace Zenject
         }
     }
 
-    
+    // Two params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TParam2, TValue> : IProvider
@@ -144,7 +144,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -158,7 +158,7 @@ namespace Zenject
         }
     }
 
-    
+    // Three params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TParam2, TParam3, TValue> : IProvider
@@ -199,7 +199,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -214,7 +214,7 @@ namespace Zenject
         }
     }
 
-    
+    // Four params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TParam2, TParam3, TParam4, TValue> : IProvider
@@ -264,7 +264,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -280,7 +280,7 @@ namespace Zenject
         }
     }
 
-    
+    // Five params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> : IProvider
@@ -331,7 +331,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -348,7 +348,7 @@ namespace Zenject
         }
     }
 
-    
+    // Six params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> : IProvider
@@ -400,7 +400,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else
@@ -418,7 +418,7 @@ namespace Zenject
         }
     }
 
-    
+    // Ten params
 
     [NoReflectionBaking]
     public class MethodProviderWithContainer<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TValue> : IProvider
@@ -474,7 +474,7 @@ namespace Zenject
             injectAction = null;
             if (context.Container.IsValidating)
             {
-                
+                // Don't do anything when validating, we can't make any assumptions on the given method
                 buffer.Add(new ValidationMarker(typeof(TValue)));
             }
             else

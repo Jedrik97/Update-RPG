@@ -16,7 +16,7 @@ Category {
 		Bind "TexCoord", texcoord
 	}
 	
-	
+	// ---- Dual texture cards
 	SubShader {
 		Pass {
 			SetTexture [_MainTex] {
@@ -29,7 +29,7 @@ Category {
 		}
 	}
 	
-	
+	// ---- Single texture cards (does not do color tint)
 	SubShader {
 		Pass {
 			SetTexture [_MainTex] {

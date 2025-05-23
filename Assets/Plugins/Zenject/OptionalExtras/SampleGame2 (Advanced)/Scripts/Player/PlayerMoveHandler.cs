@@ -53,7 +53,7 @@ namespace Zenject.SpaceFighter
                     Vector3.down * _settings.MoveSpeed);
             }
 
-            
+            // Always ensure we are on the main plane
             _player.Position = new Vector3(_player.Position.x, _player.Position.y, 0);
 
             KeepPlayerOnScreen();

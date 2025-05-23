@@ -10,10 +10,10 @@ namespace Zenject.Asteroids
         Rigidbody _rigidBody;
         Settings _settings;
 
-        
-        
-        
-        
+        // We could just add [Inject] to the field declarations but
+        // it's often better practice to use PostInject methods
+        // Note that we can't use Constructors here because this is
+        // a MonoBehaviour
         [Inject]
         public void Construct(LevelHelper level, Settings settings)
         {
@@ -39,7 +39,7 @@ namespace Zenject.Asteroids
             get
             {
                 var scale = transform.localScale;
-                
+                // We assume scale is uniform
                 Assert.That(scale[0] == scale[1] && scale[1] == scale[2]);
 
                 return scale[0];
@@ -59,7 +59,7 @@ namespace Zenject.Asteroids
 
         public void FixedTick()
         {
-            
+            // Limit speed to a maximum
             var speed = _rigidBody.linearVelocity.magnitude;
 
             if (speed > _settings.maxSpeed)
