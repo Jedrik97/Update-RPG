@@ -12,7 +12,7 @@ public class AoeAbility : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Animator animator;
 
-    // Ссылки на PlayerStats, чтобы получить информацию о статистике персонажа
+    
     [SerializeField] private PlayerStats playerStats;
 
     private bool isAoeActive = false;
@@ -50,7 +50,7 @@ public class AoeAbility : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        // Применяем бонусы на основе статистики
+        
         UpdateAoeStats();
 
         while (elapsedTime < aoeDuration)

@@ -32,8 +32,8 @@ namespace Zenject.ReflectionBaking
         {
             var assemblies = new List<string>(20);
 
-            // We could also add the ones in the project but we probably don't want to edit those
-            //FindAssemblies(Application.dataPath, 120, assemblies);
+            
+            
 
             FindAssemblies(Application.dataPath + "/../Library/ScriptAssemblies/", 2, assemblies);
 

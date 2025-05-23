@@ -92,8 +92,8 @@ namespace Zenject
 
             foreach (var tickable in _fixedTickables)
             {
-                // Note that we use zero for unspecified priority
-                // This is nice because you can use negative or positive for before/after unspecified
+                
+                
                 var matches = _fixedPriorities.Where(x => tickable.GetType().DerivesFromOrEqual(x.First)).Select(x => x.Second).ToList();
                 int priority = matches.IsEmpty() ? 0 : matches.Distinct().Single();
 
@@ -111,8 +111,8 @@ namespace Zenject
 
             foreach (var tickable in _tickables)
             {
-                // Note that we use zero for unspecified priority
-                // This is nice because you can use negative or positive for before/after unspecified
+                
+                
                 var matches = _priorities.Where(x => tickable.GetType().DerivesFromOrEqual(x.First)).Select(x => x.Second).ToList();
                 int priority = matches.IsEmpty() ? 0 : matches.Distinct().Single();
 
@@ -130,8 +130,8 @@ namespace Zenject
 
             foreach (var tickable in _lateTickables)
             {
-                // Note that we use zero for unspecified priority
-                // This is nice because you can use negative or positive for before/after unspecified
+                
+                
                 var matches = _latePriorities.Where(x => tickable.GetType().DerivesFromOrEqual(x.First)).Select(x => x.Second).ToList();
                 int priority = matches.IsEmpty() ? 0 : matches.Distinct().Single();
 

@@ -166,12 +166,12 @@ namespace Zenject.MemoryPoolMonitor
 
         bool ShouldIncludePool(IMemoryPool pool)
         {
-            //var poolType = pool.GetType();
+            
 
-            //if (poolType.Namespace == "Zenject")
-            //{
-                //return false;
-            //}
+            
+            
+                
+            
 
             if (_actualFilter.IsEmpty())
             {

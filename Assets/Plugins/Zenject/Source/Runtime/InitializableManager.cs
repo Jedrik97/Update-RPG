@@ -6,8 +6,8 @@ using ModestTree.Util;
 
 namespace Zenject
 {
-    // Responsibilities:
-    // - Run Initialize() on all Iinitializable's, in the order specified by InitPriority
+    
+    
     public class InitializableManager
     {
         List<InitializableInfo> _initializables;
@@ -27,8 +27,8 @@ namespace Zenject
             {
                 var initializable = initializables[i];
 
-                // Note that we use zero for unspecified priority
-                // This is nice because you can use negative or positive for before/after unspecified
+                
+                
                 var matches = priorities.Where(x => initializable.GetType().DerivesFromOrEqual(x.First)).Select(x => x.Second).ToList();
                 int priority = matches.IsEmpty() ? 0 : matches.Distinct().Single();
 

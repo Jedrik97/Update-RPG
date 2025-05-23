@@ -1,4 +1,3 @@
-// SlotSelectController.cs
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -10,11 +9,11 @@ using Zenject;
 public class SlotSelectController : MonoBehaviour
 {
     [Header("Panels & Buttons (children of Canvas)")]
-    public GameObject panel;           // SaveSlotSelectPanel
-    public GameObject buttonContainer; // тот же ButtonContainer, назначается в Инспекторе
+    public GameObject panel;           
+    public GameObject buttonContainer; 
 
-    public Button[] slotButtons;       // Slot1Button, Slot2Button, Slot3Button
-    public Button cancelButton;        // Back-кнопка
+    public Button[] slotButtons;       
+    public Button cancelButton;        
 
     private PlayerStats _stats;
     private HealthPlayerController _hp;
@@ -37,7 +36,7 @@ public class SlotSelectController : MonoBehaviour
         _pauseMenu = pauseMenu;
     }
 
-    // Эти методы привязываем по On Click()
+    
     public void ShowContinue()
     {
         mode = Mode.Continue;
@@ -59,22 +58,22 @@ public class SlotSelectController : MonoBehaviour
         PopulateSlotButtons();
     }
 
-    /// <summary>
-    /// Скрывает панель сохранений без закрытия всей паузы
-    /// </summary>
+    
+    
+    
     public void HidePanel()
     {
         panel.SetActive(false);
     }
 
-    // Back-кнопка
+    
     public void OnCancelClicked()
     {
         HidePanel();
         buttonContainer.SetActive(true);
     }
 
-    // Обёртки для On Click() у кнопок слотов
+    
     public void OnSlot1Clicked() => OnSlotButton(1);
     public void OnSlot2Clicked() => OnSlotButton(2);
     public void OnSlot3Clicked() => OnSlotButton(3);
@@ -152,7 +151,7 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Load:
                 if (SaveLoadManager.LoadGame(slot, _stats, _hp, _inv))
                 {
-                    // скрываем и панель сохранений, и весь pauseMenu
+                    
                     HidePanel();
                     _pauseMenu.ClosePauseMenu();
                 }

@@ -21,13 +21,13 @@ namespace Zenject
     {
         static Dictionary<Type, InjectTypeInfo> _typeInfo = new Dictionary<Type, InjectTypeInfo>();
 
-        // We store this separately from InjectTypeInfo because this flag is needed for contract
-        // types whereas InjectTypeInfo is only needed for types that are instantiated, and
-        // we want to minimize the types that generate InjectTypeInfo for
+        
+        
+        
         static Dictionary<Type, bool> _allowDuringValidation = new Dictionary<Type, bool>();
 
-        // Use double underscores for generated methods since this is also what the C# compiler does
-        // for things like anonymous methods
+        
+        
         public const string ReflectionBakingGetInjectInfoMethodName = "__zenCreateInjectTypeInfo";
         public const string ReflectionBakingFactoryMethodName = "__zenCreate";
         public const string ReflectionBakingInjectMethodPrefix = "__zenInjectMethod";
@@ -59,10 +59,10 @@ namespace Zenject
 
         static bool ShouldAllowDuringValidationInternal(Type type)
         {
-            // During validation, do not instantiate or inject anything except for
-            // Installers, IValidatable's, or types marked with attribute ZenjectAllowDuringValidation
-            // You would typically use ZenjectAllowDuringValidation attribute for data that you
-            // inject into factories
+            
+            
+            
+            
 
             if (type.DerivesFrom<IInstaller>() || type.DerivesFrom<IValidatable>())
             {
@@ -162,7 +162,7 @@ namespace Zenject
             }
 
 #if ZEN_INTERNAL_PROFILING
-            // Make sure that the static constructor logic doesn't inflate our profile measurements
+            
             using (ProfileTimers.CreateTimedBlock("User Code"))
             {
                 RuntimeHelpers.RunClassConstructor(type.TypeHandle);
@@ -193,9 +193,9 @@ namespace Zenject
 
             if (ReflectionBakingCoverageMode == ReflectionBakingCoverageModes.NoCheckAssumeFullCoverage)
             {
-                // If we are confident that the reflection baking supplies all the injection information,
-                // then we can avoid the costs of doing reflection on types that were not covered
-                // by the baking
+                
+                
+                
                 return null;
             }
 
@@ -223,7 +223,7 @@ namespace Zenject
 
         static bool IsStaticType(Type type)
         {
-            // Apparently this is unique to static classes
+            
             return type.IsAbstract() && type.IsSealed();
         }
 

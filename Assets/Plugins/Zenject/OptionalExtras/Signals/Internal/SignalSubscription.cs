@@ -30,7 +30,7 @@ namespace Zenject
             Assert.IsNull(_callback);
             _callback = callback;
             _declaration = declaration;
-            // Cache this in case OnDeclarationDespawned is called
+            
             _signalId = declaration.BindingId;
 
             declaration.Add(this);
@@ -55,16 +55,16 @@ namespace Zenject
 
         public void Dispose()
         {
-            // Allow calling this twice since signals automatically unsubscribe in SignalBus.LateDispose
-            // and so this causes issues if users also unsubscribe in a MonoBehaviour OnDestroy on a
-            // root game object
+            
+            
+            
             if (!_pool.InactiveItems.Contains(this))
             {
                 _pool.Despawn(this);
             }
         }
 
-        // See comment in SignalDeclaration for why this exists
+        
         public void OnDeclarationDespawned()
         {
             _declaration = null;

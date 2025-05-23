@@ -56,7 +56,7 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().FromInstance(new Test0()).NonLazy();
             Container.Bind<Test0>().WithId("foo").FromInstance(new Test0()).NonLazy();
 
-            // Should not throw exceptions
+            
             Container.Resolve<Test1>();
 
             Assert.IsNotNull(Container.Resolve<Test1>());
@@ -110,7 +110,7 @@ namespace Zenject.Tests.Conditions
             Container.Bind<Test0>().FromInstance(new Test0()).NonLazy();
             Container.Bind<Test0>().WithId("TestValue2").FromInstance(new Test0()).NonLazy();
 
-            // No exceptions
+            
             Container.Resolve<Test3>();
 
             Assert.IsNotNull(Container.Resolve<Test3>());

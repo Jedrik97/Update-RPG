@@ -23,8 +23,8 @@ namespace Zenject
 
         public DiContainer CreateSubContainer(List<TypeValuePair> args, InjectContext context, out Action injectAction)
         {
-            // We can't really support arguments if we are using the cached value since
-            // the arguments might change when called after the first time
+            
+            
             Assert.IsEmpty(args);
 
 #if ZEN_MULTITHREADING

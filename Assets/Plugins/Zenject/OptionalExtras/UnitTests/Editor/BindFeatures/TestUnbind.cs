@@ -44,8 +44,8 @@ namespace Zenject.Tests.BindFeatures
             Assert.IsNull(Container.TryResolve<ITest2>());
         }
 
-        // Do we care about this?
-        //[Test]
+        
+        
         public void TestUnbindAsSingle()
         {
             Container.Bind<ITest>().To<Test2>().AsSingle();

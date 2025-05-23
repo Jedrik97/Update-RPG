@@ -131,7 +131,7 @@ namespace Zenject.ReflectionBaking
                 return false;
             }
 
-            // Allow running on the same dll multiple times without causing problems
+            
             if (IsTypeProcessed(typeDef))
             {
                 return false;
@@ -162,11 +162,11 @@ namespace Zenject.ReflectionBaking
 
         static bool IsStaticClass(Type type)
         {
-            // Apparently this is unique to static classes
+            
             return type.IsAbstract && type.IsSealed;
         }
 
-        // We are already processed if our static constructor calls TypeAnalyzer
+        
         bool IsTypeProcessed(TypeDefinition typeDef)
         {
             return typeDef.GetMethod(TypeAnalyzer.ReflectionBakingGetInjectInfoMethodName) != null;
@@ -220,7 +220,7 @@ namespace Zenject.ReflectionBaking
 
             if (typeInfo.InjectConstructor.ConstructorInfo == null)
             {
-                // static classes, abstract types
+                
                 return null;
             }
 

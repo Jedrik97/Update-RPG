@@ -2,9 +2,9 @@ using System;
 
 namespace Zenject
 {
-    // Note that there's a reason we don't just have a generic
-    // argument for signal type - because when using struct type signals it throws
-    // exceptions on AOT platforms
+    
+    
+    
     public class SignalCallbackWithLookupWrapper : IDisposable
     {
         readonly DiContainer _container;

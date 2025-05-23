@@ -29,7 +29,7 @@ namespace Zenject
         {
             if (BindInfo.Scope == ScopeTypes.Unset)
             {
-                // If condition is set then it's probably fine to allow the default of transient
+                
                 Assert.That(!BindInfo.RequireExplicitScope || BindInfo.Condition != null,
                     "Scope must be set for the previous binding!  Please either specify AsTransient, AsCached, or AsSingle. Last binding: Contract: {0}, Identifier: {1} {2}",
                     BindInfo.ContractTypes.Select(x => x.PrettyName()).Join(", "), BindInfo.Identifier,
@@ -44,9 +44,9 @@ namespace Zenject
         {
             if (BindInfo.ContractTypes.Count == 0)
             {
-                // We could assert her instead but it is nice when used with things like
-                // BindInterfaces() (and there aren't any interfaces) to allow
-                // interfaces to be added later
+                
+                
+                
                 return;
             }
 
@@ -88,8 +88,8 @@ namespace Zenject
             {
                 var nullableType = typeof(Nullable<>).MakeGenericType(contractType);
 
-                // Also bind to nullable primitives
-                // this is useful so that we can have optional primitive dependencies
+                
+                
                 container.RegisterProvider(
                     new BindingId(nullableType, BindInfo.Identifier),
                     BindInfo.Condition,
@@ -155,7 +155,7 @@ namespace Zenject
             }
         }
 
-        // Returns true if the bind should continue, false to skip
+        
         bool ValidateBindTypes(Type concreteType, Type contractType)
         {
             bool isConcreteOpenGenericType = concreteType.IsOpenGenericType();
@@ -166,7 +166,7 @@ namespace Zenject
             }
 
 #if !(UNITY_WSA && ENABLE_DOTNET)
-            // TODO: Is it possible to do this on WSA?
+            
 
             if (isContractOpenGenericType)
             {
@@ -198,9 +198,9 @@ namespace Zenject
             return false;
         }
 
-        // Note that if multiple contract types are provided per concrete type,
-        // it will re-use the same provider for each contract type
-        // (each concrete type will have its own provider though)
+        
+        
+        
         protected void RegisterProvidersForAllContractsPerConcreteType(
             DiContainer container,
             List<Type> concreteTypes,

@@ -1,4 +1,4 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 
 Shader "Particles/Additive_Layer" {
 Properties {
@@ -19,7 +19,7 @@ Category {
 		Bind "TexCoord", texcoord
 	}
 	
-	// ---- Fragment program cards
+	
 	SubShader {
 		Pass {
 		
@@ -82,7 +82,7 @@ Category {
 		}
 	} 	
 	
-	// ---- Dual texture cards
+	
 	SubShader {
 		Pass {
 			SetTexture [_MainTex] {
@@ -95,7 +95,7 @@ Category {
 		}
 	}
 	
-	// ---- Single texture cards (does not do color tint)
+	
 	SubShader {
 		Pass {
 			SetTexture [_MainTex] {

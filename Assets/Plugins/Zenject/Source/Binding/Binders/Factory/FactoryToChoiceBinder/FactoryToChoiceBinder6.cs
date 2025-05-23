@@ -12,7 +12,7 @@ namespace Zenject
         {
         }
 
-        // Note that this is the default, so not necessary to call
+        
         public FactoryFromBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> ToSelf()
         {
             Assert.IsEqual(BindInfo.ToChoice, ToChoices.Self);

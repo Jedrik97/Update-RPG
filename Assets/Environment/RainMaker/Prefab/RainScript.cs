@@ -1,7 +1,7 @@
-﻿//
-// Rain Maker (c) 2015 Digital Ruby, LLC
-// http://www.digitalruby.com
-//
+﻿
+
+
+
 
 using UnityEngine;
 using System.Collections;
@@ -21,7 +21,7 @@ namespace DigitalRuby.RainMaker
 
         private void UpdateRain()
         {
-            // keep rain and mist above the player
+            
             if (RainFallParticleSystem != null)
             {
                 if (FollowCamera)

@@ -1,6 +1,6 @@
 namespace Zenject
 {
-    // Zero parameters
+    
     public class MemoryPool<TValue> : MemoryPoolBase<TValue>, IMemoryPool<TValue>, IFactory<TValue>
     {
         public TValue Spawn()
@@ -24,7 +24,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TValue>.Create()
@@ -33,7 +33,7 @@ namespace Zenject
         }
     }
 
-    // One parameter
+    
     public class MemoryPool<TParam1, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TValue>, IFactory<TParam1, TValue>
     {
@@ -59,7 +59,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TValue>.Create(TParam1 p1)
@@ -68,7 +68,7 @@ namespace Zenject
         }
     }
 
-    // Two parameters
+    
     public class MemoryPool<TParam1, TParam2, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TValue>, IFactory<TParam1, TParam2, TValue>
     {
@@ -94,7 +94,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TValue>.Create(TParam1 p1, TParam2 p2)
@@ -103,7 +103,7 @@ namespace Zenject
         }
     }
 
-    // Three parameters
+    
     public class MemoryPool<TParam1, TParam2, TParam3, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TValue>, IFactory<TParam1, TParam2, TParam3, TValue>
     {
@@ -128,7 +128,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TParam3 p3, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TParam3, TValue>.Create(TParam1 p1, TParam2 p2, TParam3 p3)
@@ -137,7 +137,7 @@ namespace Zenject
         }
     }
 
-    // Four parameters
+    
     public class MemoryPool<TParam1, TParam2, TParam3, TParam4, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TValue>, IFactory<TParam1, TParam2, TParam3, TParam4, TValue>
     {
@@ -162,7 +162,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TParam3, TParam4, TValue>.Create(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4)
@@ -171,7 +171,7 @@ namespace Zenject
         }
     }
 
-    // Five parameters
+    
     public class MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>, IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>
     {
@@ -196,7 +196,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TValue>.Create(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5)
@@ -205,7 +205,7 @@ namespace Zenject
         }
     }
 
-    // Six parameters
+    
     public class MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>,
         IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>
@@ -232,7 +232,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue>.Create(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6)
@@ -241,7 +241,7 @@ namespace Zenject
         }
     }
 
-    // Seven parameters
+    
     public class MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>,
         IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>
@@ -268,7 +268,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TParam7 p7, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue>.Create(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TParam7 p7)
@@ -277,7 +277,7 @@ namespace Zenject
         }
     }
 
-    // Eight parameters
+    
     public class MemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TValue>
         : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TValue>,
         IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TValue>
@@ -304,7 +304,7 @@ namespace Zenject
 
         protected virtual void Reinitialize(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TParam7 p7, TParam8 p8, TValue item)
         {
-            // Optional
+            
         }
 
         TValue IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TValue>.Create(

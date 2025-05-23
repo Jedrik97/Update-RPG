@@ -2,8 +2,8 @@ using System;
 
 namespace Zenject
 {
-    // Here we assume that each spawned object does the work of returning itself to the pool
-    // in its own Dispose method
+    
+    
     public class PoolWrapperFactory<T> : IFactory<T>
         where T : IDisposable
     {

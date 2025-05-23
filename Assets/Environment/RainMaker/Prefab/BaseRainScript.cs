@@ -1,7 +1,7 @@
-﻿//
-// Rain Maker (c) 2015 Digital Ruby, LLC
-// http://www.digitalruby.com
-//
+﻿
+
+
+
 
 
 using System;
@@ -199,7 +199,7 @@ namespace DigitalRuby.RainMaker
                         }
                         else
                         {
-                            // must have RainMistThreshold or higher rain intensity to start seeing mist
+                            
                             emissionRate = MistEmissionRate();
                         }
                         ParticleSystem.MinMaxCurve rate = e.rateOverTime;
@@ -311,9 +311,9 @@ namespace DigitalRuby.RainMaker
         }
     }
 
-    /// <summary>
-    /// Provides an easy wrapper to looping audio sources with nice transitions for volume when starting and stopping
-    /// </summary>
+    
+    
+    
     public class LoopingAudioSource
     {
         public AudioSource AudioSource { get; private set; }

@@ -31,7 +31,7 @@ namespace Zenject
 
         public static TypeValuePair CreateTypePair<T>(T param)
         {
-            // Use the most derived type that we can find here
+            
             return new TypeValuePair(
                 param == null ? typeof(T) : param.GetType(), param);
         }
@@ -103,8 +103,8 @@ namespace Zenject
             };
         }
 
-        // Find the first match with the given type and remove it from the list
-        // Return true if it was removed
+        
+        
         public static bool PopValueWithType(
             List<TypeValuePair> extraArgMap, Type injectedFieldType, out object value)
         {

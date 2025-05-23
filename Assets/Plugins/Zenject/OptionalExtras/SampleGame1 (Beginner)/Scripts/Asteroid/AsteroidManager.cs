@@ -51,10 +51,10 @@ namespace Zenject.Asteroids
             }
         }
 
-        // Generate the full list of size and speeds so that we can maintain an approximate average
-        // this way we don't get wildly different difficulties each time the game is run
-        // For example, if we just chose speed randomly each time we spawned an asteroid, in some
-        // cases that might result in the first set of asteroids all going at max speed, or min speed
+        
+        
+        
+        
         void GenerateRandomAttributes()
         {
             Assert.That(_cachedAttributes.Count == 0);

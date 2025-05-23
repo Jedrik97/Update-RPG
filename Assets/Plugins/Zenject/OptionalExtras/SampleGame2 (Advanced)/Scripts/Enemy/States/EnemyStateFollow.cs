@@ -55,11 +55,11 @@ namespace Zenject.SpaceFighter
 
             var distanceToPlayer = (_player.Position - _view.Position).magnitude;
 
-            // Always look towards the player
+            
             _rotationHandler.DesiredLookDir = (_player.Position - _view.Position).normalized;
 
-            // Strafe back and forth over the given interval
-            // This helps avoiding being too easy a target
+            
+            
             if (Time.realtimeSinceStartup - _lastStrafeChangeTime > _settings.StrafeChangeInterval)
             {
                 _lastStrafeChangeTime = Time.realtimeSinceStartup;
@@ -80,7 +80,7 @@ namespace Zenject.SpaceFighter
 
         void Strafe()
         {
-            // Strafe to avoid getting hit too easily
+            
             if (_strafeRight)
             {
                 _view.AddForce(_view.RightDir * _settings.StrafeMultiplier * _tunables.Speed);

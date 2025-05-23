@@ -1,7 +1,7 @@
-﻿//
-// Rain Maker (c) 2015 Digital Ruby, LLC
-// http://www.digitalruby.com
-//
+﻿
+
+
+
 
 using System;
 
@@ -43,7 +43,7 @@ namespace DigitalRuby.RainMaker
                 GUI.DrawTexture(r, logo, ScaleMode.StretchToFill);
                 if (GUI.Button(r, "", new GUIStyle()))
                 {
-                    Application.OpenURL("https://u3d.as/s0Z?aid=1011lGnL");
+                    Application.OpenURL("https:
                 }
                 EditorGUILayout.Separator();
             }

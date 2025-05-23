@@ -15,7 +15,7 @@ namespace Zenject
             ToSelf();
         }
 
-        // Note that this is the default, so not necessary to call
+        
         public FromBinderNonGeneric ToSelf()
         {
             Assert.IsEqual(BindInfo.ToChoice, ToChoices.Self);
@@ -47,7 +47,7 @@ namespace Zenject
 
             if (BindInfo.ToTypes.Count > 1 && BindInfo.ContractTypes.Count > 1)
             {
-                // Be more lenient in this case to behave similar to convention based bindings
+                
                 BindInfo.InvalidBindResponse = InvalidBindResponses.Skip;
             }
             else
@@ -64,8 +64,8 @@ namespace Zenject
         {
             var bindInfo = new ConventionBindInfo();
 
-            // This is nice because it allows us to do things like Bind(all interfaces).To(specific types)
-            // instead of having to do Bind(all interfaces).To(specific types that inherit from one of these interfaces)
+            
+            
             BindInfo.InvalidBindResponse = InvalidBindResponses.Skip;
 
             generator(new ConventionSelectTypesBinder(bindInfo));

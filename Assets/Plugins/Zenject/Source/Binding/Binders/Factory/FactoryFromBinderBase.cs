@@ -24,7 +24,7 @@ namespace Zenject
                     BindInfo.InstantiatedCallback);
         }
 
-        // Don't use this
+        
         internal DiContainer BindContainer
         {
             get; private set;
@@ -35,7 +35,7 @@ namespace Zenject
             get; private set;
         }
 
-        // Don't use this
+        
         internal Func<DiContainer, IProvider> ProviderFunc
         {
             get { return FactoryBindInfo.ProviderFunc; }
@@ -60,7 +60,7 @@ namespace Zenject
             }
         }
 
-        // Note that this isn't necessary to call since it's the default
+        
         public ConditionCopyNonLazyBinder FromNew()
         {
             BindingUtil.AssertIsNotComponent(ContractType);
@@ -94,14 +94,14 @@ namespace Zenject
             return this;
         }
 
-        // Don't use this
+        
         internal ConcreteBinderGeneric<T> CreateIFactoryBinder<T>(out Guid factoryId)
         {
-            // Use a random ID so that our provider is the only one that can find it and so it doesn't
-            // conflict with anything else
+            
+            
             factoryId = Guid.NewGuid();
 
-            // Very important here that we use NoFlush otherwise the main binding will be finalized early
+            
             return BindContainer.BindNoFlush<T>().WithId(factoryId);
         }
 

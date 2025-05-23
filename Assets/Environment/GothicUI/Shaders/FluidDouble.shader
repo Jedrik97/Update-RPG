@@ -21,7 +21,7 @@
 		_AlphaColor ("Unfilled Part", Color) = (0, 0, 0, 0)
 		_FillLevel ("Fill Level", Range(0, 1)) = 1
 		_FadeAreaHeight ("Fade Area Height", Range(0, 0.2)) = 0.05
-		//------------------------------------------------
+		
 		_MainTex1 ("First Texture", 2D) = "white" {}
 		_Speed11 ("Speed", Vector) = (0, 0, 0, 0)
 
@@ -98,7 +98,7 @@
 			
 			float _VerticalSeparator;
 			
-			//---------------------------
+			
 			sampler2D _MainTex1;
 			float4 _MainTex1_ST;
 			float2 _Speed11;

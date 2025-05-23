@@ -33,7 +33,7 @@ namespace ModestTree
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
-        // This is better because IsEmpty with IEnumerable causes a memory alloc
+        
         public static void IsEmpty<T>(IList<T> list)
         {
             if (list.Count != 0)
@@ -118,7 +118,7 @@ namespace ModestTree
             }
         }
 
-        // Use AssertEquals to get better error output (with values)
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -127,7 +127,7 @@ namespace ModestTree
             IsEqual(left, right, "");
         }
 
-        // Use AssertEquals to get better error output (with values)
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -154,7 +154,7 @@ namespace ModestTree
             }
         }
 
-        // Use AssertEquals to get better error output (with values)
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -168,7 +168,7 @@ namespace ModestTree
             }
         }
 
-        // Use Assert.IsNotEqual to get better error output (with values)
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -177,7 +177,7 @@ namespace ModestTree
             IsNotEqual(left, right, "");
         }
 
-        // Use Assert.IsNotEqual to get better error output (with values)
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -215,7 +215,7 @@ namespace ModestTree
             }
         }
 
-        // We don't use params here to avoid the memory alloc
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -250,7 +250,7 @@ namespace ModestTree
             }
         }
 
-        // We don't use params here to avoid the memory alloc
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -262,7 +262,7 @@ namespace ModestTree
             }
         }
 
-        // We don't use params here to avoid the memory alloc
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -285,7 +285,7 @@ namespace ModestTree
             }
         }
 
-        // Use Assert.IsNotEqual to get better error output (with values)
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -333,7 +333,7 @@ namespace ModestTree
             }
         }
 
-        // We don't use params here to avoid the memory alloc
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -346,7 +346,7 @@ namespace ModestTree
             }
         }
 
-        // We don't use params here to avoid the memory alloc
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif
@@ -359,7 +359,7 @@ namespace ModestTree
             }
         }
 
-        // We don't use params here to avoid the memory alloc
+        
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
         [Conditional("UNITY_EDITOR")]
 #endif

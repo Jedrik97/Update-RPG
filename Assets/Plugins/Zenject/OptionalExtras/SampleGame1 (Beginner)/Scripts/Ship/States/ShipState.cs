@@ -9,17 +9,17 @@ namespace Zenject.Asteroids
 
         public virtual void Start()
         {
-            // optionally overridden
+            
         }
 
         public virtual void Dispose()
         {
-            // optionally overridden
+            
         }
 
         public virtual void OnTriggerEnter(Collider other)
         {
-            // optionally overridden
+            
         }
     }
 }

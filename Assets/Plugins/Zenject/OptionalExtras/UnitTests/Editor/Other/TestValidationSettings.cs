@@ -17,15 +17,15 @@ namespace Zenject.Tests
             Container = new DiContainer(true);
         }
 
-        // Doesn't work because the logged error is flagged as a test error
-        //[Test]
-        //public void TestValidationErrorLogOnly()
-        //{
-            //Container.Settings = new ZenjectSettings(ValidationErrorResponses.Log);
-            //Container.Bind<Bar>().AsSingle().NonLazy();
+        
+        
+        
+        
+            
+            
 
-            //Container.ResolveRoots();
-        //}
+            
+        
 
         [Test]
         public void TestValidationErrorThrows()

@@ -12,9 +12,9 @@ namespace Zenject
         {
         }
 
-        // We use generics instead of params object[] so that we preserve type info
-        // So that you can for example pass in a variable that is null and the type info will
-        // still be used to map null on to the correct field
+        
+        
+        
         public FactoryToChoiceBinder<TParam1, TParam2, TParam3, TContract> WithFactoryArguments<T>(T param)
         {
             FactoryBindInfo.Arguments = InjectUtil.CreateArgListExplicit(param);

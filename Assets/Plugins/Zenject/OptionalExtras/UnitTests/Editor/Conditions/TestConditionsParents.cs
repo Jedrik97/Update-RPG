@@ -75,7 +75,7 @@ namespace Zenject.Tests.Conditions
             Assert.That(test1 != null);
         }
 
-        // Test using parents to look deeper up the heirarchy..
+        
         [Test]
         public void TestCase3()
         {

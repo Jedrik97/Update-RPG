@@ -4,7 +4,7 @@ using ModestTree;
 
 namespace Zenject
 {
-    // Zero parameters
+    
 
     [NoReflectionBaking]
     public abstract class SubContainerCreatorByMethodBase : ISubContainerCreator
@@ -61,7 +61,7 @@ namespace Zenject
         }
     }
 
-    // One parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1> : SubContainerCreatorByMethodBase
@@ -95,7 +95,7 @@ namespace Zenject
         }
     }
 
-    // Two parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1, TParam2> : SubContainerCreatorByMethodBase
@@ -133,7 +133,7 @@ namespace Zenject
         }
     }
 
-    // Three parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3> : SubContainerCreatorByMethodBase
@@ -173,7 +173,7 @@ namespace Zenject
         }
     }
 
-    // Four parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4> : SubContainerCreatorByMethodBase
@@ -222,7 +222,7 @@ namespace Zenject
         }
     }
 
-    // Five parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5> : SubContainerCreatorByMethodBase
@@ -273,7 +273,7 @@ namespace Zenject
         }
     }
 
-    // Six parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : SubContainerCreatorByMethodBase
@@ -326,7 +326,7 @@ namespace Zenject
         }
     }
 
-    // 10 parameters
+    
 
     [NoReflectionBaking]
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> : SubContainerCreatorByMethodBase

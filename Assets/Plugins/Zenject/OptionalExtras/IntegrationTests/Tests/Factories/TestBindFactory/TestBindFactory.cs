@@ -68,7 +68,7 @@ namespace Zenject.Tests.Factories
 
             var factory = Container.Resolve<Foo.Factory>();
 
-            // zero matches
+            
             Assert.Throws(() => factory.Create());
 
             new GameObject().AddComponent<Foo>();
@@ -77,7 +77,7 @@ namespace Zenject.Tests.Factories
 
             new GameObject().AddComponent<Foo>();
 
-            // Multiple is ok too to mirror unity's GetComponentsInChildren behaviour
+            
             factory.Create();
             yield break;
         }
@@ -269,7 +269,7 @@ namespace Zenject.Tests.Factories
         public IEnumerator TestToPrefabSelfFail()
         {
             PreInstall();
-            // Foo3 is not on the prefab
+            
             Container.BindFactory<Foo3, Foo3.Factory>().FromComponentInNewPrefab(FooPrefab);
 
             PostInstall();

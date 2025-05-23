@@ -1,7 +1,7 @@
-﻿//
-// Rain Maker (c) 2016 Digital Ruby, LLC
-// http://www.digitalruby.com
-//
+﻿
+
+
+
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace DigitalRuby.RainMaker
                 float yVelocity = UnityEngine.Random.Range(1.0f, 3.0f);
                 float zVelocity = UnityEngine.Random.Range(-2.0f, 2.0f);
                 float xVelocity = UnityEngine.Random.Range(-2.0f, 2.0f);
-                const float lifetime = 0.75f;// UnityEngine.Random.Range(0.25f, 0.75f);
+                const float lifetime = 0.75f;
                 float size = UnityEngine.Random.Range(0.05f, 0.1f);
                 ParticleSystem.EmitParams param = new ParticleSystem.EmitParams();
                 param.position = pos;

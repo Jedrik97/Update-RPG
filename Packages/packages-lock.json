@@ -22,7 +22,7 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.ai.navigation": {
       "version": "2.0.6",
@@ -31,7 +31,7 @@
       "dependencies": {
         "com.unity.modules.ai": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.analytics": {
       "version": "3.8.1",
@@ -41,7 +41,7 @@
         "com.unity.services.analytics": "1.0.4",
         "com.unity.ugui": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.burst": {
       "version": "1.8.19",
@@ -51,7 +51,7 @@
         "com.unity.mathematics": "1.2.1",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.cinemachine": {
       "version": "3.1.3",
@@ -61,14 +61,14 @@
         "com.unity.splines": "2.0.0",
         "com.unity.modules.imgui": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.collab-proxy": {
       "version": "2.7.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.collections": {
       "version": "2.5.1",
@@ -80,14 +80,14 @@
         "com.unity.test-framework": "1.4.5",
         "com.unity.test-framework.performance": "3.0.3"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.ide.rider": {
       "version": "3.0.35",
@@ -96,7 +96,7 @@
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.ide.visualstudio": {
       "version": "2.0.22",
@@ -105,7 +105,7 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.9"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.inputsystem": {
       "version": "1.13.1",
@@ -114,14 +114,14 @@
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.mathematics": {
       "version": "1.3.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.multiplayer.center": {
       "version": "1.0.0",
@@ -136,14 +136,14 @@
       "depth": 3,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.postprocessing": {
       "version": "3.4.0",
@@ -152,7 +152,7 @@
       "dependencies": {
         "com.unity.modules.physics": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.probuilder": {
       "version": "6.0.4",
@@ -164,7 +164,7 @@
         "com.unity.modules.physics": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.purchasing": {
       "version": "4.12.2",
@@ -177,7 +177,7 @@
         "com.unity.modules.androidjni": "1.0.0",
         "com.unity.services.core": "1.12.5"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.render-pipelines.core": {
       "version": "17.0.4",
@@ -249,7 +249,7 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.services.analytics": {
       "version": "6.0.1",
@@ -260,7 +260,7 @@
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.services.core": "1.12.4"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.services.core": {
       "version": "1.14.0",
@@ -271,14 +271,14 @@
         "com.unity.nuget.newtonsoft-json": "3.2.1",
         "com.unity.modules.androidjni": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.settings-manager": {
       "version": "2.0.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.shadergraph": {
       "version": "17.0.4",
@@ -297,7 +297,7 @@
         "com.unity.settings-manager": "1.0.3",
         "com.unity.mathematics": "1.2.1"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.test-framework": {
       "version": "1.4.6",
@@ -308,7 +308,7 @@
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.test-framework.performance": {
       "version": "3.0.3",
@@ -318,7 +318,7 @@
         "com.unity.test-framework": "1.1.31",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.timeline": {
       "version": "1.8.7",
@@ -330,7 +330,7 @@
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.ugui": {
       "version": "2.0.0",
@@ -358,7 +358,7 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.xr.legacyinputhelpers": {
       "version": "2.1.12",
@@ -368,7 +368,7 @@
         "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0"
       },
-      "url": "https://packages.unity.com"
+      "url": "https:
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

@@ -13,7 +13,7 @@ namespace Zenject.ReflectionBaking
         {
             string path = Application.dataPath;
             int pathLength = path.Length;
-            path = path.Substring(0, pathLength - /* Assets */ 6);
+            path = path.Substring(0, pathLength -  6);
             path = Path.Combine(path, assetPath);
             return path;
         }
@@ -48,8 +48,8 @@ namespace Zenject.ReflectionBaking
         {
             var projectPath = Application.dataPath;
 
-            // Remove 'Assets'
-            projectPath = projectPath.Substring(0, projectPath.Length - /* Assets */ 6);
+            
+            projectPath = projectPath.Substring(0, projectPath.Length -  6);
 
             int systemPathLength = systemPath.Length;
             int assetPathLength = systemPathLength - projectPath.Length;

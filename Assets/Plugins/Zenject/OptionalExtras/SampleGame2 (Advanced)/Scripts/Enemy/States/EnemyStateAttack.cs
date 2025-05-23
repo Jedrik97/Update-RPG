@@ -61,21 +61,21 @@ namespace Zenject.SpaceFighter
 
             _rotationHandler.DesiredLookDir = (_player.Position - _view.Position).normalized;
 
-            // Strafe back and forth over the given interval
+            
             if (Time.realtimeSinceStartup - _lastStrafeChangeTime > _settings.StrafeChangeInterval)
             {
                 _lastStrafeChangeTime = Time.realtimeSinceStartup;
                 _strafeRight = !_strafeRight;
             }
 
-            // Shoot every X seconds
+            
             if (Time.realtimeSinceStartup - _lastShootTime > _settings.ShootInterval)
             {
                 _lastShootTime = Time.realtimeSinceStartup;
                 Fire();
             }
 
-            // If the player runs away then chase them
+            
             if ((_player.Position - _view.Position).magnitude > _commonSettings.AttackDistance + _settings.AttackRangeBuffer)
             {
                 _stateManager.ChangeState(EnemyStates.Follow);
@@ -84,7 +84,7 @@ namespace Zenject.SpaceFighter
 
         public void FixedUpdate()
         {
-            // Strafe to avoid getting hit too easily
+            
             if (_strafeRight)
             {
                 _view.AddForce(_view.RightDir * _settings.StrafeMultiplier * _tunables.Speed);
@@ -100,7 +100,7 @@ namespace Zenject.SpaceFighter
             var bullet = _bulletFactory.Create(
                 _settings.BulletSpeed, _settings.BulletLifetime, BulletTypes.FromEnemy);
 
-            // Randomize our aim a bit
+            
             var accuracy = Mathf.Clamp(_tunables.Accuracy, 0, 1);
             var maxError = 1.0f - accuracy;
             var error = Random.Range(0, maxError);
