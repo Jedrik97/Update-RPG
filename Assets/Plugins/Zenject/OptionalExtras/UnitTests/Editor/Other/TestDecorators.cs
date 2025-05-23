@@ -211,26 +211,26 @@ namespace Zenject.Tests.Other
         }
 
 
-        // TODO - Fix this
-        //[Test]
-        //public void TestContainerInheritance2()
-        //{
-            //Container.Bind<ISaveHandler>().To<SaveHandler>().AsSingle();
-            //Container.Decorate<ISaveHandler>().With<SaveDecorator1>();
+        
+        
+        
+        
+            
+            
 
-            //var subContainer = Container.CreateSubContainer();
-            //subContainer.Decorate<ISaveHandler>().With<SaveDecorator2>();
+            
+            
 
-            //CallCounter = 1;
-            //SaveHandler.CallCount = 0;
-            //SaveDecorator1.CallCount = 0;
-            //SaveDecorator2.CallCount = 0;
+            
+            
+            
+            
 
-            //subContainer.Resolve<ISaveHandler>().Save();
+            
 
-            //Assert.IsEqual(SaveDecorator2.CallCount, 1);
-            //Assert.IsEqual(SaveDecorator1.CallCount, 2);
-            //Assert.IsEqual(SaveHandler.CallCount, 3);
-        //}
+            
+            
+            
+        
     }
 }

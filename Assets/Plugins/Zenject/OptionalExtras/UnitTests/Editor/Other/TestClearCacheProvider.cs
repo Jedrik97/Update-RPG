@@ -19,7 +19,7 @@ namespace Zenject.Tests.Other
         {
         }
 
-        // For issue https://github.com/modesttree/Zenject/issues/441
+        
         [Test]
         public void Test1()
         {

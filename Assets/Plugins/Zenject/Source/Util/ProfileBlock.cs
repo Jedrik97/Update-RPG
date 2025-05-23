@@ -34,7 +34,7 @@ namespace Zenject
 
         static int GetHashCode(object p1, object p2)
         {
-            unchecked // Overflow is fine, just wrap
+            unchecked 
             {
                 int hash = 17;
                 hash = hash * 29 + p1.GetHashCode();
@@ -45,7 +45,7 @@ namespace Zenject
 
         static int GetHashCode(object p1, object p2, object p3)
         {
-            unchecked // Overflow is fine, just wrap
+            unchecked 
             {
                 int hash = 17;
                 hash = hash * 29 + p1.GetHashCode();
@@ -71,10 +71,10 @@ namespace Zenject
                 return null;
             }
 
-            // We need to ensure that we do not have per-frame allocations in ProfileBlock
-            // to avoid infecting the test too much, so use a cache of formatted strings given
-            // the input values
-            // This only works if the input values do not change per frame
+            
+            
+            
+            
             var hash = GetHashCode(sampleNameFormat, obj1, obj2);
 
             string formatString;
@@ -105,10 +105,10 @@ namespace Zenject
                 return null;
             }
 
-            // We need to ensure that we do not have per-frame allocations in ProfileBlock
-            // to avoid infecting the test too much, so use a cache of formatted strings given
-            // the input values
-            // This only works if the input values do not change per frame
+            
+            
+            
+            
             var hash = GetHashCode(sampleNameFormat, obj);
 
             string formatString;
@@ -190,13 +190,13 @@ namespace Zenject
             return null;
         }
 
-        // Remove the call completely for builds
+        
         public static ProfileBlock Start(string sampleNameFormat, object obj)
         {
             return null;
         }
 
-        // Remove the call completely for builds
+        
         public static ProfileBlock Start(string sampleName)
         {
             return null;

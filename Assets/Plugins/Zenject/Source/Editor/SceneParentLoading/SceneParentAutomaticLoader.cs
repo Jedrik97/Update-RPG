@@ -33,9 +33,9 @@ namespace Zenject.Internal
             }
             else if (state == PlayModeStateChange.EnteredEditMode)
             {
-                // It would be cool to restore the initial scene set up here but in order to do this
-                // we would have to make sure that the user saves the scene before running which
-                // would be too annoying, so just leave any changes we've made alone
+                
+                
+                
             }
         }
 
@@ -43,8 +43,8 @@ namespace Zenject.Internal
         {
             var defaultContractsMap = LoadDefaultContractsMap();
 
-            // NOTE: Even if configs is empty we still want to do the below logic to validate the
-            // multi scene setup
+            
+            
 
             var sceneInfos = GetLoadedZenjectSceneInfos();
             var contractMap = GetCurrentSceneContractsMap(sceneInfos);

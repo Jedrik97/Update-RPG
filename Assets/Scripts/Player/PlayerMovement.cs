@@ -50,11 +50,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Читаем Shift для бега
+        
         isRunning = Input.GetKey(KeyCode.LeftShift);
         float speed = isRunning ? runSpeed : walkSpeed;
 
-        // Если нет значимого ввода — стоим
+        
         if (input.magnitude < 0.1f)
         {
             moveDirection.x = 0f;
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        // Вычисляем направление в мировых координатах относительно камеры
+        
         Vector3 f = cameraTransform.forward; f.y = 0f; f.Normalize();
         Vector3 r = cameraTransform.right;   r.y = 0f; r.Normalize();
         Vector3 desiredDir = (f * input.y + r * input.x).normalized;
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.x = desiredDir.x * speed;
         moveDirection.z = desiredDir.z * speed;
 
-        // Поворачиваем модель ТОЛЬКО если идём вперёд или вбок (input.y >= 0)
+        
         if (input.y >= 0f && desiredDir.sqrMagnitude > 0f)
         {
             float targetAngle = Mathf.Atan2(desiredDir.x, desiredDir.z) * Mathf.Rad2Deg;
@@ -83,9 +83,9 @@ public class PlayerMovement : MonoBehaviour
             );
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
-        // при input.y < 0 (назад или назад+вбок) поворот не выполняется
+        
 
-        // Оповещаем аниматор и другие системы
+        
         OnMove?.Invoke(input.x, input.y, isRunning);
     }
 
@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Гравитация
+        
         if (!characterController.isGrounded)
         {
             moveDirection.y -= gravity * Time.deltaTime;

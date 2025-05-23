@@ -14,7 +14,7 @@ namespace Zenject
             BindInfo = bindInfo;
             BindContainer = bindContainer;
 
-            // Reset so we get errors if we end here
+            
             factoryBindInfo.ProviderFunc = null;
         }
 

@@ -23,8 +23,8 @@ namespace Zenject
 
         public void FromAllAssemblies()
         {
-            // Do nothing
-            // This is the default
+            
+            
         }
 
         public void FromAssemblyContaining<T>()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Zenject.SpaceFighter
 {
-    // Include this just to ensure BindSignal with an object mapping works
+    
     public class PlayerDiedSignalObserver
     {
         public void OnPlayerDied()
@@ -20,7 +20,7 @@ namespace Zenject.SpaceFighter
             Container.DeclareSignal<EnemyKilledSignal>();
             Container.DeclareSignal<PlayerDiedSignal>();
 
-            // Include these just to ensure BindSignal works
+            
             Container.BindSignal<PlayerDiedSignal>().ToMethod<PlayerDiedSignalObserver>(x => x.OnPlayerDied).FromNew();
             Container.BindSignal<EnemyKilledSignal>().ToMethod(() => Debug.Log("Fired EnemyKilledSignal"));
         }

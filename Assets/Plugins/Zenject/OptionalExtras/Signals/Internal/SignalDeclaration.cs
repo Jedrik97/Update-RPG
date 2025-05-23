@@ -67,13 +67,13 @@ namespace Zenject
             }
             else
             {
-                // We can't rely entirely on the destruction order in Unity because of
-                // the fact that OnDestroy is completely unpredictable.
-                // So if you have a GameObjectContext at the root level in your scene, then it
-                // might be destroyed AFTER the SceneContext.  So if you have some signal declarations
-                // in the scene context, they might get disposed before some of the subscriptions
-                // so in this case you need to disconnect from the subscription so that it doesn't
-                // try to remove itself after the declaration has been destroyed
+                
+                
+                
+                
+                
+                
+                
                 for (int i = 0; i < _subscriptions.Count; i++)
                 {
                     _subscriptions[i].OnDeclarationDespawned();
@@ -91,7 +91,7 @@ namespace Zenject
             }
             else
             {
-                // Cache the callback list to allow handlers to be added from within callbacks
+                
                 using (var block = DisposeBlock.Spawn())
                 {
                     var subscriptions = block.SpawnList<SignalSubscription>();
@@ -124,8 +124,8 @@ namespace Zenject
             {
                 var subscription = subscriptions[i];
 
-                // This is a weird check for the very rare case where an Unsubscribe is called
-                // from within the same callback (see TestSignalsAdvanced.TestSubscribeUnsubscribeInsideHandler)
+                
+                
                 if (_subscriptions.Contains(subscription))
                 {
                     subscription.Invoke(signal);
@@ -143,14 +143,14 @@ namespace Zenject
 
             if (!_asyncQueue.IsEmpty())
             {
-                // Cache the callback list to allow handlers to be added from within callbacks
+                
                 using (var block = DisposeBlock.Spawn())
                 {
                     var subscriptions = block.SpawnList<SignalSubscription>();
                     subscriptions.AddRange(_subscriptions);
 
-                    // Cache the signals so that if the signal is fired again inside the handler that it
-                    // is not executed until next frame
+                    
+                    
                     var signals = block.SpawnList<object>();
                     signals.AddRange(_asyncQueue);
 

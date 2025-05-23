@@ -42,13 +42,13 @@ namespace Zenject
 
             var objectLookupId = Guid.NewGuid();
 
-            // Very important here that we use NoFlush otherwise the main binding will be finalized early
+            
             var objectBinder = _container.BindNoFlush<TObject>().WithId(objectLookupId);
 
             objectBindCallback(objectBinder);
 
-            // We need to do this to make sure SignalCallbackWithLookupWrapper does not have
-            // generic types to avoid AOT issues
+            
+            
             Func<object, Action<object>> methodGetterMapper =
                 obj => s => _methodGetter((TObject)obj)((TSignal)s);
 
@@ -59,7 +59,7 @@ namespace Zenject
                 .NonLazy();
 
             var copyBinder = new SignalCopyBinder( wrapperBinder.BindInfo);
-            // Make sure if they use one of the Copy/Move methods that it applies to both bindings
+            
             copyBinder.AddCopyBindInfo(objectBinder.BindInfo);
             return copyBinder;
         }

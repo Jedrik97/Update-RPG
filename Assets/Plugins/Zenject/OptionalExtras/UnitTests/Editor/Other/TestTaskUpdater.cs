@@ -31,7 +31,7 @@ namespace Zenject.Tests.Other
         }
 
         [Test]
-        // Test that tickables get called in the correct order
+        
         public void TestOrder()
         {
             BindTickable<Tickable3>(2);

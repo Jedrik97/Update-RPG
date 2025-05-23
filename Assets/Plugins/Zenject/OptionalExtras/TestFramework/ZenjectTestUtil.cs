@@ -14,8 +14,8 @@ namespace Zenject.Internal
             Assert.IsNotNull(testRunner);
             GameObject.DontDestroyOnLoad(testRunner);
 
-            // We want to clear all objects across all scenes to ensure the next test is not affected
-            // at all by previous tests
+            
+            
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 foreach (var obj in SceneManager.GetSceneAt(i).GetRootGameObjects())

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Zenject.SpaceFighter
 {
-    // Here we can add some high-level methods to give some info to other
-    // parts of the codebase outside of our enemy facade
+    
+    
     public class EnemyFacade : MonoBehaviour, IPoolable<float, float, IMemoryPool>, IDisposable
     {
         EnemyView _view;

@@ -1,6 +1,6 @@
 SPACE AGE v1.0; November 5, 2002
 Windows TrueType font, free for personal use
-http://go.to/disneyfonts
+http:
 
 Please include this Space.txt file with any redistribution.
 

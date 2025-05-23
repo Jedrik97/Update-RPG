@@ -73,8 +73,8 @@ namespace Zenject
 
         public override IEnumerable<GameObject> GetRootGameObjects()
         {
-            // This method should never be called because SceneDecoratorContext's are not bound
-            // to the container
+            
+            
             throw Assert.CreateException();
         }
 

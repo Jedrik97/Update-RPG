@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Zenject.MemoryPoolMonitor
 {
-    // Fastest known in place stable sort. No risk of exploding a stack. Cost: a relatively high number of moves. Stack can still be expensive too.
-    // This is a merge sort with a smart in place merge that 'rotates' the sub arrays.
-    // Taken from: http://thomas.baudel.name/Visualisation/VisuTri/inplacestablesort.html
+    
+    
+    
     public class InPlaceStableSort<T>
     {
         static void Exchange(List<T> list, int a, int b)
@@ -97,11 +97,7 @@ namespace Zenject.MemoryPoolMonitor
 
         static void Rotate(List<T> list, Comparison<T> comparer, int from, int mid, int to)
         {
-            /*  a less sophisticated but costlier version:
-                    Reverse(from, mid-1);
-                    Reverse(mid, to-1);
-                    Reverse(from, to-1);
-                    */
+            
             if (from == mid || mid == to)
             {
                 return;

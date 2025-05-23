@@ -54,8 +54,8 @@ namespace Zenject
 
             foreach (var argPair in args)
             {
-                // We need to intelligently match on the exact parameters here to avoid the issue
-                // brought up in github issue #217
+                
+                
                 var match = allInjectables
                     .Where(x => argPair.Type.DerivesFromOrEqual(x.MemberType))
                     .OrderBy(x => ZenUtilInternal.GetInheritanceDelta(argPair.Type, x.MemberType)).FirstOrDefault();
@@ -91,7 +91,7 @@ namespace Zenject
 
             injectAction = () => 
             {
-                // Note: We don't need to call ResolveRoots here because GameObjectContext does this for us
+                
                 tempContainer.Inject(context);
 
                 if (shouldMakeActive && !_container.IsValidating)

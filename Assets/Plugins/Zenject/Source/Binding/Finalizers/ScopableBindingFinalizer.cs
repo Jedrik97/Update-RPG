@@ -33,7 +33,7 @@ namespace Zenject
         {
             if (concreteTypes.Count == 0)
             {
-                // This can be common when using convention based bindings
+                
                 return;
             }
 

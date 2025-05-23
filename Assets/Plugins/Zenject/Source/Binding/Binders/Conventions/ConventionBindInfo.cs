@@ -30,8 +30,8 @@ namespace Zenject
 
         IEnumerable<Assembly> GetAllAssemblies()
         {
-            // This seems fast enough that it's not worth caching
-            // We also want to allow dynamically loading assemblies
+            
+            
             return AppDomain.CurrentDomain.GetAssemblies();
         }
 
@@ -53,7 +53,7 @@ namespace Zenject
             lock (_locker)
 #endif
             {
-                // This is much faster than calling assembly.GetTypes() every time
+                
                 if (!_assemblyTypeCache.TryGetValue(assembly, out types))
                 {
                     types = assembly.GetTypes();

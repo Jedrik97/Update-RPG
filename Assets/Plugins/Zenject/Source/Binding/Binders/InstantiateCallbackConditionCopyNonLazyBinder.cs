@@ -21,8 +21,8 @@ namespace Zenject
         public ConditionCopyNonLazyBinder OnInstantiated<T>(
             Action<InjectContext, T> callback)
         {
-            // Can't do this here because of factory bindings
-            //Assert.That(BindInfo.ContractTypes.All(x => x.DerivesFromOrEqual<T>()));
+            
+            
 
             BindInfo.InstantiatedCallback = (ctx, obj) =>
             {

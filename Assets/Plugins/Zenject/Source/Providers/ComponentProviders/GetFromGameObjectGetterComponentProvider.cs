@@ -14,7 +14,7 @@ namespace Zenject
         readonly Type _componentType;
         readonly bool _matchSingle;
 
-        // if concreteType is null we use the contract type from inject context
+        
         public GetFromGameObjectGetterComponentProvider(
             Type componentType, Func<InjectContext, GameObject> gameObjectGetter, bool matchSingle)
         {

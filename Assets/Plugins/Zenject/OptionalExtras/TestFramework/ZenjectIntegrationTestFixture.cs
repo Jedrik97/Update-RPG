@@ -96,9 +96,9 @@ namespace Zenject
 
             if (!Container.IsValidating)
             {
-                // We don't have to do this here but it's kind of convenient
-                // We could also remove it and just require that users add a yield after calling
-                // and it would have the same effect
+                
+                
+                
                 Container.Resolve<MonoKernel>().Initialize();
             }
         }
@@ -108,7 +108,7 @@ namespace Zenject
             Assert.That(_hasStartedInstall,
                 "Called DestroyAll but did not call PreInstall (or SkipInstall) in test '{0}'!", TestContext.CurrentContext.Test.Name);
             DestroyEverythingInternal(false);
-            // Wait one frame for GC to really destroy everything
+            
             yield return null;
         }
 
@@ -116,8 +116,8 @@ namespace Zenject
         {
             if (_sceneContext != null)
             {
-                // We need to use DestroyImmediate so that all the IDisposable's etc get processed immediately before
-                // next test runs
+                
+                
                 if (immediate)
                 {
                     GameObject.DestroyImmediate(_sceneContext.gameObject);

@@ -57,12 +57,12 @@ namespace Zenject
         }
 
 
-        //Fires Signals with their interfaces
+        
         public void AbstractFire<TSignal>() where TSignal : new() => AbstractFire(new TSignal());
 		public void AbstractFire<TSignal>(TSignal signal) => AbstractFireId(null, signal);
 		public void AbstractFireId<TSignal>(object identifier, TSignal signal)
 		{
-			// Do this before creating the signal so that it throws if the signal was not declared
+			
 			Type signalType = typeof(TSignal);
             InternalFire(signalType, signal, identifier, true);
 
@@ -184,7 +184,7 @@ namespace Zenject
         {
             var signalId = new BindingId(signalType, identifier);
 
-            // Do this before creating the signal so that it throws if the signal was not declared
+            
             var declaration = GetDeclaration(signalId);
 
             if (declaration == null)

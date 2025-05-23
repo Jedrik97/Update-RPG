@@ -8,20 +8,20 @@ using Zenject.Internal;
 
 namespace Zenject.Tests.Injection
 {
-    //[TestFixture]
-    // Conclusion here is that the compiled expressions are basically identical to reflection
-    // baking during the instantiate (though there are wins during initialization)
-    // When compiled expressions are not used such as IL2CPP however there is a noticable
-    // improvement of maybe 15-20% for instantiate
+    
+    
+    
+    
+    
     public class TestInstantiateApproaches : ZenjectUnitTestFixture
     {
-        //[Test]
+        
         public void TestWithoutReflectionBaking()
         {
             Log.Trace("Average without baking: {0:0.000}", Run<FooDerivedNoBaking>());
         }
 
-        //[Test]
+        
         public void TestWithReflectionBaking()
         {
             Log.Trace("Average with baking: {0:0.000}", Run<FooDerivedBaked>());
@@ -31,7 +31,7 @@ namespace Zenject.Tests.Injection
         {
             Container.Bind<Test0>().FromInstance(new Test0());
 
-            // Do not include initial reflection costs
+            
             Container.Instantiate<T>();
             Container.Instantiate<T>();
 
@@ -158,7 +158,7 @@ namespace Zenject.Tests.Injection
         {
             public Test0 ConstructorParam = null;
 
-            // Instance
+            
             public FooDerivedBaked(Test0 param)
             {
                 ConstructorParam = param;
@@ -308,7 +308,7 @@ namespace Zenject.Tests.Injection
         {
             public Test0 ConstructorParam = null;
 
-            // Instance
+            
             public FooDerivedNoBaking(Test0 param)
             {
                 ConstructorParam = param;

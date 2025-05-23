@@ -40,7 +40,7 @@ namespace Zenject
 
         public void Initialize()
         {
-            // We don't put this in start in case Start is overridden
+            
             if (!_hasInitialized)
             {
                 _hasInitialized = true;
@@ -58,7 +58,7 @@ namespace Zenject
 
         public virtual void Update()
         {
-            // Don't spam the log every frame if initialization fails and leaves it as null
+            
             if (_tickableManager != null)
             {
                 if (decoratableMonoKernel != null)
@@ -74,7 +74,7 @@ namespace Zenject
 
         public virtual void FixedUpdate()
         {
-            // Don't spam the log every frame if initialization fails and leaves it as null
+            
             if (_tickableManager != null)
             {
                 if (decoratableMonoKernel != null)
@@ -90,7 +90,7 @@ namespace Zenject
 
         public virtual void LateUpdate()
         {
-            // Don't spam the log every frame if initialization fails and leaves it as null
+            
             if (_tickableManager != null)
             {
                 if (decoratableMonoKernel != null)
@@ -106,7 +106,7 @@ namespace Zenject
 
         public virtual void OnDestroy()
         {
-            // _disposablesManager can be null if we get destroyed before the Start event
+            
             if (_disposablesManager != null)
             {
                 Assert.That(!_isDestroyed);

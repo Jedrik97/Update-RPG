@@ -12,8 +12,8 @@ namespace Zenject
         {
         }
 
-        // This is used in cases where you have multiple bindings that depend on each other so should
-        // be inherited together (eg. FromIFactory)
+        
+        
         internal void AddSecondaryCopyBindInfo(BindInfo bindInfo)
         {
             if (_secondaryBindInfos == null)
@@ -29,21 +29,21 @@ namespace Zenject
             return this;
         }
 
-        // Only copy the binding into children and not grandchildren
+        
         public NonLazyBinder CopyIntoDirectSubContainers()
         {
             SetInheritanceMethod(BindingInheritanceMethods.CopyDirectOnly);
             return this;
         }
 
-        // Do not apply the binding on the current container
+        
         public NonLazyBinder MoveIntoAllSubContainers()
         {
             SetInheritanceMethod(BindingInheritanceMethods.MoveIntoAll);
             return this;
         }
 
-        // Do not apply the binding on the current container
+        
         public NonLazyBinder MoveIntoDirectSubContainers()
         {
             SetInheritanceMethod(BindingInheritanceMethods.MoveDirectOnly);

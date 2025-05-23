@@ -22,7 +22,7 @@ namespace Zenject.Tests.Other
             container.Bind(typeof(TickableManager), typeof(InitializableManager), typeof(DisposableManager))
                 .ToSelf().AsSingle().CopyIntoAllSubContainers();
 
-            // This is how you add ITickables / etc. within sub containers
+            
             container.BindInterfacesAndSelfTo<FooKernel>()
                 .FromSubContainerResolve().ByMethod(InstallFoo).AsSingle();
 

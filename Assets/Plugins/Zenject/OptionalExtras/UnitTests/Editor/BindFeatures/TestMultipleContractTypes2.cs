@@ -50,7 +50,7 @@ namespace Zenject.Tests.BindFeatures
         {
             Container.BindInterfacesTo<Foo>();
 
-            // Should require setting scope
+            
             Assert.Throws(() => Container.FlushBindings());
         }
 
@@ -80,7 +80,7 @@ namespace Zenject.Tests.BindFeatures
         {
             Container.BindInterfacesAndSelfTo<Foo>();
 
-            // Should require setting scope
+            
             Assert.Throws(() => Container.FlushBindings());
         }
     }

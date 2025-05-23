@@ -9,14 +9,14 @@ namespace Zenject
 {
     public enum LoadSceneRelationship
     {
-        // This will use the ProjectContext container as parent for the new scene
-        // This is similar to just running the new scene normally
+        
+        
         None,
-        // This will use current scene as parent for the new scene
-        // This will allow the new scene to refer to dependencies in the current scene
+        
+        
         Child,
-        // This will use the parent of the current scene as the parent for the next scene
-        // In most cases this will be the same as None
+        
+        
         Sibling
     }
 
@@ -48,9 +48,9 @@ namespace Zenject
 
             SceneManager.LoadScene(sceneName, loadMode);
 
-            // It would be nice here to actually verify that the new scene has a SceneContext
-            // if we have extra binding hooks, or LoadSceneRelationship != None, but
-            // we can't do that in this case since the scene isn't loaded until the next frame
+            
+            
+            
         }
 
             public AsyncOperation LoadSceneAsync(
@@ -78,10 +78,10 @@ namespace Zenject
             {
                 Assert.IsEqual(containerMode, LoadSceneRelationship.None);
 
-                // Here we explicitly unload all existing scenes rather than relying on Unity to
-                // do this for us.  The reason we do this is to ensure a deterministic destruction
-                // order for everything in the scene and in the container.
-                // See comment at ProjectKernel.OnApplicationQuit for more details
+                
+                
+                
+                
                 _projectKernel.ForceUnloadAllScenes();
             }
 
@@ -126,9 +126,9 @@ namespace Zenject
 
             SceneManager.LoadScene(sceneIndex, loadMode);
 
-            // It would be nice here to actually verify that the new scene has a SceneContext
-            // if we have extra binding hooks, or LoadSceneRelationship != None, but
-            // we can't do that in this case since the scene isn't loaded until the next frame
+            
+            
+            
         }
 
         public AsyncOperation LoadSceneAsync(

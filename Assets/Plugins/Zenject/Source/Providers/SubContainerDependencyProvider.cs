@@ -12,7 +12,7 @@ namespace Zenject
         readonly object _identifier;
         readonly bool _resolveAll;
 
-        // if concreteType is null we use the contract type from inject context
+        
         public SubContainerDependencyProvider(
             Type dependencyType,
             object identifier,
@@ -46,7 +46,7 @@ namespace Zenject
 
             subContext.Container = subContainer;
 
-            // This is important to avoid infinite loops
+            
             subContext.SourceType = InjectSources.Local;
 
             return subContext;

@@ -62,7 +62,7 @@ namespace Zenject
 
             _container = new DiContainer(new[] { StaticContext.Container });
 
-            // Make sure we don't create any game objects since editor windows don't have a scene
+            
             _container.AssertOnNewGameObjects = true;
 
             ZenjectManagersInstaller.Install(_container);
@@ -106,7 +106,7 @@ namespace Zenject
                 _fatalError = e;
             }
 
-            // We might also consider only calling Repaint when changes occur
+            
             Repaint();
         }
 

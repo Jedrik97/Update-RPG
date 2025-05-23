@@ -50,7 +50,7 @@ namespace Zenject
         public BindingCondition Condition;
         public ToChoices ToChoice;
         public string ContextInfo;
-        public readonly List<Type> ToTypes; // Only relevant with ToChoices.Concrete
+        public readonly List<Type> ToTypes; 
         public ScopeTypes Scope;
         public readonly List<TypeValuePair> Arguments;
         public Action<InjectContext, object> InstantiatedCallback;

@@ -58,7 +58,7 @@ namespace Zenject
             }
         }
 
-        // Unlike other installer types this has to be set through code
+        
         public IEnumerable<Type> NormalInstallerTypes
         {
             get { return _normalInstallerTypes; }
@@ -71,7 +71,7 @@ namespace Zenject
             }
         }
 
-        // Unlike other installer types this has to be set through code
+        
         public IEnumerable<InstallerBase> NormalInstallers
         {
             get { return _normalInstallers; }
@@ -122,13 +122,13 @@ namespace Zenject
             {
                 Assert.IsNotNull(installerPrefab, "Found null prefab in Context");
 
-                // We'd like to do this but this is actually a valid case sometimes
-                // (eg. loading an asset bundle with a scene containing a scene context when inside unity editor)
-//#if UNITY_EDITOR
-                //Assert.That(PrefabUtility.GetPrefabType(installerPrefab.gameObject) == PrefabType.Prefab,
-                    //"Found non-prefab with name '{0}' in the InstallerPrefabs property of Context '{1}'.  You should use the property 'Installer' for this instead",
-                    //installerPrefab.name, this.name);
-//#endif
+                
+                
+
+                
+                    
+                    
+
                 Assert.That(installerPrefab.GetComponent<MonoInstaller>() != null,
                     "Expected to find component with type 'MonoInstaller' on given installer prefab '{0}'", installerPrefab.name);
             }
@@ -149,23 +149,23 @@ namespace Zenject
         {
             CheckInstallerPrefabTypes(installers, installerPrefabs);
 
-            // Ideally we would just have one flat list of all the installers
-            // since that way the user has complete control over the order, but
-            // that's not possible since Unity does not allow serializing lists of interfaces
-            // (and it has to be an inteface since the scriptable object installers only share
-            // the interface)
-            //
-            // So the best we can do is have a hard-coded order in terms of the installer type
-            //
-            // The order is:
-            //      - Normal installers given directly via code
-            //      - ScriptableObject installers
-            //      - MonoInstallers in the scene
-            //      - Prefab Installers
-            //
-            // We put ScriptableObject installers before the MonoInstallers because
-            // ScriptableObjectInstallers are often used for settings (including settings
-            // that are injected into other installers like MonoInstallers)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             var allInstallers = normalInstallers.Cast<IInstaller>()
                 .Concat(scriptableObjectInstallers.Cast<IInstaller>())
@@ -235,11 +235,11 @@ namespace Zenject
                 }
             }
 
-            // We'd prefer to use GameObject.FindObjectsOfType<ZenjectBinding>() here
-            // instead but that doesn't find inactive gameobjects
-            // TODO: Consider changing this
-            // Maybe ZenjectBinding could add itself to a registry class on Awake/OnEnable
-            // then we could avoid calling the slow Resources.FindObjectsOfTypeAll here
+            
+            
+            
+            
+            
             foreach (var binding in Resources.FindObjectsOfTypeAll<ZenjectBinding>())
             {
                 if (binding == null)
@@ -247,8 +247,8 @@ namespace Zenject
                     continue;
                 }
 
-                // This is necessary for cases where the ZenjectBinding is inside a GameObjectContext
-                // since it won't be caught in the other loop above
+                
+                
                 if (this is SceneContext)
                 {
                     if (binding.Context == null && binding.UseSceneContext

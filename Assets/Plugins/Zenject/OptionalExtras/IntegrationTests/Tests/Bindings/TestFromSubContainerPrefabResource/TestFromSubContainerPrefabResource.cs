@@ -22,7 +22,7 @@ namespace Zenject.Tests.Bindings
             PreInstall();
             CommonInstall();
 
-            // Validation should detect that it doesn't exist
+            
             Container.Bind<Foo>().FromSubContainerResolve().ByNewContextPrefabResource(PathPrefix + "asdfasdfas").AsTransient().NonLazy();
 
             Assert.Throws(() => PostInstall());

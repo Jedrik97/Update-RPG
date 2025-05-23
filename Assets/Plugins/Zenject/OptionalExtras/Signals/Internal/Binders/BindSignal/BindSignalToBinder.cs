@@ -14,7 +14,7 @@ namespace Zenject
             _container = container;
 
             _signalBindInfo = signalBindInfo;
-            // This will ensure that they finish the binding
+            
             _bindStatement = container.StartBinding();
         }
 
@@ -31,9 +31,9 @@ namespace Zenject
             var bindInfo = _container.Bind<IDisposable>()
                 .To<SignalCallbackWrapper>()
                 .AsCached()
-                // Note that there's a reason we don't just make SignalCallbackWrapper have a generic
-                // argument for signal type - because when using struct type signals it throws
-                // exceptions on AOT platforms
+                
+                
+                
                 .WithArguments(_signalBindInfo, (Action<object>)(o => callback((TSignal)o)))
                 .NonLazy().BindInfo;
 

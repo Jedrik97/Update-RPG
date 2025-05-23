@@ -11,9 +11,9 @@ namespace Zenject
         {
         }
 
-        // We use generics instead of params object[] so that we preserve type info
-        // So that you can for example pass in a variable that is null and the type info will
-        // still be used to map null on to the correct field
+        
+        
+        
         public InstantiateCallbackConditionCopyNonLazyBinder WithArguments<T>(T param)
         {
             BindInfo.Arguments.Clear();

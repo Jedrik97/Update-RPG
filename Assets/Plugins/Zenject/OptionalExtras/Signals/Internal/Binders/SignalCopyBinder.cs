@@ -20,8 +20,8 @@ namespace Zenject
             };
         }
 
-        // This is used in cases where you have multiple bindings that depend on each other so should
-        // be inherited together
+        
+        
         public void AddCopyBindInfo(BindInfo bindInfo)
         {
             _bindInfos.Add(bindInfo);
@@ -32,19 +32,19 @@ namespace Zenject
             SetInheritanceMethod(BindingInheritanceMethods.CopyIntoAll);
         }
 
-        // Only copy the binding into children and not grandchildren
+        
         public void CopyIntoDirectSubContainers()
         {
             SetInheritanceMethod(BindingInheritanceMethods.CopyDirectOnly);
         }
 
-        // Do not apply the binding on the current container
+        
         public void MoveIntoAllSubContainers()
         {
             SetInheritanceMethod(BindingInheritanceMethods.MoveIntoAll);
         }
 
-        // Do not apply the binding on the current container
+        
         public void MoveIntoDirectSubContainers()
         {
             SetInheritanceMethod(BindingInheritanceMethods.MoveDirectOnly);
