@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
-        bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 1, transform);
+        bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
     }
 
@@ -76,25 +76,49 @@ public class GameManager : MonoBehaviour
         SpawnEnemy();
     }
 
-    private void SpawnEnemy()
+    public void SpawnEnemy()
     {
         EnemyBase enemy = enemyPool.Get();
         enemy.SetPool(enemyPool);
+        
+        enemy.gameObject.SetActive(false);
+        
         enemy.transform.position = respawnPoint.position;
-
+        
         var nav = enemy.GetComponent<NavMeshAgent>();
-        if (nav != null) nav.Warp(respawnPoint.position);
+        if (nav)
+        {
+            nav.Warp(respawnPoint.position);
+        }
+        enemy.gameObject.SetActive(true);
+        
+        StartCoroutine(ContinueSpawnAfterNavMesh(enemy));
+    }
 
+    private IEnumerator ContinueSpawnAfterNavMesh(EnemyBase enemy)
+    {
+        var nav = enemy.GetComponent<NavMeshAgent>();
+        
+        if (nav)
+        {
+            yield return new WaitUntil(() => nav.isOnNavMesh);
+        }
+        else
+        {
+            yield return null;
+        }
+        
         WayPoint start = startPoints[Random.Range(0, startPoints.Count)];
         var wps = new List<WayPoint>(start.WayPoints);
         ShuffleList(wps);
-
+        
         var follower = enemy.GetComponent<EnemyPathFollower>();
         follower.SetWaypoints(wps.ToArray());
         follower.ResumePatrol();
         
         enemy.OnDeath += EnemyKilled;
     }
+
 
     private void SpawnBoss()
     {
