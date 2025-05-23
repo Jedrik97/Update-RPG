@@ -58,6 +58,15 @@ public class GameSceneInstaller : MonoInstaller
             .FromComponentOn(playerGO)
             .AsSingle();
         
+        var stats = playerGO.GetComponent<PlayerStats>();
+        var hp    = playerGO.GetComponent<HealthPlayerController>();
+        var inv   = playerGO.GetComponent<PlayerInventory>();
+
+        int slot = PlayerSession.SelectedSlot;
+        if (SaveLoadManager.HasSave(slot))
+        {
+            SaveLoadManager.LoadGame(slot, stats, hp, inv);
+        }
         
         Container.InjectGameObject(playerGO);
     }

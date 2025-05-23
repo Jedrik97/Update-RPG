@@ -51,7 +51,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         _poolQueue.Enqueue(obj);
     }
 
-    private void Shuffle<T>(IList<T> list)
+    private void Shuffle(IList<T> list)
     {
         int n = list.Count;
         for (int i = 0; i < n - 1; i++)

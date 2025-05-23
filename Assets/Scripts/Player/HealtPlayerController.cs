@@ -14,12 +14,15 @@ public class HealthPlayerController : MonoBehaviour
     public TextMeshProUGUI healthText;
 
     private Coroutine regenCoroutine;
+
     private PlayerInventory _inventory;
+    private TemporaryMessageUI _tempMessageUI;
 
     [Inject]
-    public void Construct(PlayerInventory inventory)
+    public void Construct(PlayerInventory inventory, TemporaryMessageUI tempMessageUI)
     {
         _inventory = inventory;
+        _tempMessageUI = tempMessageUI;
     }
 
     void Start()
@@ -43,7 +46,9 @@ public class HealthPlayerController : MonoBehaviour
     {
         bool used = _inventory.UseHealthPotion(this);
         if (!used)
-            Debug.Log("Нет фляжек для использования.");
+        {  
+            _tempMessageUI.ShowMessage("Нет фляжек для использования.");
+        }
     }
 
     public void TakeDamage(float d)
@@ -82,4 +87,9 @@ public class HealthPlayerController : MonoBehaviour
     }
 
     public float GetCurrentHealth() => currentHealth;
+
+    public void UseHealthPotion(float healAmount)
+    {
+        Heal(healAmount);
+    }
 }

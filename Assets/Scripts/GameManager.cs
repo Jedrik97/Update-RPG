@@ -6,6 +6,7 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Regular Enemies")]
     [SerializeField] private List<EnemyBase> enemyPrefabs;
     [SerializeField] private int poolSize;
     [SerializeField] private List<WayPoint> startPoints;
@@ -14,29 +15,56 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float respawnDelay = 15f;
     [SerializeField] private float spawnDelay = 1f;
 
+    [Header("Boss Settings")]
+    [SerializeField] private EnemyBase bossPrefab;
+    [SerializeField] private Transform bossSpawnPoint;
+
     private ObjectPool<EnemyBase> enemyPool;
+    private ObjectPool<EnemyBase> bossPool;
     private PlayerStats playerStats;
+    private PlayerInventory playerInventory;
+    private bool bossSpawned = false;
 
     [Inject]
-    public void Construct(PlayerStats playerStats)
+    public void Construct(PlayerStats playerStats, PlayerInventory playerInventory)
     {
         this.playerStats = playerStats;
+        this.playerInventory = playerInventory;
     }
 
     private void Start()
     {
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
+        bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 1, transform);
         StartCoroutine(SpawnEnemiesSequentially());
+    }
+
+    private void Update()
+    {
+        if (!bossSpawned && playerStats != null && playerStats.level >= 5)
+        {
+            bossSpawned = true;
+            SpawnBoss();
+        }
     }
 
     public void EnemyKilled(GameObject enemy)
     {
-        if (playerStats)
+        if (playerStats != null)
             playerStats.GainExperience(experiencePerKill);
+
+        if (playerInventory != null)
+            playerInventory.AddGold(1);
         
         EnemyBase eb = enemy.GetComponent<EnemyBase>();
         if (eb != null)
             eb.OnDeath -= EnemyKilled;
+        
+        if (eb != null && eb == bossPrefab)
+        {
+            return;
+        }
+        
         StartCoroutine(DelayedSpawn());
     }
 
@@ -53,16 +81,32 @@ public class GameManager : MonoBehaviour
         EnemyBase enemy = enemyPool.Get();
         enemy.SetPool(enemyPool);
         enemy.transform.position = respawnPoint.position;
-        NavMeshAgent nav = enemy.GetComponent<NavMeshAgent>();
-        if (nav != null)
-            nav.Warp(respawnPoint.position);
+
+        var nav = enemy.GetComponent<NavMeshAgent>();
+        if (nav != null) nav.Warp(respawnPoint.position);
+
         WayPoint start = startPoints[Random.Range(0, startPoints.Count)];
-        List<WayPoint> wps = new List<WayPoint>(start.WayPoints);
+        var wps = new List<WayPoint>(start.WayPoints);
         ShuffleList(wps);
-        EnemyPathFollower follower = enemy.GetComponent<EnemyPathFollower>();
+
+        var follower = enemy.GetComponent<EnemyPathFollower>();
         follower.SetWaypoints(wps.ToArray());
         follower.ResumePatrol();
+        
         enemy.OnDeath += EnemyKilled;
+    }
+
+    private void SpawnBoss()
+    {
+        EnemyBase boss = bossPool.Get();
+        boss.SetPool(bossPool);
+        boss.transform.position = bossSpawnPoint.position;
+
+        var nav = boss.GetComponent<NavMeshAgent>();
+        if (nav != null) nav.Warp(bossSpawnPoint.position);
+        
+
+        boss.OnDeath += EnemyKilled;
     }
 
     private void ShuffleList(List<WayPoint> list)
@@ -70,7 +114,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < list.Count; i++)
         {
             int j = Random.Range(i, list.Count);
-            WayPoint temp = list[i];
+            var temp = list[i];
             list[i] = list[j];
             list[j] = temp;
         }
@@ -87,8 +131,6 @@ public class GameManager : MonoBehaviour
 
     public int GetPlayerLevel()
     {
-        if (playerStats != null)
-            return playerStats.level;
-        return 1;
+        return playerStats != null ? playerStats.level : 1;
     }
 }
