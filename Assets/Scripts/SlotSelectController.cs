@@ -8,9 +8,9 @@ using Zenject;
 
 public class SlotSelectController : MonoBehaviour
 {
-    [Header("Panels & Buttons (children of Canvas)")]
-    public GameObject panel;           
-    public GameObject buttonContainer; 
+    [Header("Panels & Buttons (same Canvas)")]
+    public GameObject panel;           // SaveSlotSelectPanel
+    public GameObject buttonContainer; // Panel с основными кнопками (Pause) или пустым контейнером (MainMenu)
 
     public Button[] slotButtons;       
     public Button cancelButton;        
@@ -18,7 +18,7 @@ public class SlotSelectController : MonoBehaviour
     private PlayerStats _stats;
     private HealthPlayerController _hp;
     private PlayerInventory _inv;
-    private PauseMenuController _pauseMenu;
+    private PauseMenuController _pauseMenu;  // может быть null на главном меню
 
     enum Mode { Continue, Save, Load }
     Mode mode;
@@ -28,7 +28,8 @@ public class SlotSelectController : MonoBehaviour
         PlayerStats stats,
         HealthPlayerController hp,
         PlayerInventory inv,
-        PauseMenuController pauseMenu)
+        // Опциональная инъекция — если PauseMenuController не найден, Zenject впихнёт null
+        [InjectOptional] PauseMenuController pauseMenu)
     {
         _stats     = stats;
         _hp        = hp;
@@ -36,7 +37,6 @@ public class SlotSelectController : MonoBehaviour
         _pauseMenu = pauseMenu;
     }
 
-    
     public void ShowContinue()
     {
         mode = Mode.Continue;
@@ -58,22 +58,18 @@ public class SlotSelectController : MonoBehaviour
         PopulateSlotButtons();
     }
 
-    
-    
-    
     public void HidePanel()
     {
         panel.SetActive(false);
     }
 
-    
     public void OnCancelClicked()
     {
         HidePanel();
-        buttonContainer.SetActive(true);
+        if (buttonContainer != null)
+            buttonContainer.SetActive(true);
     }
 
-    
     public void OnSlot1Clicked() => OnSlotButton(1);
     public void OnSlot2Clicked() => OnSlotButton(2);
     public void OnSlot3Clicked() => OnSlotButton(3);
@@ -115,10 +111,7 @@ public class SlotSelectController : MonoBehaviour
     }
 
     int ExtractSlotNumber(string path)
-    {
-        var parts = Path.GetFileNameWithoutExtension(path).Split("save_slot");
-        return int.Parse(parts.Last());
-    }
+        => int.Parse(Path.GetFileNameWithoutExtension(path).Split("save_slot").Last());
 
     int GetNextAvailableSlotNumber(string[] files)
     {
@@ -145,19 +138,17 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Save:
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv);
                 HidePanel();
-                buttonContainer.SetActive(true);
+                if (buttonContainer!=null) buttonContainer.SetActive(true);
                 break;
 
             case Mode.Load:
                 if (SaveLoadManager.LoadGame(slot, _stats, _hp, _inv))
                 {
-                    
                     HidePanel();
-                    _pauseMenu.ClosePauseMenu();
+                    // Если мы в паузе — закрыть её
+                    _pauseMenu?.ClosePauseMenu();
                 }
                 break;
         }
     }
-
-    public bool IsPanelVisible() => panel.activeSelf;
 }

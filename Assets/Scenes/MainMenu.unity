@@ -1137,7 +1137,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534032780}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1146,11 +1146,11 @@ RectTransform:
   - {fileID: 592419211}
   - {fileID: 80091350}
   - {fileID: 330836012}
-  m_Father: {fileID: 1074325558}
+  m_Father: {fileID: 758395546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 90.34871}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &534032782
@@ -6284,7 +6284,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701765506}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6293,7 +6293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 35.5}
+  m_AnchoredPosition: {x: 0, y: 35.50003}
   m_SizeDelta: {x: 2080, y: 2471}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &701765508
@@ -6348,7 +6348,7 @@ GameObject:
   - component: {fileID: 758395543}
   - component: {fileID: 758395547}
   m_Layer: 5
-  m_Name: MenuPanel
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6431,6 +6431,8 @@ RectTransform:
   m_Children:
   - {fileID: 701765507}
   - {fileID: 1074325558}
+  - {fileID: 534032781}
+  - {fileID: 1000839622}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6584,12 +6586,12 @@ RectTransform:
   - {fileID: 1017431261}
   - {fileID: 1421923904}
   - {fileID: 1182722812}
-  m_Father: {fileID: 1074325558}
+  m_Father: {fileID: 758395546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -824, y: -625.04504}
+  m_AnchoredPosition: {x: 0, y: 90.34871}
+  m_SizeDelta: {x: -2232, y: -1192.3477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1000839623
 MonoBehaviour:
@@ -6651,9 +6653,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 852d119f5839a164d9db22191eaa6fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  slotButtons: []
-  cancelButton: {fileID: 0}
+  panel: {fileID: 1000839621}
+  buttonContainer: {fileID: 0}
+  slotButtons:
+  - {fileID: 1350931515}
+  - {fileID: 1017431262}
+  - {fileID: 1421923905}
+  cancelButton: {fileID: 1182722813}
 --- !u!1 &1017431260
 GameObject:
   m_ObjectHideFlags: 0
@@ -6736,7 +6742,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1017431263}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1000839626}
+        m_TargetAssemblyTypeName: SlotSelectController, Assembly-CSharp
+        m_MethodName: OnSlot2Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1017431263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6806,8 +6824,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 557787210}
-  - {fileID: 534032781}
-  - {fileID: 1000839622}
   m_Father: {fileID: 758395546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6935,7 +6951,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1182722814}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1000839626}
+        m_TargetAssemblyTypeName: SlotSelectController, Assembly-CSharp
+        m_MethodName: OnCancelClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1182722814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7279,7 +7307,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1350931516}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1000839626}
+        m_TargetAssemblyTypeName: SlotSelectController, Assembly-CSharp
+        m_MethodName: OnSlot1Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1350931516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7400,7 +7440,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1421923906}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1000839626}
+        m_TargetAssemblyTypeName: SlotSelectController, Assembly-CSharp
+        m_MethodName: OnSlot3Clicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1421923906
 MonoBehaviour:
   m_ObjectHideFlags: 0
