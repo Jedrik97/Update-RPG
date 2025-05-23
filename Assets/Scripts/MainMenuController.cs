@@ -11,7 +11,7 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
     public void OnContinueClicked() { slotSelect.ShowContinue(); }
-    public void OnSettingsClicked(){  }
+    public void OnSettingsClicked(){ /*…*/ }
     public void OnQuitClicked()
     {
         Application.Quit();

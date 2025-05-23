@@ -269,22 +269,22 @@ namespace Zenject
 
         protected virtual void OnDespawned(TContract item)
         {
-            
+            // Optional
         }
 
         protected virtual void OnSpawned(TContract item)
         {
-            
+            // Optional
         }
 
         protected virtual void OnCreated(TContract item)
         {
-            
+            // Optional
         }
 
         protected virtual void OnDestroyed(TContract item)
         {
-            
+            // Optional
         }
     }
 }

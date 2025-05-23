@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Zenject.Tests.Factories.BindFactoryOne
 {
-    
+    //[CreateAssetMenu(fileName = "Bar", menuName = "Installers/Bar")]
     public class Bar : ScriptableObject
     {
         [Inject]

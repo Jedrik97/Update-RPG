@@ -22,7 +22,7 @@ namespace Zenject
 
             if (_injectContext.Container.IsValidating)
             {
-                
+                // During validation it is sufficient to just call the _provider.GetInstance
                 return default(TContract);
             }
 

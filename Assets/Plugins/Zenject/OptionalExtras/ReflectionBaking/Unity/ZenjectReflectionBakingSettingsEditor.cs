@@ -14,12 +14,12 @@ namespace Zenject.ReflectionBaking
         SerializedProperty _isEnabledInEditor;
         SerializedProperty _allGeneratedAssemblies;
 
-        
+        // Lists
         ReorderableList _includeAssembliesList;
         ReorderableList _excludeAssembliesList;
         ReorderableList _namespacePatternsList;
 
-        
+        // Layouts
         Vector2 _logScrollPosition;
         int _selectedLogIndex;
 

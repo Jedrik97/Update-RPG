@@ -13,8 +13,8 @@ namespace Zenject
             BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
             : base(bindInfo)
         {
-            
-            
+            // Note that it doesn't derive from MemoryPool<TContract>
+            // when used with To<>, so we can only check IMemoryPoolBase
             Assert.That(factoryBindInfo.FactoryType.DerivesFrom<IMemoryPool>());
 
             _factoryBindInfo = factoryBindInfo;

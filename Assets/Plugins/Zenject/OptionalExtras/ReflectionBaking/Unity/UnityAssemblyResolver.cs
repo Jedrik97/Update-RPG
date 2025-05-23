@@ -61,8 +61,8 @@ namespace Zenject.ReflectionBaking
             return assemblyDef;
         }
 
-        
-        
+        /// Searches for AssemblyDefinition in our cache, and failing that,
+        /// looks for a known location.  Returns null if both attempts fail.
         AssemblyDefinition FindAssemblyDefinition(string fullName, ReaderParameters parameters)
         {
             if (fullName == null)
@@ -72,13 +72,13 @@ namespace Zenject.ReflectionBaking
 
             AssemblyDefinition assemblyDefinition;
 
-            
+            // Look in cache first
             if (_cache.TryGetValue(fullName, out assemblyDefinition))
             {
                 return assemblyDefinition;
             }
 
-            
+            // Try to use known location
 
             string location;
 

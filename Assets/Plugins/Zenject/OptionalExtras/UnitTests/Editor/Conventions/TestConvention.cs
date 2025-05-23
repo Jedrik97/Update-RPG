@@ -32,7 +32,7 @@ namespace Zenject.Tests.Convention
         [Test]
         public void TestMatchAll()
         {
-            
+            // Should automatically filter by contract types
             Container.Bind<IFoo>().To(x => x.AllNonAbstractClasses()).AsTransient();
 
             Assert.IsEqual(Container.ResolveAll<IFoo>().Count(), 4);

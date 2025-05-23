@@ -29,10 +29,10 @@ namespace Zenject
             Assert.That(!ZenUtilInternal.IsNull(prefab), "Received null prefab during bind command");
 
 #if UNITY_EDITOR
-            
-            
-            
-                
+            // Unfortunately we can't do this check because asset bundles return PrefabType.None here
+            // as discussed here: https://github.com/svermeulen/Zenject/issues/269#issuecomment-323419408
+            //Assert.That(PrefabUtility.GetPrefabType(prefab) == PrefabType.Prefab,
+                //"Expected prefab but found game object with name '{0}' during bind command", prefab.name);
 #endif
         }
 
@@ -44,10 +44,10 @@ namespace Zenject
             Assert.That(!ZenUtilInternal.IsNull(gameObject), "Received null game object during bind command");
 
 #if UNITY_EDITOR
-            
-            
-            
-                
+            // Unfortunately we can't do this check because asset bundles return PrefabType.None here
+            // as discussed here: https://github.com/svermeulen/Zenject/issues/269#issuecomment-323419408
+            //Assert.That(PrefabUtility.GetPrefabType(gameObject) != PrefabType.Prefab,
+                //"Expected game object but found prefab instead with name '{0}' during bind command", gameObject.name);
 #endif
         }
 
@@ -125,8 +125,8 @@ namespace Zenject
         {
             Assert.That(!string.IsNullOrEmpty(resourcePath), "Null or empty resource path provided");
 
-            
-            
+            // We'd like to validate the path here but unfortunately there doesn't appear to be
+            // a way to do this besides loading it
         }
 
 #if ZEN_STRIP_ASSERTS_IN_BUILDS
@@ -275,7 +275,7 @@ namespace Zenject
         public static void AssertIsDerivedFromType(Type concreteType, Type parentType)
         {
 #if !(UNITY_WSA && ENABLE_DOTNET)
-            
+            // TODO: Is it possible to do this on WSA?
 
             Assert.That(parentType.IsOpenGenericType() == concreteType.IsOpenGenericType(),
                 "Invalid type given during bind command.  Expected type '{0}' and type '{1}' to both either be open generic types or not open generic types", parentType, concreteType);

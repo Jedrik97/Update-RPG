@@ -57,7 +57,7 @@ namespace Zenject
             }
         }
 
-        
+        // This is the default if nothing else is called
         public ScopeConcreteIdArgConditionCopyNonLazyBinder FromNew()
         {
             BindingUtil.AssertTypesAreNotComponents(ConcreteTypes);
@@ -99,7 +99,7 @@ namespace Zenject
         ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveInternal(object subIdentifier, bool matchAll, InjectSources source)
         {
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -133,10 +133,10 @@ namespace Zenject
         SubContainerBinder FromSubContainerResolveInternal(
             object subIdentifier, bool resolveAll)
         {
-            
-            
+            // It's unlikely they will want to create the whole subcontainer with each binding
+            // (aka transient) which is the default so require that they specify it
             BindInfo.RequireExplicitScope = true;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             return new SubContainerBinder(
@@ -146,20 +146,20 @@ namespace Zenject
         protected ScopeConcreteIdArgConditionCopyNonLazyBinder FromIFactoryBase<TContract>(
             Action<ConcreteBinderGeneric<IFactory<TContract>>> factoryBindGenerator)
         {
-            
-            
+            // Use a random ID so that our provider is the only one that can find it and so it doesn't
+            // conflict with anything else
             var factoryId = Guid.NewGuid();
 
-            
+            // Important to use NoFlush here otherwise the main binding will finalize early
             var subBinder = BindContainer.BindNoFlush<IFactory<TContract>>()
                 .WithId(factoryId);
 
             factoryBindGenerator(subBinder);
 
-            
-            
+            // This is kind of like a look up method like FromMethod so don't enforce specifying scope
+            // The internal binding will require an explicit scope so should be obvious enough
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -167,7 +167,7 @@ namespace Zenject
                 (container, type) => new IFactoryProvider<TContract>(container, factoryId));
 
             var binder = new ScopeConcreteIdArgConditionCopyNonLazyBinder(BindInfo);
-            
+            // Needed for example if the user uses MoveIntoDirectSubContainers
             binder.AddSecondaryCopyBindInfo(subBinder.BindInfo);
             return binder;
         }
@@ -516,7 +516,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = false;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -553,7 +553,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = false;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -594,7 +594,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = false;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -640,7 +640,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = false;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -675,7 +675,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = false;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -711,7 +711,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = false;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -738,11 +738,11 @@ namespace Zenject
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
-            
-            
+            // Since this is a pretty heavy operation, let's require an explicit scope
+            // Most of the time they should use AsCached or AsSingle
             BindInfo.RequireExplicitScope = true;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -774,7 +774,7 @@ namespace Zenject
 
             BindInfo.RequireExplicitScope = true;
 
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
 
             SubFinalizer = new ScopableBindingFinalizer(
@@ -801,7 +801,7 @@ namespace Zenject
         public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethodUntyped(Func<InjectContext, object> method)
         {
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
             SubFinalizer = new ScopableBindingFinalizer(
                 BindInfo,
@@ -813,7 +813,7 @@ namespace Zenject
         public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethodMultipleUntyped(Func<InjectContext, IEnumerable<object>> method)
         {
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
             SubFinalizer = new ScopableBindingFinalizer(
                 BindInfo,
@@ -827,7 +827,7 @@ namespace Zenject
             BindingUtil.AssertIsDerivedFromTypes(typeof(TConcrete), AllParentTypes);
 
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
             SubFinalizer = new ScopableBindingFinalizer(
                 BindInfo,
@@ -839,7 +839,7 @@ namespace Zenject
         protected ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethodMultipleBase<TConcrete>(Func<InjectContext, IEnumerable<TConcrete>> method)
         {
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
             SubFinalizer = new ScopableBindingFinalizer(
                 BindInfo,
@@ -854,7 +854,7 @@ namespace Zenject
             BindingUtil.AssertIsDerivedFromTypes(typeof(TResult), AllParentTypes);
 
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
             SubFinalizer = new ScopableBindingFinalizer(
                 BindInfo,
@@ -868,7 +868,7 @@ namespace Zenject
             BindingUtil.AssertInstanceDerivesFromOrEqual(instance, AllParentTypes);
 
             BindInfo.RequireExplicitScope = false;
-            
+            // Don't know how it's created so can't assume here that it violates AsSingle
             BindInfo.MarkAsCreationBinding = false;
             SubFinalizer = new ScopableBindingFinalizer(
                 BindInfo,

@@ -6,7 +6,7 @@ namespace Zenject.Tests.Bindings.FromNewScriptableObjectResource
     {
     }
 
-    
+    //[CreateAssetMenu(fileName = "Foo", menuName = "Test/Foo")]
     public class Foo : ScriptableObject, IFoo
     {
         public static int InstanceCount

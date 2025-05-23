@@ -37,7 +37,7 @@ namespace Zenject
 
             injectAction = () => 
             {
-                
+                // Note: We don't need to call ResolveRoots here because GameObjectContext does this for us
                 _container.Inject(context);
 
                 if (shouldMakeActive && !_container.IsValidating)

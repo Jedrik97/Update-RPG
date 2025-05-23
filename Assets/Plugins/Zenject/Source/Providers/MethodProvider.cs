@@ -48,8 +48,8 @@ namespace Zenject
             }
             else
             {
-                
-                
+                // We cannot do a null assert here because in some cases they might intentionally
+                // return null
                 buffer.Add(_method(context));
             }
         }

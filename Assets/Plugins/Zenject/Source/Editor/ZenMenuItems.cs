@@ -28,7 +28,7 @@ namespace Zenject.Internal
         [MenuItem("Edit/Zenject/Help...")]
         public static void OpenDocumentation()
         {
-            Application.OpenURL("https:
+            Application.OpenURL("https://github.com/svermeulen/zenject");
         }
 
         [MenuItem("GameObject/Zenject/Scene Context", false, 9)]
@@ -155,7 +155,7 @@ namespace Zenject.Internal
                 + "\n"
                 + "\n    public override void InstallBindings()"
                 + "\n    {"
-                + "\n        
+                + "\n        // TODO"
                 + "\n    }"
                 + "\n}");
         }
@@ -232,7 +232,7 @@ namespace Zenject.Internal
 
             if (absolutePath == "")
             {
-                
+                // Dialog was cancelled
                 return null;
             }
 
@@ -287,7 +287,7 @@ namespace Zenject.Internal
                 + "\n    [Test]"
                 + "\n    public void RunTest1()"
                 + "\n    {"
-                + "\n        
+                + "\n        // TODO"
                 + "\n    }"
                 + "\n}");
         }
@@ -305,16 +305,16 @@ namespace Zenject.Internal
                 + "\n    [UnityTest]"
                 + "\n    public IEnumerator RunTest1()"
                 + "\n    {"
-                + "\n        
+                + "\n        // Setup initial state by creating game objects from scratch, loading prefabs/scenes, etc"
                 + "\n"
                 + "\n        PreInstall();"
                 + "\n"
-                + "\n        
+                + "\n        // Call Container.Bind methods"
                 + "\n"
                 + "\n        PostInstall();"
                 + "\n"
-                + "\n        
-                + "\n        
+                + "\n        // Add test assertions for expected state"
+                + "\n        // Using Container.Resolve or [Inject] fields"
                 + "\n        yield break;"
                 + "\n    }"
                 + "\n}");
@@ -336,11 +336,11 @@ namespace Zenject.Internal
                 + "\n    {"
                 + "\n        yield return LoadScene(\"InsertSceneNameHere\");"
                 + "\n"
-                + "\n        
-                + "\n        
-                + "\n        
+                + "\n        // TODO: Add assertions here now that the scene has started"
+                + "\n        // Or you can just uncomment to simply wait some time to make sure the scene plays without errors"
+                + "\n        //yield return new WaitForSeconds(1.0f);"
                 + "\n"
-                + "\n        
+                + "\n        // Note that you can use SceneContainer.Resolve to look up objects that you need for assertions"
                 + "\n    }"
                 + "\n}");
         }

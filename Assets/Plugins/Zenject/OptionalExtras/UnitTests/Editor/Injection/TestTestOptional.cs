@@ -62,7 +62,7 @@ namespace Zenject.Tests.Injection
         {
             Container.Bind<Test0>().AsTransient().NonLazy();
 
-            
+            // Should not redefine the hard coded value in this case
             Assert.IsEqual(Container.Resolve<Test0>().Val1, 5);
 
             Container.Bind<int>().FromInstance(3).NonLazy();

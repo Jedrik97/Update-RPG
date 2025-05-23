@@ -51,7 +51,7 @@ namespace Zenject
                 Assert.That(obj != null,
                 "Could not find resource at path '{0}' with type '{1}'", _resourcePath, _resourceType);
 
-                
+                // Are there any resource types which can be injected?
                 injectAction = null;
                 buffer.Add(obj);
                 return;
@@ -62,7 +62,7 @@ namespace Zenject
             Assert.That(objects.Length > 0,
             "Could not find resource at path '{0}' with type '{1}'", _resourcePath, _resourceType);
 
-            
+            // Are there any resource types which can be injected?
             injectAction = null;
 
             buffer.AllocFreeAddRange(objects);

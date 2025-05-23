@@ -16,7 +16,7 @@ namespace Zenject
             set { _containerSource = value; }
         }
 
-        
+        // Make sure they don't cause injection to happen twice
         [Inject]
         public void Construct()
         {

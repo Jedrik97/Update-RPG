@@ -25,7 +25,7 @@ namespace Zenject
 
         DiContainer _container;
 
-        
+        // Need to cache this when auto run is false
         DiContainer _parentContainer;
 
         bool _hasInstalled;
@@ -60,8 +60,8 @@ namespace Zenject
         {
             Assert.That(_parentContainer == null || _parentContainer == parentContainer);
 
-            
-            
+            // We allow calling this explicitly instead of relying on the [Inject] event above
+            // so that we can follow the two-pass construction-injection pattern in the providers
             if (_hasInstalled) 
             {
                 return;
@@ -72,7 +72,7 @@ namespace Zenject
             Assert.IsNull(_container);
             _container = parentContainer.CreateSubContainer();
 
-            
+            // Do this after creating DiContainer in case it's needed by the pre install logic
             if (PreInstall != null)
             {
                 PreInstall();
@@ -124,16 +124,16 @@ namespace Zenject
                 PostResolve();
             }
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            // Normally, the IInitializable.Initialize method would be called during MonoKernel.Start
+            // However, this behaviour is undesirable for dynamically created objects, since Unity
+            // has the strange behaviour of waiting until the end of the frame to call Start() on
+            // dynamically created objects, which means that any GameObjectContext that is created
+            // dynamically via a factory cannot be used immediately after calling Create(), since
+            // it will not have been initialized
+            // So we have chosen to diverge from Unity behaviour here and trigger IInitializable.Initialize
+            // immediately - but only when the GameObjectContext is created dynamically.  For any
+            // GameObjectContext's that are placed in the scene, we still want to execute
+            // IInitializable.Initialize during Start()
             if (gameObject.scene.isLoaded && !_container.IsValidating)
             {
                 _kernel = _container.Resolve<MonoKernel>();
@@ -145,12 +145,12 @@ namespace Zenject
         {
             ZenUtilInternal.AddStateMachineBehaviourAutoInjectersUnderGameObject(gameObject);
 
-            
+            // We inject on all components on the root except ourself
             foreach (var monoBehaviour in GetComponents<MonoBehaviour>())
             {
                 if (monoBehaviour == null)
                 {
-                    
+                    // Missing script
                     continue;
                 }
 

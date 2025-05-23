@@ -9,8 +9,8 @@ using ModestTree;
 
 namespace Zenject
 {
-    
-    
+    // Similar to ProfileBlock except used for measuring speed of zenject specifically
+    // And does not use unity's profiler
     public static class ProfileTimers
     {
         static Dictionary<string, TimerInfo> _timers = new Dictionary<string, TimerInfo>();
@@ -27,8 +27,8 @@ namespace Zenject
         {
             var result = new StringBuilder();
 
-            
-            
+            // Uncomment if you only want to see zenject related info
+            //var timers = _timers.Where(x => x.Key != "User Code");
             var timers = _timers;
 
             var total = timers.Select(x => x.Value.TotalMilliseconds).Sum();

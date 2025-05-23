@@ -34,7 +34,7 @@ namespace Zenject.SpaceFighter
         {
         }
 
-        
+        // Just add a bit of subtle movement
         public void Update()
         {
             _theta += Time.deltaTime * _settings.Frequency;

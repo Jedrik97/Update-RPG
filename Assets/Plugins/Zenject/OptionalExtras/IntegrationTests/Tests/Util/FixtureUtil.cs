@@ -32,7 +32,7 @@ namespace Zenject.Tests
             var totalNumGameObjects =
                 SceneManager.GetActiveScene().GetRootGameObjects().Count();
 
-            
+            // -1 because the scene context
             Assert.IsEqual(totalNumGameObjects - 1, expectedNumGameObjects);
         }
 

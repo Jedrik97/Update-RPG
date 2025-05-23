@@ -27,7 +27,7 @@ namespace Zenject.Tests.Bindings
             Assert.Throws(() => Container.FlushBindings());
         }
 
-        
+        // There's really no good reason to do this but it is part of the api
         [Test]
         public void TestCached()
         {

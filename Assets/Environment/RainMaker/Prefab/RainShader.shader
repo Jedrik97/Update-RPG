@@ -1,7 +1,7 @@
-﻿
-
-
-
+﻿//
+// Rain Maker (c) 2015 Digital Ruby, LLC
+// http://www.digitalruby.com
+//
 
 Shader "Custom/RainShader"
 {
@@ -72,12 +72,12 @@ Shader "Custom/RainShader"
 
 				if (lightPos.w == 0)
 				{
-					
-					
-					
+					// directional light, the lightPos is actually the direction of the light
+					// for some weird reason, Unity seems to change the directional light position based on the vertex,
+					// this hack seems to compensate for that
 					lightPos = mul(lightPos, UNITY_MATRIX_V);
 
-					
+					// depending on how the directional light is pointing, reduce the intensity (which goes to 0 as it goes below the horizon)
 					fixed multiplier = clamp((lightPos.y * 2) + 1, 0, 1);
 					return lightColor + (currentLightColor * multiplier * _DirectionalLightMultiplier);
 				}
@@ -112,9 +112,9 @@ Shader "Custom/RainShader"
                 o.uv_MainTex = TRANSFORM_TEX(v.texcoord, _MainTex);
                 o.color = LightForVertex(v.vertex) * v.color * _TintColor;
 
-				
+				// o.color = v.color * _TintColor; // temp if you want to disable lighting
 
-				
+				// make sure the alpha scales down with the light
 				o.color *= (min(o.color.rgb, _TintColor.a).r / _TintColor.a);
 
 				#if defined(SOFTPARTICLES_ON)

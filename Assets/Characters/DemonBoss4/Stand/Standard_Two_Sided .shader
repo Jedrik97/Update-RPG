@@ -38,7 +38,7 @@ Shader "Standard Double Sided"
 		[Enum(UV0,0,UV1,1)] _UVSec ("UV Set for secondary textures", Float) = 0
 
 
-		
+		// Blending state
 		[HideInInspector] _Mode ("__mode", Float) = 0.0
 		[HideInInspector] _SrcBlend ("__src", Float) = 1.0
 		[HideInInspector] _DstBlend ("__dst", Float) = 0.0
@@ -55,8 +55,8 @@ Shader "Standard Double Sided"
 		LOD 300
 		Cull off
 
-		
-		
+		// ------------------------------------------------------------------
+		//  Base forward pass (directional light, emission, lightmaps, ...)
 		Pass
 		{
 			Name "FORWARD" 
@@ -68,7 +68,7 @@ Shader "Standard Double Sided"
 			CGPROGRAM
 			#pragma target 3.0
 
-			
+			// -------------------------------------
 
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
@@ -89,21 +89,21 @@ Shader "Standard Double Sided"
 
 			ENDCG
 		}
-		
-		
+		// ------------------------------------------------------------------
+		//  Additive forward pass (one light per pass)
 		Pass
 		{
 			Name "FORWARD_DELTA"
 			Tags { "LightMode" = "ForwardAdd" }
 			Blend [_SrcBlend] One
-			Fog { Color (0,0,0,0) } 
+			Fog { Color (0,0,0,0) } // in additive pass fog should be black
 			ZWrite Off
 			ZTest LEqual
 
 			CGPROGRAM
 			#pragma target 3.0
 
-			
+			// -------------------------------------
 
 
 			#pragma shader_feature _NORMALMAP
@@ -124,8 +124,8 @@ Shader "Standard Double Sided"
 
 			ENDCG
 		}
-		
-		
+		// ------------------------------------------------------------------
+		//  Shadow rendering pass
 		Pass {
 			Name "ShadowCaster"
 			Tags { "LightMode" = "ShadowCaster" }
@@ -135,7 +135,7 @@ Shader "Standard Double Sided"
 			CGPROGRAM
 			#pragma target 3.0
 
-			
+			// -------------------------------------
 
 
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
@@ -148,8 +148,8 @@ Shader "Standard Double Sided"
 
 			ENDCG
 		}
-		
-		
+		// ------------------------------------------------------------------
+		//  Deferred pass
 		Pass
 		{
 			Name "DEFERRED"
@@ -160,7 +160,7 @@ Shader "Standard Double Sided"
 			#pragma exclude_renderers nomrt
 
 
-			
+			// -------------------------------------
 
 			#pragma shader_feature _NORMALMAP
 			#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
@@ -184,9 +184,9 @@ Shader "Standard Double Sided"
 			ENDCG
 		}
 
-		
-		
-		
+		// ------------------------------------------------------------------
+		// Extracts information for lightmapping, GI (emission, albedo, ...)
+		// This pass it not used during regular rendering.
 		Pass
 		{
 			Name "META" 
@@ -213,8 +213,8 @@ Shader "Standard Double Sided"
 		Tags { "RenderType"="Opaque" "PerformanceChecks"="False" }
 		LOD 150
 
-		
-		
+		// ------------------------------------------------------------------
+		//  Base forward pass (directional light, emission, lightmaps, ...)
 		Pass
 		{
 			Name "FORWARD" 
@@ -233,8 +233,8 @@ Shader "Standard Double Sided"
 			#pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 			#pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
 			#pragma shader_feature _ _GLOSSYREFLECTIONS_OFF
-			
-			
+			// SM2.0: NOT SUPPORTED shader_feature ___ _DETAIL_MULX2
+			// SM2.0: NOT SUPPORTED shader_feature _PARALLAXMAP
 
 			#pragma skip_variants SHADOWS_SOFT DIRLIGHTMAP_COMBINED DIRLIGHTMAP_SEPARATE
 
@@ -247,14 +247,14 @@ Shader "Standard Double Sided"
 
 			ENDCG
 		}
-		
-		
+		// ------------------------------------------------------------------
+		//  Additive forward pass (one light per pass)
 		Pass
 		{
 			Name "FORWARD_DELTA"
 			Tags { "LightMode" = "ForwardAdd" }
 			Blend [_SrcBlend] One
-			Fog { Color (0,0,0,0) } 
+			Fog { Color (0,0,0,0) } // in additive pass fog should be black
 			ZWrite Off
 			ZTest LEqual
 			
@@ -267,7 +267,7 @@ Shader "Standard Double Sided"
 			#pragma shader_feature _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 			#pragma shader_feature _ _SPECULARHIGHLIGHTS_OFF
 			#pragma shader_feature ___ _DETAIL_MULX2
-			
+			// SM2.0: NOT SUPPORTED shader_feature _PARALLAXMAP
 			#pragma skip_variants SHADOWS_SOFT
 			
 			#pragma multi_compile_fwdadd_fullshadows
@@ -279,8 +279,8 @@ Shader "Standard Double Sided"
 
 			ENDCG
 		}
-		
-		
+		// ------------------------------------------------------------------
+		//  Shadow rendering pass
 		Pass {
 			Name "ShadowCaster"
 			Tags { "LightMode" = "ShadowCaster" }
@@ -302,9 +302,9 @@ Shader "Standard Double Sided"
 			ENDCG
 		}
 
-		
-		
-		
+		// ------------------------------------------------------------------
+		// Extracts information for lightmapping, GI (emission, albedo, ...)
+		// This pass it not used during regular rendering.
 		Pass
 		{
 			Name "META" 

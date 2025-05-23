@@ -43,7 +43,7 @@ namespace Zenject.SpaceFighter
 
         void OnPlayerDied()
         {
-            
+            // Wait a bit before restarting the scene
             _delayStartTime = Time.realtimeSinceStartup;
             _isDelaying = true;
         }

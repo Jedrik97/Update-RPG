@@ -8,7 +8,7 @@ namespace Zenject
             BindInfo = bindInfo;
         }
 
-        
+        // Do not use this
         public BindInfo BindInfo
         {
             get;

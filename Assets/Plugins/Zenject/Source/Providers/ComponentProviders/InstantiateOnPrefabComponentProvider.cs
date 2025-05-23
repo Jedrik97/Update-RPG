@@ -12,7 +12,7 @@ namespace Zenject
         readonly IPrefabInstantiator _prefabInstantiator;
         readonly Type _componentType;
 
-        
+        // if concreteType is null we use the contract type from inject context
         public InstantiateOnPrefabComponentProvider(
             Type componentType,
             IPrefabInstantiator prefabInstantiator)

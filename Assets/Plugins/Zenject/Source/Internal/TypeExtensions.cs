@@ -18,7 +18,7 @@ namespace ModestTree
             return DerivesFrom(a, typeof(T));
         }
 
-        
+        // This seems easier to think about than IsAssignableFrom
         public static bool DerivesFrom(this Type a, Type b)
         {
             return b != a && a.DerivesFromOrEqual(b);
@@ -39,7 +39,7 @@ namespace ModestTree
         }
 
 #if !(UNITY_WSA && ENABLE_DOTNET)
-        
+        // TODO: Is it possible to do this on WSA?
         public static bool IsAssignableToGenericType(Type givenType, Type genericType)
         {
             var interfaceTypes = givenType.Interfaces();
@@ -106,7 +106,7 @@ namespace ModestTree
         public static PropertyInfo[] DeclaredInstanceProperties(this Type type)
         {
 #if UNITY_WSA && ENABLE_DOTNET && !UNITY_EDITOR
-            
+            // There doesn't appear to be an IsStatic member on PropertyInfo
             return type.GetRuntimeProperties()
                 .Where(x => x.DeclaringType == type).ToArray();
 #else
@@ -250,7 +250,7 @@ namespace ModestTree
         public static object GetDefaultValue(this Type type)
         {
 #if ENABLE_IL2CPP
-            
+            // Workaround for IL2CPP returning default(T) for Activator.CreateInstance(typeof(T?))
             if (type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 return null;
@@ -350,8 +350,8 @@ namespace ModestTree
             return allAttributes.Where(a => attributeTypes.Any(x => a.GetType().DerivesFromOrEqual(x)));
         }
 
-        
-        
+        // We could avoid this duplication here by using ICustomAttributeProvider but this class
+        // does not exist on the WP8 platform
         public static bool HasAttribute(
             this ParameterInfo provider, params Type[] attributeTypes)
         {

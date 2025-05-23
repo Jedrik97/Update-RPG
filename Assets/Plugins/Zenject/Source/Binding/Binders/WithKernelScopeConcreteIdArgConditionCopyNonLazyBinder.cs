@@ -18,8 +18,8 @@ namespace Zenject
             return this;
         }
 
-        
-        
+        // This would be used in cases where you want to control the execution order for the
+        // subcontainer
         public ScopeConcreteIdArgConditionCopyNonLazyBinder WithKernel<TKernel>()
             where TKernel : Kernel
         {

@@ -5,7 +5,7 @@ using ModestTree;
 
 namespace Zenject
 {
-    
+    // Update tasks once per frame based on a priority
     [DebuggerStepThrough]
     public abstract class TaskUpdater<TTask>
     {
@@ -32,9 +32,9 @@ namespace Zenject
             Assert.That(!AllTasks.Select(x => x.Task).ContainsItem(task),
                 "Duplicate task added to DependencyRoot with name '" + task.GetType().FullName + "'");
 
-            
-            
-            
+            // Wait until next frame to add the task, otherwise whether it gets updated
+            // on the current frame depends on where in the update order it was added
+            // from, so you might get off by one frame issues
             _queuedTasks.Add(new TaskInfo(task, priority));
         }
 
@@ -50,7 +50,7 @@ namespace Zenject
 
         public void OnFrameStart()
         {
-            
+            // See above comment
             AddQueuedTasks();
         }
 
@@ -68,7 +68,7 @@ namespace Zenject
                 var next = node.Next;
                 var taskInfo = node.Value;
 
-                
+                // Make sure that tasks with priority of int.MaxValue are updated when maxPriority is int.MaxValue
                 if (!taskInfo.IsRemoved && taskInfo.Priority >= minPriority
                     && (maxPriority == int.MaxValue || taskInfo.Priority < maxPriority))
                 {
@@ -92,7 +92,7 @@ namespace Zenject
 
                 if (info.IsRemoved)
                 {
-                    
+                    //ModestTree.Log.Debug("Removed task '" + info.Task.GetType().ToString() + "'");
                     tasks.Remove(node);
                 }
 

@@ -65,8 +65,8 @@ namespace Zenject.ReflectionBaking
             var readerParameters = new ReaderParameters
             {
                 AssemblyResolver = new UnityAssemblyResolver(),
-                
-                
+                // Is this necessary?
+                //ReadSymbols = true,
             };
 
             var module = ModuleDefinition.ReadModule(assemblyFullPath, readerParameters);
@@ -75,8 +75,8 @@ namespace Zenject.ReflectionBaking
 
             if (!assemblyRefNames.Contains("zenject-usage"))
             {
-                
-                
+                // Zenject-usage is used by the generated methods
+                // Important that we do this check otherwise we can corrupt some dlls that don't have access to it
                 return;
             }
 
@@ -93,8 +93,8 @@ namespace Zenject.ReflectionBaking
             {
                 var writerParams = new WriterParameters()
                 {
-                    
-                    
+                    // Is this necessary?
+                    //WriteSymbols = true
                 };
 
                 module.Write(assemblyFullPath, writerParams);

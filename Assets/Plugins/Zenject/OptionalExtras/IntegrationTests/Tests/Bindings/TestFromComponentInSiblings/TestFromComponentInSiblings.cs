@@ -100,7 +100,7 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(foo.Qux[0], qux1);
             Assert.IsEqual(foo.Qux[1], qux2);
 
-            
+            // Should skip self
             Assert.IsEqual(foo.Qux[0].OtherQux, foo.Qux[1]);
             Assert.IsEqual(foo.Qux[1].OtherQux, foo.Qux[0]);
             yield break;
@@ -159,7 +159,7 @@ namespace Zenject.Tests.Bindings
             Assert.IsEqual(foo.Qux[0], qux1);
             Assert.IsEqual(foo.Qux[1], qux2);
 
-            
+            // Should skip self
             Assert.IsEqual(foo.Qux[0].OtherQux, foo.Qux[1]);
             Assert.IsEqual(foo.Qux[1].OtherQux, foo.Qux[0]);
             yield break;

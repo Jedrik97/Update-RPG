@@ -21,7 +21,7 @@ namespace Zenject
             return this;
         }
 
-        
+        // Note that this is the default so it's not necessary to call this
         public ConcreteIdArgConditionCopyNonLazyBinder AsTransient()
         {
             BindInfo.Scope = ScopeTypes.Transient;

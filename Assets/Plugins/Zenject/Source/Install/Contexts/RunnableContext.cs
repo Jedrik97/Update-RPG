@@ -23,7 +23,7 @@ namespace Zenject
             }
             else
             {
-                
+                // True should always be default
                 _staticAutoRun = true;
             }
         }
@@ -45,7 +45,7 @@ namespace Zenject
             _staticAutoRun = false;
 
             var result = gameObject.AddComponent<T>();
-            Assert.That(_staticAutoRun); 
+            Assert.That(_staticAutoRun); // Should be reset
             return result;
         }
     }

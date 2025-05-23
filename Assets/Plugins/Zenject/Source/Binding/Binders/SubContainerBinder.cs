@@ -21,7 +21,7 @@ namespace Zenject
             _subIdentifier = subIdentifier;
             _resolveAll = resolveAll;
 
-            
+            // Reset in case the user ends the binding here
             bindStatement.SetFinalizer(null);
         }
 

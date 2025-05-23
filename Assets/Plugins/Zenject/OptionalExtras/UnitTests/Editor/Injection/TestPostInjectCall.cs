@@ -109,7 +109,7 @@ namespace Zenject.Tests.Injection
         {
             Container.Bind<IFoo>().To<FooDerived2>().AsSingle().NonLazy();
 
-            
+            // base post inject methods should be called first
             _initOrder = 0;
             FooBase.BaseCallOrder = 0;
             FooDerived.DerivedCallOrder = 0;
@@ -117,8 +117,8 @@ namespace Zenject.Tests.Injection
 
             Container.Resolve<IFoo>();
 
-            
-            
+            //Log.Info("FooBase.BaseCallOrder = {0}".Fmt(FooBase.BaseCallOrder));
+            //Log.Info("FooDerived.DerivedCallOrder = {0}".Fmt(FooDerived.DerivedCallOrder));
 
             Assert.IsEqual(FooBase.BaseCallOrder, 0);
             Assert.IsEqual(FooDerived.DerivedCallOrder, 1);

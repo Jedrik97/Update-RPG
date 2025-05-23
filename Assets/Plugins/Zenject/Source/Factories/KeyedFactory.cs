@@ -94,7 +94,7 @@ namespace Zenject
         }
     }
 
-    
+    // Zero parameters
     public class KeyedFactory<TBase, TKey> : KeyedFactoryBase<TBase, TKey>
     {
         protected override IEnumerable<Type> ProvidedTypes
@@ -109,7 +109,7 @@ namespace Zenject
         }
     }
 
-    
+    // One parameter
     public class KeyedFactory<TBase, TKey, TParam1> : KeyedFactoryBase<TBase, TKey>
     {
         protected override IEnumerable<Type> ProvidedTypes
@@ -128,7 +128,7 @@ namespace Zenject
         }
     }
 
-    
+    // Two parameters
     public class KeyedFactory<TBase, TKey, TParam1, TParam2> : KeyedFactoryBase<TBase, TKey>
     {
         protected override IEnumerable<Type> ProvidedTypes
@@ -148,7 +148,7 @@ namespace Zenject
         }
     }
 
-    
+    // Three parameters
     public class KeyedFactory<TBase, TKey, TParam1, TParam2, TParam3> : KeyedFactoryBase<TBase, TKey>
     {
         protected override IEnumerable<Type> ProvidedTypes
@@ -169,7 +169,7 @@ namespace Zenject
         }
     }
 
-    
+    // Four parameters
     public class KeyedFactory<TBase, TKey, TParam1, TParam2, TParam3, TParam4> : KeyedFactoryBase<TBase, TKey>
     {
         protected override IEnumerable<Type> ProvidedTypes

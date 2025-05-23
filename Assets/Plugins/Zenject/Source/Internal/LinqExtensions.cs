@@ -13,7 +13,7 @@ namespace ModestTree
             yield return item;
         }
 
-        
+        // Return the first item when the list is of length one and otherwise returns default
         public static TSource OnlyOrDefault<TSource>(this IEnumerable<TSource> source)
         {
             Assert.IsNotNull(source);
@@ -26,7 +26,7 @@ namespace ModestTree
             return source.FirstOrDefault();
         }
 
-        
+        // These are more efficient than Count() in cases where the size of the collection is not known
         public static bool HasAtLeast<T>(this IEnumerable<T> enumerable, int amount)
         {
             return enumerable.Take(amount).Count() == amount;
@@ -62,21 +62,21 @@ namespace ModestTree
             return list.Except(item.Yield());
         }
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        // LINQ already has a method called "Contains" that does the same thing as this
+        // BUT it fails to work with Mono 3.5 in some cases.
+        // For example the following prints False, True in Mono 3.5 instead of True, True like it should:
+        //
+        // IEnumerable<string> args = new string[]
+        // {
+        //     "",
+        //     null,
+        // };
 
-        
-        
+        // Log.Info(args.ContainsItem(null));
+        // Log.Info(args.Where(x => x == null).Any());
         public static bool ContainsItem<T>(this IEnumerable<T> list, T value)
         {
-            
+            // Use object.Equals to support null values
             return list.Where(x => object.Equals(x, value)).Any();
         }
     }

@@ -69,25 +69,25 @@ namespace Zenject
 
             object instance;
 
-            
+            // We still want to make sure we can get the game object during validation
             var gameObj = GetGameObject(context);
 
             var wasActive = gameObj.activeSelf;
 
             if (wasActive && ShouldToggleActive)
             {
-                
-                
+                // We need to do this in some cases to ensure that [Inject] always gets
+                // called before awake / start
                 gameObj.SetActive(false);
             }
 
             if (!_container.IsValidating || TypeAnalyzer.ShouldAllowDuringValidation(_componentType))
             {
                 if (_componentType == typeof(Transform))
-                    
-                    
-                    
-                    
+                    // Treat transform as a special case because it's the one component that's always automatically added
+                    // Otherwise, calling AddComponent below will fail and return null
+                    // This is nice to allow doing things like
+                    //      Container.Bind<Transform>().FromNewComponentOnNewGameObject();
                 {
                     instance = gameObj.transform;
                 }

@@ -1,4 +1,4 @@
-
+// PauseMenuController.cs
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -6,8 +6,8 @@ using Zenject;
 public class PauseMenuController : MonoBehaviour
 {
     [Header("Panels on this Canvas")]
-    public GameObject pausePanel;       
-    public GameObject buttonContainer;  
+    public GameObject pausePanel;       // корневая панель паузы (фон + всё внутри)
+    public GameObject buttonContainer;  // внутренняя панель с Save / Load / Exit
 
     [Header("Slot Select")]
     public SlotSelectController slotSelect;
@@ -37,7 +37,7 @@ public class PauseMenuController : MonoBehaviour
 
     void TogglePause()
     {
-        
+        // Если пауза закрыта — открыть
         if (!pausePanel.activeSelf)
         {
             pausePanel.SetActive(true);
@@ -47,13 +47,14 @@ public class PauseMenuController : MonoBehaviour
         }
         else
         {
-            
+            // Если уже открыта — закрыть
             pausePanel.SetActive(false);
             slotSelect.HidePanel();
             Time.timeScale = 1f;
         }
     }
-    
+
+    // Привязать к кнопке Save через On Click()
     public void OnSaveClicked()
     {
         SaveLoadManager.SaveGame(_nextSaveSlot, _stats, _hp, _inv);
@@ -62,19 +63,23 @@ public class PauseMenuController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    
+    // Привязать к кнопке Load через On Click()
     public void OnLoadClicked()
     {
         buttonContainer.SetActive(false);
         slotSelect.ShowLoad();
     }
-    
+
+    // Привязать к кнопке Exit через On Click()
     public void OnExitToMainMenuClicked()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
+    /// <summary>
+    /// Полностью скрываем pausePanel и возвращаем время.
+    /// </summary>
     public void ClosePauseMenu()
     {
         pausePanel.SetActive(false);

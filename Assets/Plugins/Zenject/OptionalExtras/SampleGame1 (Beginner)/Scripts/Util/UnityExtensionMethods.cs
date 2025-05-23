@@ -4,10 +4,10 @@ namespace Zenject.Asteroids
 {
     public static class UnityExtensionMethods
     {
-        
-        
-        
-        
+        // Since transforms return their position as a property,
+        // you can't set the x/y/z values directly, so you have to
+        // store a temporary Vector3
+        // Or you can use these methods instead
         public static void SetX(this Transform transform, float x)
         {
             var pos = transform.position;
