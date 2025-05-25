@@ -1,31 +1,36 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using Zenject;
 
 public class MainMenuController : MonoBehaviour
 {
+    [Tooltip("Ссылка на контроллер выбора слотов")]
     public SlotSelectController slotSelect;
 
     public void OnNewGameClicked()
     {
         SaveLoadManager.DeleteAll();
         PlayerSession.SelectedSlot = 1;
-        SceneManager.LoadScene("GameScene");
+        LoadingScreenController.Instance.LoadScene("GameScene");
     }
     
     public void OnContinueClicked()
     {
-        slotSelect.buttonContainer = null; 
+        slotSelect.buttonContainer = null;
         slotSelect.ShowContinue();
     }
 
-    public void OnSettingsClicked() { /*…*/ }
+    public void OnSettingsClicked()
+    {
+    }
 
     public void OnQuitClicked()
     {
         Application.Quit();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying=false;
+        EditorApplication.isPlaying = false;
 #endif
     }
 }

@@ -3,32 +3,30 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class SlotSelectController : MonoBehaviour
 {
     [Header("Panels & Buttons (same Canvas)")]
-    public GameObject panel;           // SaveSlotSelectPanel
-    public GameObject buttonContainer; // Panel с основными кнопками (Pause) или пустым контейнером (MainMenu)
+    public GameObject panel;
+    public GameObject buttonContainer;
 
-    public Button[] slotButtons;       
-    public Button cancelButton;        
+    public Button[] slotButtons;
+    public Button cancelButton;
 
     private PlayerStats _stats;
     private HealthPlayerController _hp;
     private PlayerInventory _inv;
-    private PauseMenuController _pauseMenu;  // может быть null на главном меню
+    private PauseMenuController _pauseMenu;
 
     enum Mode { Continue, Save, Load }
-    Mode mode;
+    private Mode mode;
 
     [Inject]
     public void Construct(
         PlayerStats stats,
         HealthPlayerController hp,
         PlayerInventory inv,
-        // Опциональная инъекция — если PauseMenuController не найден, Zenject впихнёт null
         [InjectOptional] PauseMenuController pauseMenu)
     {
         _stats     = stats;
@@ -74,7 +72,7 @@ public class SlotSelectController : MonoBehaviour
     public void OnSlot2Clicked() => OnSlotButton(2);
     public void OnSlot3Clicked() => OnSlotButton(3);
 
-    void PopulateSlotButtons()
+    private void PopulateSlotButtons()
     {
         var files = Directory.GetFiles(Application.persistentDataPath, "save_slot*.json");
         var last3 = files.OrderByDescending(f => File.GetLastWriteTimeUtc(f)).Take(3).ToArray();
@@ -110,10 +108,12 @@ public class SlotSelectController : MonoBehaviour
         cancelButton.onClick.AddListener(OnCancelClicked);
     }
 
-    int ExtractSlotNumber(string path)
-        => int.Parse(Path.GetFileNameWithoutExtension(path).Split("save_slot").Last());
+    private int ExtractSlotNumber(string path)
+    {
+        return int.Parse(Path.GetFileNameWithoutExtension(path).Split("save_slot").Last());
+    }
 
-    int GetNextAvailableSlotNumber(string[] files)
+    private int GetNextAvailableSlotNumber(string[] files)
     {
         var used = files.Select(f => ExtractSlotNumber(f)).ToList();
         for (int s = 1; s <= 3; s++)
@@ -123,7 +123,7 @@ public class SlotSelectController : MonoBehaviour
         return ExtractSlotNumber(oldest);
     }
 
-    void OnSlotButton(int slot)
+    private void OnSlotButton(int slot)
     {
         switch (mode)
         {
@@ -131,21 +131,22 @@ public class SlotSelectController : MonoBehaviour
                 if (SaveLoadManager.HasSave(slot))
                 {
                     PlayerSession.SelectedSlot = slot;
-                    SceneManager.LoadScene("GameScene");
+                    HidePanel();
+                    if (buttonContainer != null)
+                        buttonContainer.SetActive(false);
+                    LoadingScreenController.Instance.LoadScene("GameScene");
                 }
                 break;
-
             case Mode.Save:
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv);
                 HidePanel();
-                if (buttonContainer!=null) buttonContainer.SetActive(true);
+                if (buttonContainer != null)
+                    buttonContainer.SetActive(true);
                 break;
-
             case Mode.Load:
                 if (SaveLoadManager.LoadGame(slot, _stats, _hp, _inv))
                 {
                     HidePanel();
-                    // Если мы в паузе — закрыть её
                     _pauseMenu?.ClosePauseMenu();
                 }
                 break;
