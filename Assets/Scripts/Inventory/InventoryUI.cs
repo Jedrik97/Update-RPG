@@ -34,6 +34,7 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdateGold(int value)
     {
+        Debug.Log($"Updating gold: textField={(goldText==null?"null":"ok")}, value={value}");
         if (goldText == null)
         {
             Debug.LogWarning("[InventoryUI] Поле goldText не назначено в Инспекторе!");
@@ -44,6 +45,7 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdatePotions(int value)
     {
+        Debug.Log($"Updating gold: textField={(goldText==null?"null":"ok")}, value={value}");
         if (potionText == null)
         {
             Debug.LogWarning("[InventoryUI] Поле potionText не назначено в Инспекторе!");
