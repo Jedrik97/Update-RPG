@@ -15,31 +15,42 @@ public class InventoryUI : MonoBehaviour
     public void Construct(PlayerInventory inventory)
     {
         _inventory = inventory;
-    }
 
-    void Start()
-    {
+        // Сразу отрисовываем текущее состояние
         UpdateGold(_inventory.Gold);
         UpdatePotions(_inventory.HealthPotions);
+
+        // Подписываемся на события
         _inventory.OnGoldChanged += UpdateGold;
         _inventory.OnPotionsChanged += UpdatePotions;
     }
 
     void OnDestroy()
     {
-        _inventory.OnGoldChanged -= UpdateGold;
-        _inventory.OnPotionsChanged -= UpdatePotions;
+        if (_inventory != null)
+        {
+            _inventory.OnGoldChanged -= UpdateGold;
+            _inventory.OnPotionsChanged -= UpdatePotions;
+        }
     }
 
     private void UpdateGold(int value)
     {
-        if (goldText != null)
-            goldText.text = $"Gold: {value}";
+        if (goldText == null)
+        {
+            Debug.LogWarning("[InventoryUI] Поле goldText не назначено в Инспекторе!");
+            return;
+        }
+        goldText.text = $"Gold: {value}";
     }
 
     private void UpdatePotions(int value)
     {
-        if (potionText != null)
-            potionText.text = $"Potions: {value}/{MaxPotions}";
+        if (potionText == null)
+        {
+            Debug.LogWarning("[InventoryUI] Поле potionText не назначено в Инспекторе!");
+            return;
+        }
+        potionText.text = $"Potions: {value}/{MaxPotions}";
     }
 }

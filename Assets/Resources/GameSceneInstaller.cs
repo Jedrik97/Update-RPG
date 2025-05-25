@@ -15,6 +15,7 @@ public class GameSceneInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        // 1) Биндим все внешние контроллеры
         Container.Bind<GameManager>()
             .FromComponentInHierarchy(GameManager)
             .AsSingle()
@@ -35,7 +36,7 @@ public class GameSceneInstaller : MonoInstaller
             .AsSingle()
             .Lazy();
         
-        
+        // 2) Инстанцируем игрока и биндим его компоненты
         var playerGO = Object.Instantiate(
             playerPrefab,
             spawnPoint.position,
@@ -46,11 +47,9 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<PlayerStats>()
             .FromComponentOn(playerGO)
             .AsSingle();
-
         Container.Bind<HealthPlayerController>()
             .FromComponentOn(playerGO)
             .AsSingle();
-
         Container.Bind<CharacterController>()
             .FromComponentOn(playerGO)
             .AsSingle();
@@ -58,16 +57,15 @@ public class GameSceneInstaller : MonoInstaller
             .FromComponentOn(playerGO)
             .AsSingle();
         
-        var stats = playerGO.GetComponent<PlayerStats>();
-        var hp    = playerGO.GetComponent<HealthPlayerController>();
-        var inv   = playerGO.GetComponent<PlayerInventory>();
-
-        int slot = PlayerSession.SelectedSlot;
-        if (SaveLoadManager.HasSave(slot))
-        {
-            SaveLoadManager.LoadGame(slot, stats, hp, inv);
-        }
+        // 3) Биндим ваш InventoryUI (он уже есть в сцене!)
+        Container.Bind<InventoryUI>()
+            .FromComponentInHierarchy()
+            .AsSingle()
+            .NonLazy();
         
-        Container.InjectGameObject(playerGO);
+        // 4) Наконец, регистрируем IInitializable для загрузки сохранений
+        Container.BindInterfacesTo<SaveLoadInitializer>()
+            .AsSingle()
+            .NonLazy();
     }
 }
