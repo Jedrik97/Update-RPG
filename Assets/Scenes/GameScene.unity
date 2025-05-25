@@ -12005,7 +12005,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25424248, y: -0.28329816, z: 0.078169964, w: 0.9214079}
+  m_LocalRotation: {x: 0.26185194, y: -0.28264216, z: 0.08050959, w: 0.9192743}
   m_LocalPosition: {x: 2.4790416, y: 4.1357803, z: -3.650351}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -17653,7 +17653,7 @@ Transform:
   m_GameObject: {fileID: 1314564821}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.79234576, z: -0, w: 0.6100723}
-  m_LocalPosition: {x: 34.71, y: 1.3138776, z: 35.58}
+  m_LocalPosition: {x: 34.71, y: 1.3, z: 35.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25802,7 +25802,7 @@ MonoBehaviour:
   GameManager: {fileID: 615590933}
   PauseMenuController: {fileID: 260747198}
   SlotSelectController: {fileID: 1050159735}
-  TemporaryMessageUI: {fileID: 0}
+  TemporaryMessageUI: {fileID: 426375037}
 --- !u!1 &1984610259
 GameObject:
   m_ObjectHideFlags: 0

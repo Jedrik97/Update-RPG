@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using UnityEngine.AI;
 
 public class GameSceneInstaller : MonoInstaller
 {
@@ -15,57 +16,27 @@ public class GameSceneInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        // 1) Биндим все внешние контроллеры
-        Container.Bind<GameManager>()
-            .FromComponentInHierarchy(GameManager)
-            .AsSingle()
-            .Lazy();
+        Container.Bind<GameManager>().FromComponentInHierarchy(GameManager).AsSingle().Lazy();
+        Container.Bind<PauseMenuController>().FromComponentInHierarchy(PauseMenuController).AsSingle().Lazy();
+        Container.Bind<SlotSelectController>().FromComponentInHierarchy(SlotSelectController).AsSingle().Lazy();
+        Container.Bind<TemporaryMessageUI>().FromComponentInHierarchy(TemporaryMessageUI).AsSingle().Lazy();
         
-        Container.Bind<PauseMenuController>()
-            .FromComponentInHierarchy(PauseMenuController)
-            .AsSingle()
-            .Lazy();
-        
-        Container.Bind<SlotSelectController>()
-            .FromComponentInHierarchy(SlotSelectController)
-            .AsSingle()
-            .Lazy();
-        
-        Container.Bind<TemporaryMessageUI>()
-            .FromComponentInHierarchy(TemporaryMessageUI)
-            .AsSingle()
-            .Lazy();
-        
-        // 2) Инстанцируем игрока и биндим его компоненты
-        var playerGO = Object.Instantiate(
-            playerPrefab,
-            spawnPoint.position,
-            spawnPoint.rotation
-        );
+        var playerGO = Object.Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
         playerGO.SetActive(true);
         
-        Container.Bind<PlayerStats>()
-            .FromComponentOn(playerGO)
-            .AsSingle();
-        Container.Bind<HealthPlayerController>()
-            .FromComponentOn(playerGO)
-            .AsSingle();
-        Container.Bind<CharacterController>()
-            .FromComponentOn(playerGO)
-            .AsSingle();
-        Container.Bind<PlayerInventory>()
-            .FromComponentOn(playerGO)
-            .AsSingle();
+        var nav = playerGO.GetComponent<NavMeshAgent>();
+        if (nav != null)
+        {
+            nav.enabled = true;
+            nav.Warp(spawnPoint.position);
+        }
         
-        // 3) Биндим ваш InventoryUI (он уже есть в сцене!)
-        Container.Bind<InventoryUI>()
-            .FromComponentInHierarchy()
-            .AsSingle()
-            .NonLazy();
+        Container.Bind<PlayerStats>().FromComponentOn(playerGO).AsSingle();
+        Container.Bind<HealthPlayerController>().FromComponentOn(playerGO).AsSingle();
+        Container.Bind<CharacterController>().FromComponentOn(playerGO).AsSingle();
+        Container.Bind<PlayerInventory>().FromComponentOn(playerGO).AsSingle();
         
-        // 4) Наконец, регистрируем IInitializable для загрузки сохранений
-        Container.BindInterfacesTo<SaveLoadInitializer>()
-            .AsSingle()
-            .NonLazy();
+        Container.Bind<InventoryUI>().FromComponentInHierarchy().AsSingle().NonLazy();
+        Container.BindInterfacesTo<SaveLoadInitializer>().AsSingle().NonLazy();
     }
 }

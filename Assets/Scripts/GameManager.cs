@@ -50,29 +50,20 @@ public class GameManager : MonoBehaviour
 
     public void EnemyKilled(GameObject enemy)
     {
-        if (playerStats != null)
-            playerStats.GainExperience(experiencePerKill);
+        playerStats?.GainExperience(experiencePerKill);
+        playerInventory?.AddGold(1);
 
-        if (playerInventory != null)
-            playerInventory.AddGold(1);
-        
         EnemyBase eb = enemy.GetComponent<EnemyBase>();
-        if (eb != null)
-            eb.OnDeath -= EnemyKilled;
-        
-        if (eb != null && eb == bossPrefab)
-        {
-            return;
-        }
-        
+        if (eb != null) eb.OnDeath -= EnemyKilled;
+        if (eb == bossPrefab) return;
+
         StartCoroutine(DelayedSpawn());
     }
 
     private IEnumerator DelayedSpawn()
     {
         yield return new WaitForSeconds(respawnDelay);
-        while (enemyPool.InactiveCount == 0)
-            yield return null;
+        while (enemyPool.InactiveCount == 0) yield return null;
         SpawnEnemy();
     }
 
@@ -80,81 +71,59 @@ public class GameManager : MonoBehaviour
     {
         EnemyBase enemy = enemyPool.Get();
         enemy.SetPool(enemyPool);
-        
+
         enemy.gameObject.SetActive(false);
-        
-        enemy.transform.position = respawnPoint.position;
-        
+        Vector3 spawnPos = respawnPoint.position;
+        if (NavMesh.SamplePosition(respawnPoint.position, out var hit, 1f, NavMesh.AllAreas)) spawnPos = hit.position;
+        else Debug.LogWarning($"RespawnPoint too far from NavMesh: {respawnPoint.position}");
+
+        enemy.transform.position = spawnPos;
         var nav = enemy.GetComponent<NavMeshAgent>();
-        if (nav)
-        {
-            nav.Warp(respawnPoint.position);
-        }
+        if (nav != null) { nav.enabled = true; nav.Warp(spawnPos); }
+
         enemy.gameObject.SetActive(true);
-        
         StartCoroutine(ContinueSpawnAfterNavMesh(enemy));
     }
 
     private IEnumerator ContinueSpawnAfterNavMesh(EnemyBase enemy)
     {
         var nav = enemy.GetComponent<NavMeshAgent>();
-        
-        if (nav)
-        {
-            yield return new WaitUntil(() => nav.isOnNavMesh);
-        }
-        else
-        {
-            yield return null;
-        }
-        
+        if (nav != null) yield return new WaitUntil(() => nav.isOnNavMesh);
+
         WayPoint start = startPoints[Random.Range(0, startPoints.Count)];
         var wps = new List<WayPoint>(start.WayPoints);
         ShuffleList(wps);
-        
+
         var follower = enemy.GetComponent<EnemyPathFollower>();
         follower.SetWaypoints(wps.ToArray());
         follower.ResumePatrol();
-        
         enemy.OnDeath += EnemyKilled;
     }
-
 
     private void SpawnBoss()
     {
         EnemyBase boss = bossPool.Get();
         boss.SetPool(bossPool);
-        boss.transform.position = bossSpawnPoint.position;
 
+        Vector3 bossPos = bossSpawnPoint.position;
+        if (NavMesh.SamplePosition(bossSpawnPoint.position, out var hit, 1f, NavMesh.AllAreas)) bossPos = hit.position;
+        else Debug.LogWarning($"BossSpawnPoint too far from NavMesh: {bossSpawnPoint.position}");
+
+        boss.transform.position = bossPos;
         var nav = boss.GetComponent<NavMeshAgent>();
-        if (nav != null) nav.Warp(bossSpawnPoint.position);
-        
-
+        if (nav != null) { nav.enabled = true; nav.Warp(bossPos); }
         boss.OnDeath += EnemyKilled;
     }
 
     private void ShuffleList(List<WayPoint> list)
     {
-        for (int i = 0; i < list.Count; i++)
-        {
-            int j = Random.Range(i, list.Count);
-            var temp = list[i];
-            list[i] = list[j];
-            list[j] = temp;
-        }
+        for (int i = 0; i < list.Count; i++) { int j = Random.Range(i, list.Count); (list[i], list[j]) = (list[j], list[i]); }
     }
 
     private IEnumerator SpawnEnemiesSequentially()
     {
-        foreach (var prefab in enemyPrefabs)
-        {
-            SpawnEnemy();
-            yield return new WaitForSeconds(spawnDelay);
-        }
+        foreach (var prefab in enemyPrefabs) { SpawnEnemy(); yield return new WaitForSeconds(spawnDelay); }
     }
 
-    public int GetPlayerLevel()
-    {
-        return playerStats != null ? playerStats.level : 1;
-    }
+    public int GetPlayerLevel() => playerStats != null ? playerStats.level : 1;
 }

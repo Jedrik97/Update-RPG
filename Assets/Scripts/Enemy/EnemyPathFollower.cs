@@ -8,12 +8,12 @@ public class EnemyPathFollower : MonoBehaviour
     [SerializeField] private float reachThreshold = 1f;
     [SerializeField] private float patrolSpeed = 2f;
 
-    private int currentWaypointIndex = 0;
-    private bool movingForward = true;
-    private bool isChasing = false;
-    private bool isWaiting = false;
+    private int currentWaypointIndex;
+    private bool movingForward;
+    private bool isChasing;
+    private bool isWaiting;
     private float waitTime = 2f;
-    private float waitTimer = 0f;
+    private float waitTimer;
 
     private NavMeshAgent agent;
     private EnemyBase enemy;
@@ -31,8 +31,9 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void OnDisable()
     {
-        if(agent != null)
-            agent.isStopped = true;
+        if (agent )
+            agent.enabled = false;
+
         isChasing = false;
         enemy.OnDeath -= HandleDeath;
     }
@@ -46,15 +47,13 @@ public class EnemyPathFollower : MonoBehaviour
     public void StopPatrol()
     {
         isChasing = true;
-        if(agent != null)
+        if (agent  && agent.isOnNavMesh)
             agent.isStopped = true;
     }
 
     public void ResumePatrol()
     {
-        if (waypoints == null || waypoints.Length == 0)
-            return;
-        if (agent == null)
+        if (waypoints == null || waypoints.Length == 0 || agent == null)
             return;
 
         agent.speed = patrolSpeed;
@@ -63,6 +62,7 @@ public class EnemyPathFollower : MonoBehaviour
             StartCoroutine(WaitForNavMeshAndResume());
             return;
         }
+
         isChasing = false;
         isWaiting = false;
         agent.isStopped = false;
@@ -79,6 +79,7 @@ public class EnemyPathFollower : MonoBehaviour
     {
         if (waypoints == null || waypoints.Length == 0)
             return;
+
         if (!agent.pathPending && agent.remainingDistance <= reachThreshold)
         {
             if (!isWaiting)
@@ -100,9 +101,6 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void MoveToNextPoint()
     {
-        if (waypoints == null || waypoints.Length == 0)
-            return;
-
         if (movingForward)
         {
             if (currentWaypointIndex < waypoints.Length - 1)
@@ -117,7 +115,7 @@ public class EnemyPathFollower : MonoBehaviour
             else
                 movingForward = true;
         }
-        if(agent != null)
+        if (agent )
             agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
@@ -132,7 +130,7 @@ public class EnemyPathFollower : MonoBehaviour
     {
         waypoints = new Transform[0];
         isChasing = true;
-        if(agent != null)
+        if (agent )
         {
             agent.isStopped = true;
             agent.enabled = false;

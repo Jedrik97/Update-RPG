@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.AI;
 
 public class ObjectPool<T> where T : MonoBehaviour
 {
@@ -11,17 +11,19 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public ObjectPool(List<T> prefabs, int initialSizePerPrefab, Transform parent = null)
     {
-        this._prefabs = prefabs;
-        this._parent = parent;
-        this._poolQueue = new Queue<T>();
+        _prefabs = prefabs;
+        _parent = parent;
+        _poolQueue = new Queue<T>();
 
-        Shuffle(prefabs);
-
-        foreach (var prefab in prefabs)
+        Shuffle(_prefabs);
+        foreach (var prefab in _prefabs)
         {
             for (int i = 0; i < initialSizePerPrefab; i++)
             {
-                T obj = Object.Instantiate(prefab, parent);
+                T obj = Object.Instantiate(prefab, _parent);
+                var nav = obj.GetComponent<NavMeshAgent>();
+                if (nav != null) nav.enabled = false;
+
                 obj.gameObject.SetActive(false);
                 _poolQueue.Enqueue(obj);
             }
@@ -30,34 +32,26 @@ public class ObjectPool<T> where T : MonoBehaviour
 
     public T Get()
     {
-        T obj;
-        if (_poolQueue.Count > 0)
-        {
-            obj = _poolQueue.Dequeue();
-        }
-        else
-        {
-            T prefab = _prefabs[Random.Range(0, _prefabs.Count)];
-            obj = Object.Instantiate(prefab, _parent);
-        }
-
+        T obj = _poolQueue.Count > 0 ? _poolQueue.Dequeue() : Object.Instantiate(_prefabs[Random.Range(0, _prefabs.Count)], _parent);
         obj.gameObject.SetActive(true);
         return obj;
     }
 
     public void ReturnToPool(T obj)
     {
+        var nav = obj.GetComponent<NavMeshAgent>();
+        if (nav != null) nav.enabled = false;
+
         obj.gameObject.SetActive(false);
         _poolQueue.Enqueue(obj);
     }
 
     private void Shuffle(IList<T> list)
     {
-        int n = list.Count;
-        for (int i = 0; i < n - 1; i++)
+        for (int i = 0; i < list.Count - 1; i++)
         {
-            int randomIndex = Random.Range(i, n);
-            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+            int j = Random.Range(i, list.Count);
+            (list[i], list[j]) = (list[j], list[i]);
         }
     }
 }
