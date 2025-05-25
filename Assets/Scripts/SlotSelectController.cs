@@ -1,3 +1,4 @@
+// SlotSelectController.cs
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -85,8 +86,8 @@ public class SlotSelectController : MonoBehaviour
 
             if (i < last3.Length)
             {
-                int slot = ExtractSlotNumber(last3[i]);
-                label.text = File.GetLastWriteTime(last3[i]).ToString("dd.MM.yyyy HH:mm");
+                int slot     = ExtractSlotNumber(last3[i]);
+                label.text   = File.GetLastWriteTime(last3[i]).ToString("dd.MM.yyyy HH:mm");
                 int captured = slot;
                 btn.onClick.AddListener(() => OnSlotButton(captured));
                 btn.gameObject.SetActive(true);
@@ -137,17 +138,27 @@ public class SlotSelectController : MonoBehaviour
                     LoadingScreenController.Instance.LoadScene("GameScene");
                 }
                 break;
+
             case Mode.Save:
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv);
                 HidePanel();
                 if (buttonContainer != null)
                     buttonContainer.SetActive(true);
                 break;
+
             case Mode.Load:
-                if (SaveLoadManager.LoadGame(slot, _stats, _hp, _inv))
+                if (SaveLoadManager.HasSave(slot))
                 {
-                    HidePanel();
-                    _pauseMenu?.ClosePauseMenu();
+                    // показываем только для загрузки
+                    LoadingScreenController.Instance.ShowLoadingProcess(() =>
+                    {
+                        bool ok = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
+                        if (ok)
+                        {
+                            HidePanel();
+                            _pauseMenu?.ClosePauseMenu();
+                        }
+                    });
                 }
                 break;
         }

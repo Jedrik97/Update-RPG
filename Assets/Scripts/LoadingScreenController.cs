@@ -1,3 +1,4 @@
+// LoadingScreenController.cs
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,7 +18,7 @@ public class LoadingScreenController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Длительность показа экрана загрузки в секундах")]
-    private float displayDuration = 5f;
+    private float displayDuration = 2f; // можете настроить
 
     void Awake()
     {
@@ -28,8 +29,15 @@ public class LoadingScreenController : MonoBehaviour
             if (loadingPanel)
                 loadingPanel.SetActive(false);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    
+
+    /// <summary>
+    /// Обычная загрузка новой сцены с прогресс-баром.
+    /// </summary>
     public void LoadScene(string sceneName)
     {
         if (loadingPanel != null)
@@ -50,7 +58,6 @@ public class LoadingScreenController : MonoBehaviour
                 progressSlider.value = Mathf.Clamp01(timer / displayDuration);
             yield return null;
         }
-        
 
         op.allowSceneActivation = true;
         while (!op.isDone)
@@ -58,5 +65,38 @@ public class LoadingScreenController : MonoBehaviour
 
         if (loadingPanel != null)
             loadingPanel.SetActive(false);
+        progressSlider.value = 0;
+    }
+
+    /// <summary>
+    /// Показывает загрузочный экран на displayDuration секунд,
+    /// обновляет слайдер (учитывая паузу), затем вызывает onComplete.
+    /// </summary>
+    public void ShowLoadingProcess(System.Action onComplete)
+    {
+        if (loadingPanel != null)
+            loadingPanel.SetActive(true);
+        StartCoroutine(LoadingProcessRoutine(onComplete));
+    }
+
+    private IEnumerator LoadingProcessRoutine(System.Action onComplete)
+    {
+        float timer = 0f;
+        while (timer < displayDuration)
+        {
+            timer += Time.unscaledDeltaTime; // работает, даже если Time.timeScale = 0
+            if (progressSlider != null)
+                progressSlider.value = Mathf.Clamp01(timer / displayDuration);
+            yield return null;
+        }
+
+        onComplete?.Invoke();
+
+        // короткая пауза, чтобы увидеть полностью заполненный бар
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        if (loadingPanel != null)
+            loadingPanel.SetActive(false);
+        progressSlider.value = 0;
     }
 }

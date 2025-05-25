@@ -15,19 +15,17 @@ public class InventoryUI : MonoBehaviour
     public void Construct(PlayerInventory inventory)
     {
         _inventory = inventory;
-
-        // Сразу отрисовываем текущее состояние
+        
         UpdateGold(_inventory.Gold);
         UpdatePotions(_inventory.HealthPotions);
-
-        // Подписываемся на события
+        
         _inventory.OnGoldChanged += UpdateGold;
         _inventory.OnPotionsChanged += UpdatePotions;
     }
 
     void OnDestroy()
     {
-        if (_inventory != null)
+        if (_inventory)
         {
             _inventory.OnGoldChanged -= UpdateGold;
             _inventory.OnPotionsChanged -= UpdatePotions;
