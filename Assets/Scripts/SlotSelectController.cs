@@ -1,4 +1,3 @@
-// SlotSelectController.cs
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -149,7 +148,6 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Load:
                 if (SaveLoadManager.HasSave(slot))
                 {
-                    // показываем только для загрузки
                     LoadingScreenController.Instance.ShowLoadingProcess(() =>
                     {
                         bool ok = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
