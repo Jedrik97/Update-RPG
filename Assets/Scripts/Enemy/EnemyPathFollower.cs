@@ -38,7 +38,7 @@ public class EnemyPathFollower : MonoBehaviour
         enemy.OnDeath -= HandleDeath;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!isChasing)
             Patrol();

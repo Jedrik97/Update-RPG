@@ -111,7 +111,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5828c7958a7cb4d41ba2d434280b92e4, type: 3}
+  m_Motion: {fileID: 7400000, guid: 695168749df71b74785221675434dc71, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -240,7 +240,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: beb9ae23461c552488a8a9f3130492e1, type: 3}
+  m_Motion: {fileID: 7400000, guid: 09e6fda7358d2784993722a529928934, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -277,7 +277,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MeleeController
+  m_Name: MeleeTwoController 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Die
@@ -365,7 +365,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 96c81881f646ee24b8d5600dbcb62d37, type: 3}
+  m_Motion: {fileID: 7400000, guid: e5d1f9ac9e57ab34d831dfce82a37379, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -573,7 +573,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 20a28ef1f3dac164095a85b731e08f63, type: 3}
+  m_Motion: {fileID: 7400000, guid: 3aa89ba3ce76ea0408f40209a5643a21, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -626,7 +626,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5fc58e648726c914f8dee69d8b0cf7ec, type: 3}
+  m_Motion: {fileID: 7400000, guid: d630087e7070ace46b60123bd4e20248, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

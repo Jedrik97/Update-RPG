@@ -143,7 +143,7 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -243,15 +243,10 @@ MonoBehaviour:
   attackDamage: 10
   fieldOfView: {fileID: 2390520554326732357}
   pathFollower: {fileID: 585514410576707246}
-  chaseSpeed: 2.5
+  chaseSpeed: 1.5
   maxChaseDistance: 25
   attackRange: 3
-  onWeaponActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  onWeaponDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
+  weaponCollider: {fileID: 5165289124113514389}
 --- !u!1 &1648213919694759353
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,9 +515,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.31741065, y: 0.046550885, z: 1.3733513}
   m_Center: {x: -0.00000047683716, y: -0.0000002862478, z: 0.3951174}
@@ -2608,7 +2603,7 @@ MonoBehaviour:
   enemyNameText: {fileID: 2261000511717434786}
   healthBar: {fileID: 3845916042434016053}
   enemyCircle: {fileID: 6552277331262144031}
-  enemyBase: {fileID: 0}
+  enemyBase: {fileID: 1233530503398530753}
 --- !u!114 &2390520554326732357
 MonoBehaviour:
   m_ObjectHideFlags: 0

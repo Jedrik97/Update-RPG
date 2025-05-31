@@ -202,7 +202,6 @@ public class EnemyArcherAI : EnemyBase
     private void HandleDeath(GameObject obj)
     {
         currentState = EnemyState.Dead;
-        agent.isStopped = true;
         agent.updateRotation = false;
 
         animator.SetBool("IsWalking", false);
@@ -214,10 +213,8 @@ public class EnemyArcherAI : EnemyBase
         {
             col.enabled = false;
         }
-        agent.enabled = false;
-        pathFollower?.StopPatrol();
 
-        
+        agent.enabled = false;
     }
 }
 

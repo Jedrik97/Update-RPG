@@ -14,8 +14,8 @@ public class EnemyMeleeAI : EnemyBase
     [SerializeField] private float maxChaseDistance = 25f;
     [SerializeField] private float attackRange = 3f;
     
-    [SerializeField] private UnityEvent onWeaponActivate;
-    [SerializeField] private UnityEvent onWeaponDeactivate;
+    [SerializeField] private Collider weaponCollider;
+    
     private NavMeshAgent agent;
     private Transform player;
 
@@ -45,7 +45,7 @@ public class EnemyMeleeAI : EnemyBase
 
     private void OnDisable()
     {
-        if (fieldOfView != null)
+        if (fieldOfView)
             fieldOfView.OnPlayerVisibilityChanged -= HandlePlayerVisibilityChanged;
 
         OnHealthChanged -= HandleDamageInterrupt;
@@ -54,11 +54,13 @@ public class EnemyMeleeAI : EnemyBase
 
     public void EnableCollider()
     {
-        onWeaponActivate?.Invoke();
+        if (weaponCollider)
+            weaponCollider.enabled = true;
     }
     public void DisableCollider()
     {
-        onWeaponDeactivate?.Invoke();
+        if (weaponCollider)
+            weaponCollider.enabled = false;
     }
     private void HandlePlayerVisibilityChanged(bool isVisible)
     {
@@ -190,7 +192,6 @@ public class EnemyMeleeAI : EnemyBase
     private void HandleDeath(GameObject obj)
     {
         currentState = EnemyState.Dead;
-        agent.isStopped = true;
         agent.updateRotation = false;
 
         animator.SetBool("IsWalking", false);
@@ -205,7 +206,6 @@ public class EnemyMeleeAI : EnemyBase
         }
         
         agent.enabled = false;
-        pathFollower?.StopPatrol();
     }
     
 }
