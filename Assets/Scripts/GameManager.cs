@@ -19,11 +19,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyBase bossPrefab;
     [SerializeField] private Transform bossSpawnPoint;
 
+    [Header("Player Death UI Settings")]
+    [Tooltip("GameObject с DeathUI (панель, содержащая CanvasGroup и кнопки). Должен быть выключен в сцене по умолчанию.")]
+    [SerializeField] private GameObject deathUI;
+    [Tooltip("За сколько секунд плавно уменьшить Time.timeScale (1 → 0).")]
+    [SerializeField] private float slowPauseDuration = 1f;
+    [Tooltip("За сколько секунд плавно проявить deathUI (CanvasGroup alpha 0 → 1).")]
+    [SerializeField] private float uiFadeDuration = 0.5f;
+
     private ObjectPool<EnemyBase> enemyPool;
     private ObjectPool<EnemyBase> bossPool;
+
     private PlayerStats playerStats;
     private PlayerInventory playerInventory;
     private bool bossSpawned = false;
+
+    private DeathMenuController _deathMenuController;
+    private CanvasGroup _deathCanvasGroup;
 
     [Inject]
     public void Construct(PlayerStats playerStats, PlayerInventory playerInventory)
@@ -34,19 +46,51 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // ===== Настройка пулов врагов =====
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
         bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
+
+        // ===== Настройка DeathUI =====
+        if (deathUI != null)
+        {
+            _deathMenuController = deathUI.GetComponent<DeathMenuController>();
+            if (_deathMenuController == null)
+            {
+                Debug.LogError("На объекте deathUI отсутствует компонент DeathMenuController!");
+            }
+
+            // Обеспечим CanvasGroup для fade-in
+            _deathCanvasGroup = deathUI.GetComponent<CanvasGroup>();
+            if (_deathCanvasGroup == null)
+            {
+                _deathCanvasGroup = deathUI.AddComponent<CanvasGroup>();
+            }
+            // Изначально deathUI выключен и прозрачен
+            deathUI.SetActive(false);
+            _deathCanvasGroup.alpha = 0f;
+            _deathCanvasGroup.interactable = false;
+            _deathCanvasGroup.blocksRaycasts = false;
+        }
+        else
+        {
+            Debug.LogError("GameManager: поле deathUI не назначено в инспекторе!");
+        }
     }
 
     private void Update()
     {
+        // Спавн босса при достижении игроком lvl ≥ 5
         if (!bossSpawned && playerStats != null && playerStats.level >= 5)
         {
             bossSpawned = true;
             SpawnBoss();
         }
     }
+
+    // ===================================
+    //       ЛОГИКА ВРАГОВ (ОБЫЧНЫЕ)
+    // ===================================
 
     public void EnemyKilled(GameObject enemy)
     {
@@ -63,7 +107,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator DelayedSpawn()
     {
         yield return new WaitForSeconds(respawnDelay);
-        while (enemyPool.InactiveCount == 0) yield return null;
+        while (enemyPool.InactiveCount == 0)
+            yield return null;
         SpawnEnemy();
     }
 
@@ -74,12 +119,18 @@ public class GameManager : MonoBehaviour
 
         enemy.gameObject.SetActive(false);
         Vector3 spawnPos = respawnPoint.position;
-        if (NavMesh.SamplePosition(respawnPoint.position, out var hit, 1f, NavMesh.AllAreas)) spawnPos = hit.position;
-        else Debug.LogWarning($"RespawnPoint too far from NavMesh: {respawnPoint.position}");
+        if (NavMesh.SamplePosition(respawnPoint.position, out var hit, 1f, NavMesh.AllAreas))
+            spawnPos = hit.position;
+        else
+            Debug.LogWarning($"RespawnPoint слишком далеко от NavMesh: {respawnPoint.position}");
 
         enemy.transform.position = spawnPos;
         var nav = enemy.GetComponent<NavMeshAgent>();
-        if (nav != null) { nav.enabled = true; nav.Warp(spawnPos); }
+        if (nav != null)
+        {
+            nav.enabled = true;
+            nav.Warp(spawnPos);
+        }
 
         enemy.gameObject.SetActive(true);
         StartCoroutine(ContinueSpawnAfterNavMesh(enemy));
@@ -88,7 +139,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator ContinueSpawnAfterNavMesh(EnemyBase enemy)
     {
         var nav = enemy.GetComponent<NavMeshAgent>();
-        if (nav != null) yield return new WaitUntil(() => nav.isOnNavMesh);
+        if (nav != null)
+            yield return new WaitUntil(() => nav.isOnNavMesh);
 
         WayPoint start = startPoints[Random.Range(0, startPoints.Count)];
         var wps = new List<WayPoint>(start.WayPoints);
@@ -106,24 +158,103 @@ public class GameManager : MonoBehaviour
         boss.SetPool(bossPool);
 
         Vector3 bossPos = bossSpawnPoint.position;
-        if (NavMesh.SamplePosition(bossSpawnPoint.position, out var hit, 1f, NavMesh.AllAreas)) bossPos = hit.position;
-        else Debug.LogWarning($"BossSpawnPoint too far from NavMesh: {bossSpawnPoint.position}");
+        if (NavMesh.SamplePosition(bossSpawnPoint.position, out var hit, 1f, NavMesh.AllAreas))
+            bossPos = hit.position;
+        else
+            Debug.LogWarning($"BossSpawnPoint слишком далеко от NavMesh: {bossSpawnPoint.position}");
 
         boss.transform.position = bossPos;
         var nav = boss.GetComponent<NavMeshAgent>();
-        if (nav != null) { nav.enabled = true; nav.Warp(bossPos); }
+        if (nav != null)
+        {
+            nav.enabled = true;
+            nav.Warp(bossPos);
+        }
         boss.OnDeath += EnemyKilled;
     }
 
     private void ShuffleList(List<WayPoint> list)
     {
-        for (int i = 0; i < list.Count; i++) { int j = Random.Range(i, list.Count); (list[i], list[j]) = (list[j], list[i]); }
+        for (int i = 0; i < list.Count; i++)
+        {
+            int j = Random.Range(i, list.Count);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
     }
 
     private IEnumerator SpawnEnemiesSequentially()
     {
-        foreach (var prefab in enemyPrefabs) { SpawnEnemy(); yield return new WaitForSeconds(spawnDelay); }
+        foreach (var prefab in enemyPrefabs)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(spawnDelay);
+        }
     }
 
     public int GetPlayerLevel() => playerStats != null ? playerStats.level : 1;
+
+    // ===================================
+    //      ЛОГИКА ПОКАЗА DEATH UI
+    // ===================================
+
+    /// <summary>
+    /// Этот метод вызывается из HealthPlayerController при окончании анимации смерти.
+    /// Запускает плавное затормаживание игры и показ DeathUI.
+    /// </summary>
+    public void ShowDeathUI()
+    {
+        StartCoroutine(SlowPauseAndDisplayUI());
+    }
+
+    private IEnumerator SlowPauseAndDisplayUI()
+    {
+        // 1) Плавно уменьшаем Time.timeScale с 1 до 0 за slowPauseDuration секунд
+        float elapsed = 0f;
+        while (elapsed < slowPauseDuration)
+        {
+            elapsed += Time.unscaledDeltaTime; // unscaled, поскольку меняем Time.timeScale
+            float t = Mathf.Clamp01(elapsed / slowPauseDuration);
+            Time.timeScale = Mathf.Lerp(1f, 0f, t);
+            yield return null;
+        }
+        Time.timeScale = 0f;
+
+        // 2) Активируем deathUI и начинаем его fade-in
+        if (_deathMenuController != null && deathUI != null)
+        {
+            deathUI.SetActive(true);
+
+            // Делаем интерактивным только после fade-in
+            StartCoroutine(FadeInDeathUI());
+        }
+        else
+        {
+            Debug.LogError("GameManager: невозможно показать DeathUI — контроллер или сам объект отсутствует.");
+        }
+    }
+
+    private IEnumerator FadeInDeathUI()
+    {
+        if (_deathCanvasGroup == null)
+            yield break;
+
+        float alphaElapsed = 0f;
+        _deathCanvasGroup.interactable = false;
+        _deathCanvasGroup.blocksRaycasts = false;
+        _deathCanvasGroup.alpha = 0f;
+
+        while (alphaElapsed < uiFadeDuration)
+        {
+            alphaElapsed += Time.unscaledDeltaTime;
+            _deathCanvasGroup.alpha = Mathf.Clamp01(alphaElapsed / uiFadeDuration);
+            yield return null;
+        }
+
+        _deathCanvasGroup.alpha = 1f;
+        _deathCanvasGroup.interactable = true;
+        _deathCanvasGroup.blocksRaycasts = true;
+
+        // В конце fade-in даём контроллеру отобразить кнопки (если это необходимо внутри контроллера)
+        _deathMenuController.ShowDeathMenu();
+    }
 }

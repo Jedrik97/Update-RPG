@@ -3170,6 +3170,9 @@ MonoBehaviour:
   maxHealth: 100
   healthOrb: {fileID: 7602058296324296657}
   healthText: {fileID: 5205368645481555778}
+  animator: {fileID: 2124437476189072988}
+  deadLayerName: DeadPlayer
+  deadTagName: DeadPlayer
 --- !u!114 &5743693036609585249
 MonoBehaviour:
   m_ObjectHideFlags: 0

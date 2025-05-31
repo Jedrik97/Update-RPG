@@ -11,6 +11,7 @@ TagManager:
   - arrow
   - ArrowBoundary
   - Environment
+  - DeadPlayer
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Player
   - Terrain
   - Environment
-  - 
+  - DeadPlayer
   - 
   - 
   - 
