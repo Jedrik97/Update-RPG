@@ -13,10 +13,6 @@ public class EnemyMeleeAI : EnemyBase
     [SerializeField] private float chaseSpeed = 2.5f;
     [SerializeField] private float maxChaseDistance = 25f;
     [SerializeField] private float attackRange = 3f;
-
-    [Header("Death Settings")]
-    [Tooltip("Time in seconds the archer remains dead before deactivating")]
-    [SerializeField] private float deathDuration = 5f;
     
     [SerializeField] private UnityEvent onWeaponActivate;
     [SerializeField] private UnityEvent onWeaponDeactivate;
@@ -94,7 +90,7 @@ public class EnemyMeleeAI : EnemyBase
 
         UpdateWalkingAnimation();
 
-        if (player == null && fieldOfView != null)
+        if (player == null && fieldOfView)
             player = fieldOfView.Player;
         if (player == null)
             return;
@@ -106,7 +102,9 @@ public class EnemyMeleeAI : EnemyBase
         {
             case EnemyState.Patrolling:
                 if (distToPlayer <= maxChaseDistance)
+                {
                     currentState = EnemyState.Chasing;
+                }
                 break;
 
             case EnemyState.Chasing:
@@ -137,9 +135,15 @@ public class EnemyMeleeAI : EnemyBase
                     agent.isStopped = true;
                     RotateTowardsPlayer();
                 }
+                else if (distToPlayer > attackRange)
+                {
+                    animator.SetBool("IsAttacking", false);
+                    currentState = EnemyState.Chasing;
+                }
                 break;
 
             case EnemyState.Returning:
+                hasSeenPlayer = false;
                 agent.isStopped = false;
                 agent.SetDestination(chaseStartPoint);
                 if (distFromStart <= 1f)
@@ -147,6 +151,8 @@ public class EnemyMeleeAI : EnemyBase
                     agent.isStopped = true;
                     currentState = EnemyState.Patrolling;
                     ReturnHeal();
+                    
+                    pathFollower?.ResumePatrol();
                 }
                 break;
         }
@@ -191,15 +197,16 @@ public class EnemyMeleeAI : EnemyBase
         animator.SetBool("IsAttacking", false);
         animator.SetTrigger("Die");
 
+        Collider[] cols = GetComponents<Collider>();
+        
+        foreach (var col in cols)
+        {
+            col.enabled = false;
+        }
+        
+        agent.enabled = false;
         pathFollower?.StopPatrol();
-
-        StartCoroutine(DeathRoutine());
     }
-
-    private IEnumerator DeathRoutine()
-    {
-        yield return new WaitForSeconds(deathDuration);
-        gameObject.SetActive(false);
-    }
+    
 }
 
