@@ -11,13 +11,14 @@ public class SlotSelectController : MonoBehaviour
     public GameObject panel;
     public GameObject buttonContainer;
 
-    public Button[] slotButtons;
+    public Button[] slotButtons;   // Ожидается 3 кнопки
     public Button cancelButton;
 
-    private PlayerStats _stats;
+    private PlayerStats      _stats;
     private HealthPlayerController _hp;
-    private PlayerInventory _inv;
-    private PauseMenuController _pauseMenu;
+    private PlayerInventory  _inv;
+    private PauseMenuController   _pauseMenu;
+    private GameManager      _gameManager;
 
     enum Mode { Continue, Save, Load }
     private Mode mode;
@@ -27,12 +28,14 @@ public class SlotSelectController : MonoBehaviour
         PlayerStats stats,
         HealthPlayerController hp,
         PlayerInventory inv,
-        [InjectOptional] PauseMenuController pauseMenu)
+        [InjectOptional] PauseMenuController pauseMenu,
+        GameManager gameManager)
     {
-        _stats     = stats;
-        _hp        = hp;
-        _inv       = inv;
-        _pauseMenu = pauseMenu;
+        _stats       = stats;
+        _hp          = hp;
+        _inv         = inv;
+        _pauseMenu   = pauseMenu;
+        _gameManager = gameManager;
     }
 
     public void ShowContinue()
@@ -74,8 +77,12 @@ public class SlotSelectController : MonoBehaviour
 
     private void PopulateSlotButtons()
     {
+        // Ищем все файлы save_slotX.json
         var files = Directory.GetFiles(Application.persistentDataPath, "save_slot*.json");
-        var last3 = files.OrderByDescending(f => File.GetLastWriteTimeUtc(f)).Take(3).ToArray();
+        // Сортируем по времени последнего изменения (UTC), берём последние 3
+        var last3 = files.OrderByDescending(f => File.GetLastWriteTimeUtc(f))
+                         .Take(3)
+                         .ToArray();
 
         for (int i = 0; i < slotButtons.Length; i++)
         {
@@ -85,8 +92,8 @@ public class SlotSelectController : MonoBehaviour
 
             if (i < last3.Length)
             {
-                int slot     = ExtractSlotNumber(last3[i]);
-                label.text   = File.GetLastWriteTime(last3[i]).ToString("dd.MM.yyyy HH:mm");
+                int slot   = ExtractSlotNumber(last3[i]);
+                label.text = File.GetLastWriteTime(last3[i]).ToString("dd.MM.yyyy HH:mm");
                 int captured = slot;
                 btn.onClick.AddListener(() => OnSlotButton(captured));
                 btn.gameObject.SetActive(true);
@@ -134,12 +141,25 @@ public class SlotSelectController : MonoBehaviour
                     HidePanel();
                     if (buttonContainer != null)
                         buttonContainer.SetActive(false);
-                    LoadingScreenController.Instance.LoadScene("GameScene");
+
+                    // Переходим к сцене игры с показом загрузочного экрана
+                    LoadingScreenController.Instance.ShowLoadingProcess(() =>
+                    {
+                        SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
+                        if (data != null)
+                        {
+                            if (data.bossDefeated && _gameManager != null)
+                                _gameManager.SetBossDefeatedFromSave();
+
+                            LoadingScreenController.Instance.LoadScene("GameScene");
+                        }
+                    });
                 }
                 break;
 
             case Mode.Save:
-                SaveLoadManager.SaveGame(slot, _stats, _hp, _inv);
+                // Сохраняем, передавая GameManager, чтобы записать bossDefeated
+                SaveLoadManager.SaveGame(slot, _stats, _hp, _inv, _gameManager);
                 HidePanel();
                 if (buttonContainer != null)
                     buttonContainer.SetActive(true);
@@ -150,9 +170,12 @@ public class SlotSelectController : MonoBehaviour
                 {
                     LoadingScreenController.Instance.ShowLoadingProcess(() =>
                     {
-                        bool ok = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
-                        if (ok)
+                        SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
+                        if (data != null)
                         {
+                            if (data.bossDefeated && _gameManager != null)
+                                _gameManager.SetBossDefeatedFromSave();
+
                             HidePanel();
                             _pauseMenu?.ClosePauseMenu();
                         }

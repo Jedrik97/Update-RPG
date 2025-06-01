@@ -8302,6 +8302,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 749753674780491709, guid: a8f9648a2582aed4494f285168750404, type: 3}
+  - {fileID: 7312602864059615199, guid: 6a0376c8d55b28b419ab37ea3b82e4d3, type: 3}
+  - {fileID: 7312602864059615199, guid: 4302cf1626dd1674493901d203e5b947, type: 3}
+  - {fileID: 1233530503398530753, guid: d583afa9e7dca814e92e0c380423aa72, type: 3}
+  - {fileID: 1233530503398530753, guid: d583afa9e7dca814e92e0c380423aa72, type: 3}
+  - {fileID: 7312602864059615199, guid: 4302cf1626dd1674493901d203e5b947, type: 3}
+  - {fileID: 7312602864059615199, guid: 6a0376c8d55b28b419ab37ea3b82e4d3, type: 3}
+  - {fileID: 749753674780491709, guid: a8f9648a2582aed4494f285168750404, type: 3}
+  - {fileID: 749753674780491709, guid: a8f9648a2582aed4494f285168750404, type: 3}
   poolSize: 0
   startPoints:
   - {fileID: 1368776845}

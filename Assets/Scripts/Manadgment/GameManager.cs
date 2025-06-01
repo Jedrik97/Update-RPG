@@ -27,46 +27,49 @@ public class GameManager : MonoBehaviour
     [Tooltip("За сколько секунд плавно проявить deathUI (CanvasGroup alpha 0 → 1).")]
     [SerializeField] private float uiFadeDuration = 0.5f;
 
+    [Header("Win UI Settings")]
+    [Tooltip("Панель с сообщением о победе. Должна быть выключена в инспекторе.")]
+    [SerializeField] private GameObject winPanel;
+    [Tooltip("Сколько секунд показывать панель \"You Win\" перед её скрытием.")]
+    [SerializeField] private float winUIPersistTime = 30f;
+    
     private ObjectPool<EnemyBase> enemyPool;
     private ObjectPool<EnemyBase> bossPool;
 
-    private PlayerStats playerStats;
-    private PlayerInventory playerInventory;
-    private bool bossSpawned = false;
+    private PlayerStats      playerStats;
+    private PlayerInventory  playerInventory;
+
+    private bool bossSpawned  = false;
+    private bool bossDefeated = false;
 
     private DeathMenuController _deathMenuController;
-    private CanvasGroup _deathCanvasGroup;
+    private CanvasGroup         _deathCanvasGroup;
 
     [Inject]
     public void Construct(PlayerStats playerStats, PlayerInventory playerInventory)
     {
-        this.playerStats = playerStats;
+        this.playerStats    = playerStats;
         this.playerInventory = playerInventory;
     }
+    
+    public bool BossDefeated => bossDefeated;
 
     private void Start()
     {
-        // ===== Настройка пулов врагов =====
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
-        bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
+        bossPool  = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
 
-        // ===== Настройка DeathUI =====
         if (deathUI != null)
         {
             _deathMenuController = deathUI.GetComponent<DeathMenuController>();
             if (_deathMenuController == null)
-            {
                 Debug.LogError("На объекте deathUI отсутствует компонент DeathMenuController!");
-            }
 
-            // Обеспечим CanvasGroup для fade-in
             _deathCanvasGroup = deathUI.GetComponent<CanvasGroup>();
             if (_deathCanvasGroup == null)
-            {
                 _deathCanvasGroup = deathUI.AddComponent<CanvasGroup>();
-            }
-            // Изначально deathUI выключен и прозрачен
+
             deathUI.SetActive(false);
             _deathCanvasGroup.alpha = 0f;
             _deathCanvasGroup.interactable = false;
@@ -80,40 +83,96 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Спавн босса при достижении игроком lvl ≥ 5
+        if (bossDefeated)
+            return;
+        
         if (!bossSpawned && playerStats != null && playerStats.level >= 5)
         {
             bossSpawned = true;
+            ClearAllEnemies();
             SpawnBoss();
         }
     }
 
-    // ===================================
-    //       ЛОГИКА ВРАГОВ (ОБЫЧНЫЕ)
-    // ===================================
 
+    private void ClearAllEnemies()
+    {
+        EnemyBase[] activeEnemies = enemyPool.GetActiveObjects();
+        foreach (EnemyBase eb in activeEnemies)
+        {
+            if (eb == bossPrefab || eb.CompareTag("Boss"))
+                continue;
+
+            eb.OnDeath -= EnemyKilled;
+            eb.TakeDamage(20000f);
+        }
+    }
+    
     public void EnemyKilled(GameObject enemy)
     {
         playerStats?.GainExperience(experiencePerKill);
         playerInventory?.AddGold(1);
 
         EnemyBase eb = enemy.GetComponent<EnemyBase>();
-        if (eb != null) eb.OnDeath -= EnemyKilled;
-        if (eb == bossPrefab) return;
+        if (eb != null)
+            eb.OnDeath -= EnemyKilled;
+        
+        if (eb == bossPrefab)
+        {
+            bossDefeated = true;
+            OnBossDefeated();
+            return;
+        }
 
-        StartCoroutine(DelayedSpawn());
+        if (!bossSpawned)
+            StartCoroutine(DelayedSpawn());
+    }
+
+    private void OnBossDefeated()
+    {
+        if (winPanel != null)
+        {
+            winPanel.SetActive(true);
+            StartCoroutine(HideWinPanelRoutine());
+        }
+   
+    }
+    private IEnumerator HideWinPanelRoutine()
+    {
+        float elapsed = 0f;
+        while (elapsed < winUIPersistTime)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        if (winPanel != null)
+            winPanel.SetActive(false);
+    }
+    public void SetBossDefeatedFromSave()
+    {
+        bossDefeated = true;
+        bossSpawned  = true;  // чтобы не респавнить
+        OnBossDefeated();
     }
 
     private IEnumerator DelayedSpawn()
     {
         yield return new WaitForSeconds(respawnDelay);
+        if (bossSpawned)
+            yield break;
+
         while (enemyPool.InactiveCount == 0)
             yield return null;
+
         SpawnEnemy();
     }
 
     public void SpawnEnemy()
     {
+        if (bossSpawned)
+            return;
+
         EnemyBase enemy = enemyPool.Get();
         enemy.SetPool(enemyPool);
 
@@ -170,6 +229,8 @@ public class GameManager : MonoBehaviour
             nav.enabled = true;
             nav.Warp(bossPos);
         }
+
+        boss.gameObject.tag = "Boss";
         boss.OnDeath += EnemyKilled;
     }
 
@@ -186,6 +247,9 @@ public class GameManager : MonoBehaviour
     {
         foreach (var prefab in enemyPrefabs)
         {
+            if (bossSpawned)
+                yield break;
+
             SpawnEnemy();
             yield return new WaitForSeconds(spawnDelay);
         }
@@ -193,14 +257,6 @@ public class GameManager : MonoBehaviour
 
     public int GetPlayerLevel() => playerStats != null ? playerStats.level : 1;
 
-    // ===================================
-    //      ЛОГИКА ПОКАЗА DEATH UI
-    // ===================================
-
-    /// <summary>
-    /// Этот метод вызывается из HealthPlayerController при окончании анимации смерти.
-    /// Запускает плавное затормаживание игры и показ DeathUI.
-    /// </summary>
     public void ShowDeathUI()
     {
         StartCoroutine(SlowPauseAndDisplayUI());
@@ -208,28 +264,24 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SlowPauseAndDisplayUI()
     {
-        // 1) Плавно уменьшаем Time.timeScale с 1 до 0 за slowPauseDuration секунд
         float elapsed = 0f;
         while (elapsed < slowPauseDuration)
         {
-            elapsed += Time.unscaledDeltaTime; // unscaled, поскольку меняем Time.timeScale
+            elapsed += Time.unscaledDeltaTime;
             float t = Mathf.Clamp01(elapsed / slowPauseDuration);
             Time.timeScale = Mathf.Lerp(1f, 0f, t);
             yield return null;
         }
         Time.timeScale = 0f;
 
-        // 2) Активируем deathUI и начинаем его fade-in
         if (_deathMenuController != null && deathUI != null)
         {
             deathUI.SetActive(true);
-
-            // Делаем интерактивным только после fade-in
             StartCoroutine(FadeInDeathUI());
         }
         else
         {
-            Debug.LogError("GameManager: невозможно показать DeathUI — контроллер или сам объект отсутствует.");
+            Debug.LogError("GameManager: невозможно показать DeathUI — контроллер или объект отсутствует.");
         }
     }
 
@@ -254,7 +306,6 @@ public class GameManager : MonoBehaviour
         _deathCanvasGroup.interactable = true;
         _deathCanvasGroup.blocksRaycasts = true;
 
-        // В конце fade-in даём контроллеру отобразить кнопки (если это необходимо внутри контроллера)
         _deathMenuController.ShowDeathMenu();
     }
 }
