@@ -14,15 +14,6 @@ public class TooltipUI : MonoBehaviour
         HideTooltip();
     }
 
-    private void Update()
-    {
-        if (tooltipPanel.activeSelf)
-        {
-            Vector2 mousePos = Input.mousePosition;
-            tooltipPanel.transform.position = mousePos;
-        }
-    }
-
     public void ShowTooltip(string text)
     {
         tooltipText.text = text;

@@ -32,8 +32,15 @@ public class PlayerStatsMenu : MonoBehaviour
         statsPanel.SetActive(!isActive);
 
         if (!isActive)
+        {
             UpdateStatsUI();
+        }
+        else
+        {
+            TooltipUI.Instance?.HideTooltip();
+        }
     }
+
 
     private void UpdateStatsUI()
     {
