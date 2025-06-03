@@ -22,11 +22,18 @@ public class SaveLoadInitializer : IInitializable
     public void Initialize()
     {
         int slot = PlayerSession.SelectedSlot;
-        
+
         SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
-        if (data != null && data.bossDefeated)
+        if (data != null)
         {
-            _gameManager.SetBossDefeatedFromSave();
+            if (data.bossDefeated)
+            {
+                _gameManager.SetBossDefeatedFromSave();
+            }
+            else
+            {
+                _gameManager.ShowBossObjectivePanelIfNeeded();
+            }
         }
     }
 }

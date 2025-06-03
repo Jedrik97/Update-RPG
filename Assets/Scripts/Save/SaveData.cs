@@ -11,7 +11,6 @@ public class SaveData
     public int    healthPotions;
     public Vector3 playerPosition;
     public float  playerCurrentHealth;
-
-    // НОВОЕ поле: флаг, что босс уже побеждён
+    
     public bool bossDefeated;
 }

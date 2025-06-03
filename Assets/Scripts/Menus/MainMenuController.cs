@@ -8,6 +8,10 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("Ссылка на контроллер выбора слотов")]
     public SlotSelectController slotSelect;
     
+    private void Start()
+    {
+        CursorManager.Instance.ShowCursor();
+    }
 
     public void OnNewGameClicked()
     {

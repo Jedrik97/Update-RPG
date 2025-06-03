@@ -14,7 +14,6 @@ public class PlayerStatsMenu : MonoBehaviour
 
     private void Start()
     {
-        playerStats = FindObjectOfType<PlayerStats>();
         statsPanel.SetActive(false);
     }
 
@@ -33,10 +32,12 @@ public class PlayerStatsMenu : MonoBehaviour
 
         if (!isActive)
         {
+            CursorManager.Instance.ShowCursor();
             UpdateStatsUI();
         }
         else
         {
+            CursorManager.Instance.HideCursor();
             TooltipUI.Instance?.HideTooltip();
         }
     }

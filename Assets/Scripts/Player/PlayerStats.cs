@@ -7,7 +7,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Level & Experience")]
     public int level = 1;
     private float currentExp = 0f;
-    public float expToNextLevel = 1000f;
+    public float expToNextLevel = 500f;
 
     [Header("Attributes")]
     public float strength = 1f;

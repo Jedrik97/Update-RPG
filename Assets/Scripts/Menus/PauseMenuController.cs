@@ -11,11 +11,13 @@ public class PauseMenuController : MonoBehaviour
     [Header("Slot Select")]
     public SlotSelectController slotSelect;
 
-    private PlayerStats           _stats;
+    private PlayerStats _stats;
     private HealthPlayerController _hp;
-    private PlayerInventory       _inv;
-    private GameManager           _gameManager;
-    private int                   _nextSaveSlot;
+    private PlayerInventory _inv;
+    private GameManager _gameManager;
+    private int _nextSaveSlot;
+
+    public static bool IsPaused { get; private set; }
 
     [Inject]
     public void Construct(
@@ -24,9 +26,9 @@ public class PauseMenuController : MonoBehaviour
         PlayerInventory inv,
         GameManager gameManager)
     {
-        _stats       = stats;
-        _hp          = hp;
-        _inv         = inv;
+        _stats = stats;
+        _hp = hp;
+        _inv = inv;
         _gameManager = gameManager;
     }
 
@@ -49,25 +51,25 @@ public class PauseMenuController : MonoBehaviour
 
     void TogglePause()
     {
-        if (!pausePanel.activeSelf)
-        {
-            pausePanel.SetActive(true);
-            buttonContainer.SetActive(true);
-            slotSelect.HidePanel();
-            Time.timeScale = 0f;
-        }
+        bool shouldPause = !pausePanel.activeSelf;
+
+        pausePanel.SetActive(shouldPause);
+        buttonContainer.SetActive(shouldPause);
+        slotSelect.HidePanel();
+        Time.timeScale = shouldPause ? 0f : 1f;
+
+        IsPaused = shouldPause;
+
+        if (shouldPause)
+            CursorManager.Instance?.ShowCursor();
         else
-        {
-            pausePanel.SetActive(false);
-            slotSelect.HidePanel();
-            Time.timeScale = 1f;
-        }
+            CursorManager.Instance?.HideCursor();
     }
 
     public void OnSaveClicked()
     {
         SaveLoadManager.SaveGame(_nextSaveSlot, _stats, _hp, _inv, _gameManager);
-        
+
         _nextSaveSlot = _nextSaveSlot % 3 + 1;
         PlayerPrefs.SetInt("NextSaveSlot", _nextSaveSlot);
         PlayerPrefs.Save();
@@ -82,6 +84,8 @@ public class PauseMenuController : MonoBehaviour
     public void OnExitToMainMenuClicked()
     {
         Time.timeScale = 1f;
+        IsPaused = false;
+        CursorManager.Instance?.ShowCursor();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -89,5 +93,7 @@ public class PauseMenuController : MonoBehaviour
     {
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
+        IsPaused = false;
+        CursorManager.Instance?.HideCursor();
     }
 }

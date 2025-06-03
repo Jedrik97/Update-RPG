@@ -4361,7 +4361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  expToNextLevel: 1000
+  expToNextLevel: 500
   strength: 1
   stamina: 1
   intelligence: 1

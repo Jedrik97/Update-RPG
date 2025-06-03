@@ -20,94 +20,102 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform bossSpawnPoint;
 
     [Header("Player Death UI Settings")]
-    [Tooltip("GameObject с DeathUI (панель, содержащая CanvasGroup и кнопки). Должен быть выключен в сцене по умолчанию.")]
     [SerializeField] private GameObject deathUI;
-    [Tooltip("За сколько секунд плавно уменьшить Time.timeScale (1 → 0).")]
     [SerializeField] private float slowPauseDuration = 1f;
-    [Tooltip("За сколько секунд плавно проявить deathUI (CanvasGroup alpha 0 → 1).")]
     [SerializeField] private float uiFadeDuration = 0.5f;
 
     [Header("Win UI Settings")]
-    [Tooltip("Панель с сообщением о победе. Должна быть выключена в инспекторе.")]
     [SerializeField] private GameObject winPanel;
-    [Tooltip("Сколько секунд показывать панель \"You Win\" перед её скрытием.")]
     [SerializeField] private float winUIPersistTime = 30f;
-    
+
+    [Header("Boss Objective UI")]
+    [SerializeField] private GameObject bossObjectivePanel;
+    [SerializeField] private int bossObjectiveSortingOrder = 100;
+
     private ObjectPool<EnemyBase> enemyPool;
     private ObjectPool<EnemyBase> bossPool;
 
-    private PlayerStats      playerStats;
-    private PlayerInventory  playerInventory;
+    private PlayerStats playerStats;
+    private PlayerInventory playerInventory;
 
-    private bool bossSpawned  = false;
+    private bool bossSpawned = false;
     private bool bossDefeated = false;
 
     private DeathMenuController _deathMenuController;
-    private CanvasGroup         _deathCanvasGroup;
+
+    private bool objectiveHiddenManually = false;
 
     [Inject]
     public void Construct(PlayerStats playerStats, PlayerInventory playerInventory)
     {
-        this.playerStats    = playerStats;
+        this.playerStats = playerStats;
         this.playerInventory = playerInventory;
     }
-    
+
     public bool BossDefeated => bossDefeated;
 
     private void Start()
     {
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
-        bossPool  = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
+        bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
-
+        
         if (deathUI != null)
         {
             _deathMenuController = deathUI.GetComponent<DeathMenuController>();
-            if (_deathMenuController == null)
-                Debug.LogError("На объекте deathUI отсутствует компонент DeathMenuController!");
-
-            _deathCanvasGroup = deathUI.GetComponent<CanvasGroup>();
-            if (_deathCanvasGroup == null)
-                _deathCanvasGroup = deathUI.AddComponent<CanvasGroup>();
-
             deathUI.SetActive(false);
-            _deathCanvasGroup.alpha = 0f;
-            _deathCanvasGroup.interactable = false;
-            _deathCanvasGroup.blocksRaycasts = false;
+        }
+        
+        if (bossObjectivePanel != null)
+        {
+            bossObjectivePanel.SetActive(!bossDefeated);
+
+            if (bossObjectivePanel.TryGetComponent(out Canvas objectiveCanvas))
+            {
+                objectiveCanvas.sortingOrder = bossObjectiveSortingOrder;
+            }
         }
         else
         {
-            Debug.LogError("GameManager: поле deathUI не назначено в инспекторе!");
+            Debug.LogWarning("BossObjectivePanel не назначен в GameManager.");
         }
+        
     }
 
     private void Update()
     {
-        if (bossDefeated)
-            return;
-        
         if (!bossSpawned && playerStats != null && playerStats.level >= 5)
         {
             bossSpawned = true;
             ClearAllEnemies();
             SpawnBoss();
         }
+        
+        if (!bossDefeated && !objectiveHiddenManually && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.E))
+        {
+            bossObjectivePanel.SetActive(false);
+            objectiveHiddenManually = true;
+        }
+        
+        if (!bossDefeated && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.E))
+        {
+            bool isActive = bossObjectivePanel.activeSelf;
+            bossObjectivePanel.SetActive(!isActive);
+            Debug.Log("[GameManager] bossObjectivePanel toggled: " + (!isActive));
+        }
     }
-
 
     private void ClearAllEnemies()
     {
         EnemyBase[] activeEnemies = enemyPool.GetActiveObjects();
         foreach (EnemyBase eb in activeEnemies)
         {
-            if (eb == bossPrefab || eb.CompareTag("Boss"))
-                continue;
-
+            if (eb == bossPrefab || eb.CompareTag("Boss")) continue;
             eb.OnDeath -= EnemyKilled;
             eb.TakeDamage(20000f);
         }
     }
-    
+
     public void EnemyKilled(GameObject enemy)
     {
         playerStats?.GainExperience(experiencePerKill);
@@ -116,7 +124,7 @@ public class GameManager : MonoBehaviour
         EnemyBase eb = enemy.GetComponent<EnemyBase>();
         if (eb != null)
             eb.OnDeath -= EnemyKilled;
-        
+
         if (eb == bossPrefab)
         {
             bossDefeated = true;
@@ -135,8 +143,13 @@ public class GameManager : MonoBehaviour
             winPanel.SetActive(true);
             StartCoroutine(HideWinPanelRoutine());
         }
-   
+
+        if (bossObjectivePanel != null)
+        {
+            bossObjectivePanel.SetActive(false);
+        }
     }
+
     private IEnumerator HideWinPanelRoutine()
     {
         float elapsed = 0f;
@@ -149,29 +162,25 @@ public class GameManager : MonoBehaviour
         if (winPanel != null)
             winPanel.SetActive(false);
     }
+
     public void SetBossDefeatedFromSave()
     {
         bossDefeated = true;
-        bossSpawned  = true;  // чтобы не респавнить
+        bossSpawned = true;
         OnBossDefeated();
     }
 
     private IEnumerator DelayedSpawn()
     {
         yield return new WaitForSeconds(respawnDelay);
-        if (bossSpawned)
-            yield break;
-
-        while (enemyPool.InactiveCount == 0)
-            yield return null;
-
+        if (bossSpawned) yield break;
+        while (enemyPool.InactiveCount == 0) yield return null;
         SpawnEnemy();
     }
 
     public void SpawnEnemy()
     {
-        if (bossSpawned)
-            return;
+        if (bossSpawned) return;
 
         EnemyBase enemy = enemyPool.Get();
         enemy.SetPool(enemyPool);
@@ -180,8 +189,6 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = respawnPoint.position;
         if (NavMesh.SamplePosition(respawnPoint.position, out var hit, 1f, NavMesh.AllAreas))
             spawnPos = hit.position;
-        else
-            Debug.LogWarning($"RespawnPoint слишком далеко от NavMesh: {respawnPoint.position}");
 
         enemy.transform.position = spawnPos;
         var nav = enemy.GetComponent<NavMeshAgent>();
@@ -219,8 +226,6 @@ public class GameManager : MonoBehaviour
         Vector3 bossPos = bossSpawnPoint.position;
         if (NavMesh.SamplePosition(bossSpawnPoint.position, out var hit, 1f, NavMesh.AllAreas))
             bossPos = hit.position;
-        else
-            Debug.LogWarning($"BossSpawnPoint слишком далеко от NavMesh: {bossSpawnPoint.position}");
 
         boss.transform.position = bossPos;
         var nav = boss.GetComponent<NavMeshAgent>();
@@ -247,9 +252,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var prefab in enemyPrefabs)
         {
-            if (bossSpawned)
-                yield break;
-
+            if (bossSpawned) yield break;
             SpawnEnemy();
             yield return new WaitForSeconds(spawnDelay);
         }
@@ -277,35 +280,15 @@ public class GameManager : MonoBehaviour
         if (_deathMenuController != null && deathUI != null)
         {
             deathUI.SetActive(true);
-            StartCoroutine(FadeInDeathUI());
-        }
-        else
-        {
-            Debug.LogError("GameManager: невозможно показать DeathUI — контроллер или объект отсутствует.");
         }
     }
-
-    private IEnumerator FadeInDeathUI()
+    public void ShowBossObjectivePanelIfNeeded()
     {
-        if (_deathCanvasGroup == null)
-            yield break;
-
-        float alphaElapsed = 0f;
-        _deathCanvasGroup.interactable = false;
-        _deathCanvasGroup.blocksRaycasts = false;
-        _deathCanvasGroup.alpha = 0f;
-
-        while (alphaElapsed < uiFadeDuration)
+        if (!bossDefeated && bossObjectivePanel)
         {
-            alphaElapsed += Time.unscaledDeltaTime;
-            _deathCanvasGroup.alpha = Mathf.Clamp01(alphaElapsed / uiFadeDuration);
-            yield return null;
+            bossObjectivePanel.SetActive(true);
+            objectiveHiddenManually = false;
         }
-
-        _deathCanvasGroup.alpha = 1f;
-        _deathCanvasGroup.interactable = true;
-        _deathCanvasGroup.blocksRaycasts = true;
-
-        _deathMenuController.ShowDeathMenu();
     }
+
 }
