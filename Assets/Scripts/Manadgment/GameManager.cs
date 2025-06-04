@@ -91,17 +91,16 @@ public class GameManager : MonoBehaviour
             SpawnBoss();
         }
         
-        if (!bossDefeated && !objectiveHiddenManually && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.E))
+        if (!bossDefeated && !objectiveHiddenManually && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
             bossObjectivePanel.SetActive(false);
             objectiveHiddenManually = true;
         }
         
-        if (!bossDefeated && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.E))
+        if (!bossDefeated && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
             bool isActive = bossObjectivePanel.activeSelf;
             bossObjectivePanel.SetActive(!isActive);
-            Debug.Log("[GameManager] bossObjectivePanel toggled: " + (!isActive));
         }
     }
 

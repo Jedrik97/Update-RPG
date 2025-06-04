@@ -62,7 +62,21 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.68622667
+      - time: 0.29538548
+        functionName: EnableComboWindow
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6855158
+        functionName: DisableComboWindow
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.68849295
         functionName: DisableWeaponHitbox
         data: 
         objectReferenceParameter: {instanceID: 0}

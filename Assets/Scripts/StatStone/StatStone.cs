@@ -19,7 +19,6 @@ public class StatStone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Есть коллизия");
         if (other.CompareTag("Player") && statUI != null)
         {
             statUI.Show(_playerStats, statType.ToString());
@@ -34,7 +33,7 @@ public class StatStone : MonoBehaviour
             if (_keyDown == 1 && _playerStats != null)
             {
                 _playerStats.SpendStatPoint(statType.ToString());
-                statUI.Show(_playerStats, statType.ToString()); // Обновим отображение
+                statUI.Show(_playerStats, statType.ToString());
             }
         }
     }
