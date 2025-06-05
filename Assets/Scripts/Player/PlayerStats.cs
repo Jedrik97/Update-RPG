@@ -53,7 +53,7 @@ public class PlayerStats : MonoBehaviour
         availableStatPoints++;
 
         UpdateExpBar();
-        Debug.Log($"[PlayerStats] Level Up! Новый уровень: {level}");
+
     }
     
     public void SpendStatPoint(string stat)

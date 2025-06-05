@@ -73,8 +73,8 @@ public class Vendor : MonoBehaviour
     {
         if (messageText != null)
             messageText.text = defaultPrompt;
-        else
-            Debug.Log(defaultPrompt);
+        
+
     }
 
     private void ShowTemporaryMessage(string text)
@@ -82,7 +82,6 @@ public class Vendor : MonoBehaviour
         if (messageText != null)
             messageText.text = text;
         else
-            Debug.Log(text);
 
         if (revertCoroutine != null)
             StopCoroutine(revertCoroutine);

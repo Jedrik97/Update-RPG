@@ -13,7 +13,7 @@ public class EnemyWeapon : MonoBehaviour
     
     public void EnableCollider()
     {
-        Debug.Log("включился");
+
         if (weaponCollider == null)
         {
             return;
@@ -23,7 +23,7 @@ public class EnemyWeapon : MonoBehaviour
 
     public void DisableCollider()
     {
-        Debug.Log("выключился");
+
         if (weaponCollider)
             weaponCollider.enabled = false;
     }

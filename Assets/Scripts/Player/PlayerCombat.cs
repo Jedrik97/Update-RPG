@@ -45,7 +45,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Alpha0 + step))
                 {
-                    Debug.Log($"[PlayerCombat] Start Attack{step}");
+
                     TriggerAttack(step);
                     break;
                 }
@@ -59,7 +59,7 @@ public class PlayerCombat : MonoBehaviour
                 int nextStep = currentComboStep + 1;
                 if (nextStep <= 5 && Input.GetKeyDown(KeyCode.Alpha0 + nextStep))
                 {
-                    Debug.Log($"[PlayerCombat] Queued Attack{nextStep}");
+
                     queuedComboStep = nextStep;
                     // Закрываем окно, чтобы более не принимать лишний ввод
                     canComboWindow = false;
@@ -98,7 +98,7 @@ public class PlayerCombat : MonoBehaviour
         canComboWindow = false;
         
         isAttacking = true;
-        Debug.Log($"[PlayerCombat] Triggered Attack{step}");
+
         OnAttackStateChanged?.Invoke(true);
         OnComboStepChanged?.Invoke(step);
     }
@@ -106,13 +106,10 @@ public class PlayerCombat : MonoBehaviour
     public void EnableComboWindow()
     {
         canComboWindow = true;
-        Debug.Log($"[PlayerCombat] EnableComboWindow at Attack{currentComboStep}");
 
-      
         if (queuedComboStep == currentComboStep + 1)
         {
-            Debug.Log($"[PlayerCombat] Immediate chaining to Attack{queuedComboStep}");
-    
+
             TriggerAttack(queuedComboStep);
         }
     }
@@ -120,19 +117,17 @@ public class PlayerCombat : MonoBehaviour
     public void DisableComboWindow()
     {
         canComboWindow = false;
-        Debug.Log($"[PlayerCombat] DisableComboWindow at Attack{currentComboStep}");
 
         if (queuedComboStep == currentComboStep + 1)
         {
-            Debug.Log($"[PlayerCombat] Chaining to Attack{queuedComboStep}");
-         
+
             TriggerAttack(queuedComboStep);
         }
         
     }
     public void EndAttack()
     {
-        Debug.Log($"[PlayerCombat] EndAttack from Attack{currentComboStep}");
+
         isAttacking = false;
         currentComboStep = 0;
         queuedComboStep = 0;

@@ -61,7 +61,7 @@ public class FieldOfView : MonoBehaviour
             if (CheckPlayerInFOV())
             {
                 OnPlayerVisibilityChanged?.Invoke(true);
-                Debug.Log("Player detected by FieldOfView");
+
                 yield break;
             }
 

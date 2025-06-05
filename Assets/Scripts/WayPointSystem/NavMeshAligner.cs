@@ -36,7 +36,7 @@ public static class NavMeshAligner
         if (anyMoved)
         {
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-            Debug.Log("NavMeshAligner: selected objects aligned.");
+
         }
     }
 
