@@ -96,37 +96,27 @@ public class PlayerCombat : MonoBehaviour
         currentComboStep = step;
         queuedComboStep = 0;
         canComboWindow = false;
-
-        // Разблокируем «isAttacking» и оповестим, что атака началась
+        
         isAttacking = true;
         Debug.Log($"[PlayerCombat] Triggered Attack{step}");
         OnAttackStateChanged?.Invoke(true);
         OnComboStepChanged?.Invoke(step);
     }
-
-    /// <summary>
-    /// Animation Event: «середина» клипа AttackN — теперь можно принять ввод N+1.
-    /// </summary>
+    
     public void EnableComboWindow()
     {
         canComboWindow = true;
         Debug.Log($"[PlayerCombat] EnableComboWindow at Attack{currentComboStep}");
 
-        // Если игрок успел нажать «следующее» до Enable (редкий случай),
-        // queuedComboStep уже мог быть равен current+1 — цепляем комбо сразу:
+      
         if (queuedComboStep == currentComboStep + 1)
         {
             Debug.Log($"[PlayerCombat] Immediate chaining to Attack{queuedComboStep}");
-            // Обратите внимание: queuedComboStep == step, значит в TriggerAttack
-            // он будет сбрасывать old isAttacking и запускать новый шаг.
+    
             TriggerAttack(queuedComboStep);
         }
     }
-
-    /// <summary>
-    /// Animation Event: «ближе к концу» клипа AttackN — окно ввода закрыто.
-    /// Если queuedComboStep == current+1, переход в следующий шаг.
-    /// </summary>
+    
     public void DisableComboWindow()
     {
         canComboWindow = false;
@@ -135,18 +125,11 @@ public class PlayerCombat : MonoBehaviour
         if (queuedComboStep == currentComboStep + 1)
         {
             Debug.Log($"[PlayerCombat] Chaining to Attack{queuedComboStep}");
-            // Сразу запустим новый шаг — см. TriggerAttack: он сбросит
-            // старый isAttacking перед вызовом новой анимации.
+         
             TriggerAttack(queuedComboStep);
         }
-        // Если queuedComboStep != current+1, ничего не делаем —
-        // тогда клип дойдёт до EndAttack() (Event в конце) и сбросит флаги.
+        
     }
-
-    /// <summary>
-    /// Animation Event: «финал» шага AttackN, если комбо не продолжилось.
-    /// Сброс всех флагов, возвращаемся в Idle.
-    /// </summary>
     public void EndAttack()
     {
         Debug.Log($"[PlayerCombat] EndAttack from Attack{currentComboStep}");

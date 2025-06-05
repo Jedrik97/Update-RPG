@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform bossSpawnPoint;
 
     [Header("Player Death UI Settings")]
-    [SerializeField] private GameObject deathUI;
+    [SerializeField] private GameObject deathUI;            // GameObject с компонентом DeathMenuController (Canvas или пустой объект)
     [SerializeField] private float slowPauseDuration = 1f;
-    [SerializeField] private float uiFadeDuration = 0.5f;
+    [SerializeField] private float uiFadeDuration = 0.5f;   // (если понадобится в будущем)
 
     [Header("Win UI Settings")]
     [SerializeField] private GameObject winPanel;
@@ -56,20 +56,23 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Создаём ObjectPool для обычных врагов и для босса
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
         bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
-        
+
+        // Получаем ссылку на DeathMenuController, но не выключаем сам deathUI
         if (deathUI != null)
         {
             _deathMenuController = deathUI.GetComponent<DeathMenuController>();
-            deathUI.SetActive(false);
+            // ВАЖНО: не вызываем deathUI.SetActive(false), оставляем его активным
+            // Предполагается, что в инспекторе deathUI уже активен, но внутри него deathPanel выключён
         }
-        
+
+        // Настраиваем панель цели босса
         if (bossObjectivePanel != null)
         {
             bossObjectivePanel.SetActive(!bossDefeated);
-
             if (bossObjectivePanel.TryGetComponent(out Canvas objectiveCanvas))
             {
                 objectiveCanvas.sortingOrder = bossObjectiveSortingOrder;
@@ -79,24 +82,24 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("BossObjectivePanel не назначен в GameManager.");
         }
-        
     }
 
     private void Update()
     {
+        // Спавним босса, когда уровень игрока >= 5
         if (!bossSpawned && playerStats != null && playerStats.level >= 5)
         {
             bossSpawned = true;
             ClearAllEnemies();
             SpawnBoss();
         }
-        
+
+        // Скрытие/показ панели цели босса по клавише Z (один раз)
         if (!bossDefeated && !objectiveHiddenManually && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
             bossObjectivePanel.SetActive(false);
             objectiveHiddenManually = true;
         }
-        
         if (!bossDefeated && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
             bool isActive = bossObjectivePanel.activeSelf;
@@ -142,7 +145,6 @@ public class GameManager : MonoBehaviour
             winPanel.SetActive(true);
             StartCoroutine(HideWinPanelRoutine());
         }
-
         if (bossObjectivePanel != null)
         {
             bossObjectivePanel.SetActive(false);
@@ -157,7 +159,6 @@ public class GameManager : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
-
         if (winPanel != null)
             winPanel.SetActive(false);
     }
@@ -259,6 +260,10 @@ public class GameManager : MonoBehaviour
 
     public int GetPlayerLevel() => playerStats != null ? playerStats.level : 1;
 
+    /// <summary>
+    /// Вызывается из HealthPlayerController.OnDeathAnimationComplete().
+    /// Плавно замедляет игру и затем показывает панель смерти.
+    /// </summary>
     public void ShowDeathUI()
     {
         StartCoroutine(SlowPauseAndDisplayUI());
@@ -266,6 +271,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SlowPauseAndDisplayUI()
     {
+        // Плавно замедляем Time.timeScale от 1 до 0 за slowPauseDuration
         float elapsed = 0f;
         while (elapsed < slowPauseDuration)
         {
@@ -276,11 +282,13 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = 0f;
 
-        if (_deathMenuController != null && deathUI != null)
+        // После того как timeScale == 0, показываем саму панель смерти (deathPanel)
+        if (_deathMenuController != null)
         {
-            deathUI.SetActive(true);
+            _deathMenuController.ShowDeathMenu();
         }
     }
+
     public void ShowBossObjectivePanelIfNeeded()
     {
         if (!bossDefeated && bossObjectivePanel)
@@ -290,4 +298,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Возвращает true, если панель смерти (deathPanel) сейчас активна на экране.
+    /// </summary>
+    public bool IsDeathMenuVisible
+    {
+        get
+        {
+            if (_deathMenuController != null && _deathMenuController.deathPanel != null)
+                return _deathMenuController.deathPanel.activeInHierarchy;
+
+            return false;
+        }
+    }
 }

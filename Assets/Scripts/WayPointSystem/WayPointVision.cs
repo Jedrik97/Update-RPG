@@ -1,4 +1,4 @@
-using UnityEditor;
+/*using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -38,4 +38,4 @@ public class WayPointVision
             Gizmos.DrawLine(wayPoint.transform.position + offset, wayPoint.NextWayPoint.transform.position + offsetTo);
         }
     }
-}
+}*/

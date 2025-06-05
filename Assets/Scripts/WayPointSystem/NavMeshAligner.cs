@@ -1,4 +1,4 @@
-using UnityEditor;
+/*using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEditor.SceneManagement;
@@ -45,4 +45,4 @@ public static class NavMeshAligner
     {
         return Selection.transforms.Length > 0;
     }
-}
+}*/

@@ -1,4 +1,4 @@
-using UnityEditor;
+/*using UnityEditor;
 using UnityEngine;
 
 public class WayPointEditor : EditorWindow
@@ -110,4 +110,4 @@ public class WayPointEditor : EditorWindow
 
         Selection.activeObject = wayPoint.gameObject; 
     }
-}
+}*/

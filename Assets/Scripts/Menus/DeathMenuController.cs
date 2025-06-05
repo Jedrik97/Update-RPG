@@ -5,12 +5,11 @@ using Zenject;
 public class DeathMenuController : MonoBehaviour
 {
     [Header("Death UI Panel")]
-    public GameObject deathPanel;
-    
+    public GameObject deathPanel;   // Панель, которую показываем при смерти
+
     public SlotSelectController slotSelect;
-    
     public GameObject buttonContainer;
-    
+
     private GameManager _gameManager;
 
     [Inject]
@@ -24,18 +23,18 @@ public class DeathMenuController : MonoBehaviour
         if (deathPanel != null)
             deathPanel.SetActive(false);
     }
-
-
+    
     public void ShowDeathMenu()
     {
         if (deathPanel != null)
             deathPanel.SetActive(true);
     }
+
     public void OnLoadClicked()
     {
         Time.timeScale = 1f;
 
-        if (slotSelect != null)
+        if (slotSelect)
         {
             buttonContainer.SetActive(false);
             slotSelect.ShowLoad();
