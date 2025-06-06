@@ -15564,6 +15564,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 555705135874339860, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
+        type: 3}
+      propertyPath: keyFButton
+      value: 
+      objectReference: {fileID: 1109700874}
+    - target: {fileID: 933530249952171040, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b579dd9625cccab43a2a17cdd3d99192,
+        type: 3}
     - target: {fileID: 1094365217127543453, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -15664,6 +15675,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7683640179222551441, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
+        type: 3}
+      propertyPath: m_Text
+      value: F
+      objectReference: {fileID: 0}
     - target: {fileID: 7863429176058335142, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
         type: 3}
       propertyPath: m_IsActive
@@ -15674,6 +15690,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 669535c6cbcef494e9e3c5f5429ccbf4, type: 3}
+--- !u!114 &1109700874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1255195000440986729, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1109700873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1111508792
 GameObject:
   m_ObjectHideFlags: 0
