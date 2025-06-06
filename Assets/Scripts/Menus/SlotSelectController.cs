@@ -85,7 +85,7 @@ public class SlotSelectController : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            int index = i - 1; // для slotButtons[0..2]
+            int index = i - 1; 
             var btn   = slotButtons[index];
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
             btn.onClick.RemoveAllListeners();
@@ -95,7 +95,7 @@ public class SlotSelectController : MonoBehaviour
 
             if (exists)
             {
-                // Отображаем дату последнего сохранения
+                
                 var dt = File.GetLastWriteTime(path);
                 label.text = dt.ToString("dd.MM.yyyy HH:mm");
                 btn.onClick.AddListener(() => OnSlotButton(i));
@@ -103,14 +103,14 @@ public class SlotSelectController : MonoBehaviour
             }
             else if (mode == Mode.Save)
             {
-                // В режиме «Сохранить» пустой слот тоже доступен
+                
                 label.text = "Пустой слот";
                 btn.onClick.AddListener(() => OnSlotButton(i));
                 btn.gameObject.SetActive(true);
             }
             else
             {
-                // В режимах Continue/Load скрываем несуществующие слоты
+                
                 btn.gameObject.SetActive(false);
             }
         }
@@ -131,13 +131,13 @@ public class SlotSelectController : MonoBehaviour
                     if (buttonContainer != null)
                         buttonContainer.SetActive(false);
 
-                    // Переходим к сцене игры. SaveLoadInitializer в новой сцене применит данные.
+                    
                     LoadingScreenController.Instance.LoadScene("GameScene");
                 }
                 break;
 
             case Mode.Save:
-                // Сохраняем текущие данные; передаём GameManager для флага bossDefeated
+                
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv, _gameManager);
                 HidePanel();
                 if (buttonContainer != null)
@@ -147,38 +147,38 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Load:
                 if (SaveLoadManager.HasSave(slot))
                 {
-                    // При загрузке из паузы необходимо удалить старого игрока,
-                    // затем создать нового из префаба и применить к нему данные.
+                    
+                    
                     LoadingScreenController.Instance.ShowLoadingProcess(() =>
                     {
-                        // 1) Удаляем старого игрока
+                        
                         if (_stats != null)
                         {
                             Destroy(_stats.gameObject);
                         }
 
-                        // 2) Инстанцируем нового игрока из префаба в spawnPoint
+                        
                         var playerGO = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
                         playerGO.SetActive(true);
 
-                        // 3) Получаем нужные компоненты у нового экземпляра
+                        
                         var newStats = playerGO.GetComponent<PlayerStats>();
                         var newHp    = playerGO.GetComponent<HealthPlayerController>();
                         var newInv   = playerGO.GetComponent<PlayerInventory>();
 
-                        // 4) Заменяем ссылки в контроллере
+                        
                         _stats = newStats;
                         _hp    = newHp;
                         _inv   = newInv;
 
-                        // 5) Загружаем сохранение на нового игрока
+                        
                         SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
                         if (data != null && data.bossDefeated && _gameManager != null)
                         {
                             _gameManager.SetBossDefeatedFromSave();
                         }
 
-                        // 6) Закрываем панель и меню паузы
+                        
                         HidePanel();
                         _pauseMenu?.ClosePauseMenu();
                     });

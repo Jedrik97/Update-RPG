@@ -8,7 +8,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     private List<T> _prefabs;
     private Transform _parent;
 
-    // Список всех экземпляров, которые сейчас “на сцене” (активны)
+    
     private List<T> _activeList;
 
     public int InactiveCount => _poolQueue.Count;

@@ -58,7 +58,7 @@ public class PauseMenuController : MonoBehaviour
 
         if (shouldPause)
         {
-            // Входим в паузу
+            
             pausePanel.SetActive(true);
             buttonContainer.SetActive(true);
             slotSelect.HidePanel();
@@ -70,17 +70,17 @@ public class PauseMenuController : MonoBehaviour
         }
         else
         {
-            // Выходим из паузы
+            
 
-            // 1) сразу скрываем курсор
+            
             CursorManager.Instance?.HideCursor();
 
-            // 2) деактивируем все элементы паузы
+            
             pausePanel.SetActive(false);
             buttonContainer.SetActive(false);
             slotSelect.HidePanel();
 
-            // 3) возвращаем время
+            
             Time.timeScale = 1f;
             IsPaused = false;
         }
@@ -104,7 +104,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void OnExitToMainMenuClicked()
     {
-        // При выходе на главное меню тоже сразу возвращаем время и курсор
+        
         Time.timeScale = 1f;
         IsPaused = false;
         CursorManager.Instance?.ShowCursor();
@@ -115,7 +115,7 @@ public class PauseMenuController : MonoBehaviour
     {
         pausePanel.SetActive(false);
 
-        // Прячем курсор
+        
         CursorManager.Instance?.HideCursor();
 
         Time.timeScale = 1f;

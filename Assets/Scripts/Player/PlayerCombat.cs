@@ -4,7 +4,7 @@ using Zenject;
 
 public class PlayerCombat : MonoBehaviour
 {
-    // Подписчики могут заблокировать/разблокировать движение
+    
     public static event Action<bool> OnAttackStateChanged;
     public static event Action OnAoeTriggered;
     public static event Action<int> OnComboStepChanged;
@@ -13,11 +13,11 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Weapon weapon;
 
-    // Флаги комбо
-    private bool isAttacking = false;      // Игрок сейчас в «активной» фазе удара?
-    private bool canComboWindow = false;   // Можно ли принять ввод для следующего удара?
-    private int currentComboStep = 0;      // Номер текущей атаки (1..5)
-    private int queuedComboStep = 0;       // Если нажали вовремя, сохраняем сюда следующий (step+1)
+    
+    private bool isAttacking = false;      
+    private bool canComboWindow = false;   
+    private int currentComboStep = 0;      
+    private int queuedComboStep = 0;       
 
     private PlayerStats playerStats;
     private GameManager gameManager;
@@ -31,14 +31,14 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        // Пример: AOE-атака по F (не связана с комбо)
+        
         if (Input.GetKeyDown(KeyCode.F))
         {
             OnAoeTriggered?.Invoke();
             return;
         }
 
-        // Если сейчас нет «активного» этапа удара — можно начать любой из 1..5
+        
         if (!isAttacking)
         {
             for (int step = 1; step <= 5; step++)
@@ -53,7 +53,7 @@ public class PlayerCombat : MonoBehaviour
         }
         else
         {
-            // Мы уже в каком-то «активном» ударе → слушаем только в окне ко́мбо
+            
             if (canComboWindow)
             {
                 int nextStep = currentComboStep + 1;
@@ -61,38 +61,38 @@ public class PlayerCombat : MonoBehaviour
                 {
 
                     queuedComboStep = nextStep;
-                    // Закрываем окно, чтобы более не принимать лишний ввод
+                    
                     canComboWindow = false;
                 }
             }
         }
     }
 
-    /// <summary>
-    /// Запустить конкретный шаг удара step (1..5). 
-    /// Если это продолжение (chaining), перед этим явно сбросим старое isAttacking.
-    /// </summary>
+    
+    
+    
+    
     private void TriggerAttack(int step)
     {
-        // Установим триггер нужного шага
+        
         animator.SetTrigger($"Attack{step}");
 
-        // Если мы «перепрыгиваем» из предыдущего шага (queuedComboStep != 0),
-        // то до вызова новой анимации сразу сбросим старый флаг isAttacking
-        // и уведомим подписчиков, что «предыдущая» фаза закончилась.
-        //
-        // Трюк: queuedComboStep хранит шаг, который мы собираемся запустить
-        // по цепочке. Если queuedComboStep совпал с step, значит мы сюда попали
-        // в результате DisableComboWindow()->TriggerAttack(queuedComboStep). 
-        // Значит нужно разлочить старый isAttacking.
+        
+        
+        
+        
+        
+        
+        
+        
         if (queuedComboStep == step)
         {
-            // Сбросим флаг «мы в атаке» от предыдущего шага
+            
             isAttacking = false;
             OnAttackStateChanged?.Invoke(false);
         }
 
-        // Теперь установим текущий шаг (он станет «активным»).
+        
         currentComboStep = step;
         queuedComboStep = 0;
         canComboWindow = false;

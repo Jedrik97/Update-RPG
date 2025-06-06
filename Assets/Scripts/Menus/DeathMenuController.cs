@@ -29,18 +29,18 @@ public class DeathMenuController : MonoBehaviour
         if (deathPanel != null)
             deathPanel.SetActive(true);
 
-        // Останавливаем игру, показываем курсор
+        
         Time.timeScale = 0f;
         CursorManager.Instance?.ShowCursor();
     }
 
     public void OnLoadClicked()
     {
-        // Оставляем Time.timeScale = 0, чтобы игра не шла,
-        // пока игрок не выбрал слот
+        
+        
         Time.timeScale = 0f;
         
-        // Показываем курсор, иначе его не будет видно на экране выбора слота
+        
         CursorManager.Instance?.ShowCursor();
 
         if (slotSelect)
