@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 15
-  viewAngle: 180
+  viewAngle: 238
   eyeHeight: 1.6
   playerEyeHeight: 1
   checkInterval: 0.2
