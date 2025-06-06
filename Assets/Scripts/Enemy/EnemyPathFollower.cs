@@ -133,7 +133,6 @@ public class EnemyPathFollower : MonoBehaviour
         isChasing = true;
         if (agent)
         {
-            agent.isStopped = true;
             agent.enabled = false;
         }
     }

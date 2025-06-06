@@ -12,6 +12,7 @@ TagManager:
   - ArrowBoundary
   - Environment
   - DeadPlayer
+  - Boss
   layers:
   - Default
   - TransparentFX

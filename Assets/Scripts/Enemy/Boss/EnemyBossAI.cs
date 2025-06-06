@@ -20,7 +20,7 @@ public class EnemyBossAI : EnemyBase
     [SerializeField] private float aoeDistance = 10f;
     [SerializeField] private float meleeTriggerDistance = 2f;
 
-        [Header("Boss Attack Settings")]
+    [Header("Boss Attack Settings")]
     [SerializeField] private float meleeDuration = 10f;
 
     [Header("Teleportation")]
@@ -50,6 +50,14 @@ public class EnemyBossAI : EnemyBase
     private BossState currentState = BossState.Idle;
     
     private float stateTimer;
+
+    // ===================================================================
+    // Публичный метод для задания точек телепортации из GameManager
+    public void SetTeleportPoints(Transform[] points)
+    {
+        teleportPoints = points;
+    }
+    // ===================================================================
 
     protected override void OnEnable()
     {

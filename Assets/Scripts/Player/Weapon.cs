@@ -59,7 +59,7 @@ public class Weapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Enemy")) return;
+        if (!other.CompareTag("Enemy") && !other.CompareTag("Boss")) return;
 
         if (other.TryGetComponent<EnemyBase>(out var enemyBase))
         {

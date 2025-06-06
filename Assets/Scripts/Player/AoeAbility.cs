@@ -5,14 +5,12 @@ public class AoeAbility : MonoBehaviour
 {
     [Header("AOE Settings")] 
     [SerializeField] private float aoeRadius = 3f;
-
     [SerializeField] private int aoeDamagePerSecond = 10;
     [SerializeField] private float aoeDuration = 10f;
     [SerializeField] private float aoeCooldown = 6f;
     [SerializeField] private GameObject magicEffect;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Animator animator;
-
 
     [SerializeField] private PlayerStats playerStats;
 
@@ -50,8 +48,6 @@ public class AoeAbility : MonoBehaviour
         }
 
         float elapsedTime = 0f;
-
-
         UpdateAoeStats();
 
         while (elapsedTime < aoeDuration)
@@ -70,6 +66,9 @@ public class AoeAbility : MonoBehaviour
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, aoeRadius, enemyLayer);
         foreach (Collider enemy in hitEnemies)
         {
+            if (!enemy.CompareTag("Enemy") && !enemy.CompareTag("Boss")) 
+                continue;
+
             if (enemy.TryGetComponent<EnemyBase>(out EnemyBase enemyBase))
             {
                 enemyBase.TakeDamage(aoeDamagePerSecond);
@@ -91,10 +90,5 @@ public class AoeAbility : MonoBehaviour
         if (magicEffect)
             magicEffect.SetActive(false);
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, aoeRadius);
-    }
+    
 }

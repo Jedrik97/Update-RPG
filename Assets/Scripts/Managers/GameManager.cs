@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("Regular Enemies")] 
     [SerializeField] private List<EnemyBase> enemyPrefabs;
-
     [SerializeField] private int poolSize;
     [SerializeField] private List<WayPoint> startPoints;
     [SerializeField] private Transform respawnPoint;
@@ -18,23 +17,22 @@ public class GameManager : MonoBehaviour
 
     [Header("Boss Settings")] 
     [SerializeField] private EnemyBase bossPrefab;
-
     [SerializeField] private Transform bossSpawnPoint;
+
+    [Header("Boss Teleport Points")]
+    [SerializeField] private Transform[] bossTeleportPoints;
 
     [Header("Player Death UI Settings")] 
     [SerializeField] private GameObject deathUI;
-
     [SerializeField] private float slowPauseDuration = 1f;
     [SerializeField] private float uiFadeDuration = 0.5f;
 
     [Header("Win UI Settings")] 
     [SerializeField] private GameObject winPanel;
-
     [SerializeField] private float winUIPersistTime = 30f;
 
     [Header("Boss Objective UI")] 
     [SerializeField] private GameObject bossObjectivePanel;
-
     [SerializeField] private int bossObjectiveSortingOrder = 100;
 
     private ObjectPool<EnemyBase> enemyPool;
@@ -65,12 +63,10 @@ public class GameManager : MonoBehaviour
         bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
 
-
         if (deathUI != null)
         {
             _deathMenuController = deathUI.GetComponent<DeathMenuController>();
         }
-
 
         if (bossObjectivePanel != null)
         {
@@ -94,7 +90,6 @@ public class GameManager : MonoBehaviour
             ClearAllEnemies();
             SpawnBoss();
         }
-
 
         if (!bossDefeated && !objectiveHiddenManually && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
@@ -128,8 +123,8 @@ public class GameManager : MonoBehaviour
         EnemyBase eb = enemy.GetComponent<EnemyBase>();
         if (eb != null)
             eb.OnDeath -= EnemyKilled;
-
-        if (eb == bossPrefab)
+        
+        if (enemy.CompareTag("Boss"))
         {
             bossDefeated = true;
             OnBossDefeated();
@@ -241,6 +236,12 @@ public class GameManager : MonoBehaviour
 
         boss.gameObject.tag = "Boss";
         boss.OnDeath += EnemyKilled;
+        
+        var bossAI = boss.GetComponent<EnemyBossAI>();
+        if (bossAI != null && bossTeleportPoints != null && bossTeleportPoints.Length > 0)
+        {
+            bossAI.SetTeleportPoints(bossTeleportPoints);
+        }
     }
 
     private void ShuffleList(List<WayPoint> list)
@@ -264,7 +265,6 @@ public class GameManager : MonoBehaviour
 
     public int GetPlayerLevel() => playerStats != null ? playerStats.level : 1;
 
-
     public void ShowDeathUI()
     {
         StartCoroutine(SlowPauseAndDisplayUI());
@@ -283,7 +283,6 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
-
         if (_deathMenuController != null)
         {
             _deathMenuController.ShowDeathMenu();
@@ -298,7 +297,6 @@ public class GameManager : MonoBehaviour
             objectiveHiddenManually = false;
         }
     }
-
 
     public bool IsDeathMenuVisible
     {
