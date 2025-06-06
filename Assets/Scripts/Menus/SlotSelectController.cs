@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -6,17 +7,13 @@ using Zenject;
 
 public class SlotSelectController : MonoBehaviour
 {
+    [Header("Panels & Buttons (same Canvas)")]
     public GameObject panel;
 
     public GameObject buttonContainer;
 
     public Button[] slotButtons;
-
     public Button cancelButton;
-
-    public GameObject playerPrefab;
-
-    public Transform spawnPoint;
 
     private PlayerStats _stats;
     private HealthPlayerController _hp;
@@ -87,27 +84,31 @@ public class SlotSelectController : MonoBehaviour
 
     private void PopulateSlotButtons()
     {
-        for (int i = 1; i <= 3; i++)
+        var files = Directory.GetFiles(Application.persistentDataPath, "save_slot*.json");
+
+        var last3 = files.OrderByDescending(f => File.GetLastWriteTimeUtc(f))
+            .Take(3)
+            .ToArray();
+
+        for (int i = 0; i < slotButtons.Length; i++)
         {
-            int index = i - 1;
-            var btn = slotButtons[index];
+            var btn = slotButtons[i];
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
             btn.onClick.RemoveAllListeners();
 
-            string path = Path.Combine(Application.persistentDataPath, $"save_slot{i}.json");
-            bool exists = File.Exists(path);
-
-            if (exists)
+            if (i < last3.Length)
             {
-                var dt = File.GetLastWriteTime(path);
-                label.text = dt.ToString("dd.MM.yyyy HH:mm");
-                btn.onClick.AddListener(() => OnSlotButton(i));
+                int slot = ExtractSlotNumber(last3[i]);
+                label.text = File.GetLastWriteTime(last3[i]).ToString("dd.MM.yyyy HH:mm");
+                int captured = slot;
+                btn.onClick.AddListener(() => OnSlotButton(captured));
                 btn.gameObject.SetActive(true);
             }
             else if (mode == Mode.Save)
             {
+                int newSlot = GetNextAvailableSlotNumber(files);
                 label.text = "Пустой слот";
-                btn.onClick.AddListener(() => OnSlotButton(i));
+                btn.onClick.AddListener(() => OnSlotButton(newSlot));
                 btn.gameObject.SetActive(true);
             }
             else
@@ -118,6 +119,21 @@ public class SlotSelectController : MonoBehaviour
 
         cancelButton.onClick.RemoveAllListeners();
         cancelButton.onClick.AddListener(OnCancelClicked);
+    }
+
+    private int ExtractSlotNumber(string path)
+    {
+        return int.Parse(Path.GetFileNameWithoutExtension(path).Split("save_slot").Last());
+    }
+
+    private int GetNextAvailableSlotNumber(string[] files)
+    {
+        var used = files.Select(f => ExtractSlotNumber(f)).ToList();
+        for (int s = 1; s <= 3; s++)
+            if (!used.Contains(s))
+                return s;
+        var oldest = files.OrderBy(f => File.GetLastWriteTimeUtc(f)).First();
+        return ExtractSlotNumber(oldest);
     }
 
     private void OnSlotButton(int slot)
@@ -139,7 +155,6 @@ public class SlotSelectController : MonoBehaviour
                 break;
 
             case Mode.Save:
-
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv, _gameManager);
                 HidePanel();
                 if (buttonContainer != null)
@@ -149,38 +164,16 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Load:
                 if (SaveLoadManager.HasSave(slot))
                 {
-                    LoadingScreenController.Instance.ShowLoadingProcess(() =>
-                    {
-                        if (_stats != null)
-                        {
-                            Destroy(_stats.gameObject);
-                        }
+                    PlayerSession.SelectedSlot = slot;
 
 
-                        var playerGO = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
-                        playerGO.SetActive(true);
+                    _pauseMenu?.ClosePauseMenu();
 
 
-                        var newStats = playerGO.GetComponent<PlayerStats>();
-                        var newHp = playerGO.GetComponent<HealthPlayerController>();
-                        var newInv = playerGO.GetComponent<PlayerInventory>();
+                    HidePanel();
 
 
-                        _stats = newStats;
-                        _hp = newHp;
-                        _inv = newInv;
-
-
-                        SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
-                        if (data != null && data.bossDefeated && _gameManager != null)
-                        {
-                            _gameManager.SetBossDefeatedFromSave();
-                        }
-
-
-                        HidePanel();
-                        _pauseMenu?.ClosePauseMenu();
-                    });
+                    LoadingScreenController.Instance.LoadScene("GameScene");
                 }
 
                 break;

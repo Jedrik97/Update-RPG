@@ -13,16 +13,15 @@ public class SaveLoadInitializer : IInitializable
         PlayerInventory inv,
         GameManager gameManager)
     {
-        _stats = stats;
-        _hp = hp;
-        _inv = inv;
+        _stats       = stats;
+        _hp          = hp;
+        _inv         = inv;
         _gameManager = gameManager;
     }
 
     public void Initialize()
     {
         int slot = PlayerSession.SelectedSlot;
-
 
         SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
         if (data != null)

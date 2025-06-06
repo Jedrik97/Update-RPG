@@ -7,11 +7,14 @@ public class LoadingScreenController : MonoBehaviour
 {
     public static LoadingScreenController Instance { get; private set; }
 
-    [SerializeField] private GameObject loadingPanel;
+    [SerializeField]
+    private GameObject loadingPanel;
 
-    [SerializeField] private Slider progressSlider;
+    [SerializeField]
+    private Slider progressSlider;
 
-    [SerializeField] private float displayDuration = 2f;
+    [SerializeField]
+    private float displayDuration = 2f;
 
     void Awake()
     {
@@ -27,7 +30,6 @@ public class LoadingScreenController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     public void LoadScene(string sceneName)
     {
         if (loadingPanel)
@@ -57,14 +59,16 @@ public class LoadingScreenController : MonoBehaviour
         if (loadingPanel)
             loadingPanel.SetActive(false);
         progressSlider.value = 0;
+        
     }
-
+    
     public void ShowLoadingProcess(System.Action onComplete)
     {
         if (loadingPanel)
             loadingPanel.SetActive(true);
         CursorManager.Instance?.HideCursor();
         StartCoroutine(LoadingProcessRoutine(onComplete));
+        
     }
 
     private IEnumerator LoadingProcessRoutine(System.Action onComplete)

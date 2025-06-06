@@ -6,7 +6,7 @@ using UnityEditor;
 public class MainMenuController : MonoBehaviour
 {
     public SlotSelectController slotSelect;
-
+    
     private void Start()
     {
         CursorManager.Instance.ShowCursor();
@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviour
         PlayerSession.SelectedSlot = 1;
         LoadingScreenController.Instance.LoadScene("GameScene");
     }
-
+    
     public void OnContinueClicked()
     {
         slotSelect.buttonContainer.SetActive(false);

@@ -4,7 +4,6 @@ using UnityEngine;
 public static class SaveLoadManager
 {   
     static string PathFor(int slot) => Path.Combine(Application.persistentDataPath, $"save_slot{slot}.json");
-
     public static void SaveGame(int slot,
         PlayerStats stats,
         HealthPlayerController hp,
@@ -25,6 +24,7 @@ public static class SaveLoadManager
             healthPotions       = inv.HealthPotions,
             playerPosition      = stats.transform.position,
             playerCurrentHealth = hp.GetCurrentHealth(),
+            
             bossDefeated        = (gameManager != null && gameManager.BossDefeated)
         };
 
@@ -43,7 +43,6 @@ public static class SaveLoadManager
         string json = File.ReadAllText(path);
         var d = JsonUtility.FromJson<SaveData>(json);
         
-        
         stats.SetLevel(d.level, d.currentExp, d.expToNextLevel);
         stats.strength            = d.strength;
         stats.stamina             = d.stamina;
@@ -52,18 +51,14 @@ public static class SaveLoadManager
         stats.availableStatPoints = d.availableStatPoints;
         stats.UpdateExpBar();
 
-        
         inv.SetGold(d.gold);
         inv.SetHealthPotions(d.healthPotions);
-        
-        
         
         var cc = stats.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
         stats.transform.position = d.playerPosition;
         if (cc != null) cc.enabled = true;
 
-        
         hp.SetHealth(d.playerCurrentHealth);
 
         return d;

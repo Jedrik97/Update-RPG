@@ -50,7 +50,7 @@ public class DeathMenuController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("SlotSelectController");
+            Debug.LogWarning("DeathMenuController: SlotSelectController не назначен!");
         }
     }
 
