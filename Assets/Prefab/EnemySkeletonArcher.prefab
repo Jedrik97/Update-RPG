@@ -1288,7 +1288,7 @@ MonoBehaviour:
     type: 3}
   initialArrowCount: 10
   chaseSpeed: 2
-  maxChaseDistance: 30
+  maxChaseDistance: 20
   attackRange: 15
 --- !u!95 &4383461572751224824
 Animator:

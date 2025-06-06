@@ -964,7 +964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingPanel: {fileID: 2079667565}
   progressSlider: {fileID: 617936770}
-  displayDuration: 5
+  displayDuration: 9
 --- !u!1 &404240306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2267,6 +2267,8 @@ MonoBehaviour:
   - {fileID: 1017431262}
   - {fileID: 1421923905}
   cancelButton: {fileID: 1182722813}
+  playerPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!1 &1017431260
 GameObject:
   m_ObjectHideFlags: 0

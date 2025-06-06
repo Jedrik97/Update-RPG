@@ -1,4 +1,5 @@
 using Zenject;
+using UnityEngine;
 
 public class SaveLoadInitializer : IInitializable
 {
@@ -23,6 +24,7 @@ public class SaveLoadInitializer : IInitializable
     {
         int slot = PlayerSession.SelectedSlot;
 
+       
         SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
         if (data != null)
         {
@@ -35,5 +37,6 @@ public class SaveLoadInitializer : IInitializable
                 _gameManager.ShowBossObjectivePanelIfNeeded();
             }
         }
+        
     }
 }

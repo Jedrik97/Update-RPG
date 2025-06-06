@@ -295,11 +295,11 @@ MonoBehaviour:
   fieldOfView: {fileID: 2336879378399530136}
   pathFollower: {fileID: 8658316750880303974}
   arrowSpawnPoint: {fileID: 2245367856611556634}
-  arrowPrefab: {fileID: 14455939647841487, guid: 0c3d09e49a2bbbd41879ad78d056e387,
+  arrowPrefab: {fileID: 14455939647841487, guid: 489bee112c0f4bb40bc55df066c277b0,
     type: 3}
   initialArrowCount: 10
   chaseSpeed: 2
-  maxChaseDistance: 30
+  maxChaseDistance: 20
   attackRange: 15
 --- !u!95 &4383461572751224824
 Animator:

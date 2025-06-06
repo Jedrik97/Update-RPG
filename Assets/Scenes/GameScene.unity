@@ -2909,7 +2909,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 7
   m_TargetDisplay: 0
 --- !u!224 &260747202
 RectTransform:
@@ -2965,6 +2965,9 @@ MonoBehaviour:
   - {fileID: 925007604}
   - {fileID: 1136282177}
   cancelButton: {fileID: 374031234}
+  playerPrefab: {fileID: 5749217341565915697, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
+    type: 3}
+  spawnPoint: {fileID: 1314564822}
 --- !u!1 &268509957
 GameObject:
   m_ObjectHideFlags: 0
@@ -6602,6 +6605,9 @@ MonoBehaviour:
   - {fileID: 1263429506}
   - {fileID: 1455179877}
   cancelButton: {fileID: 1792776695}
+  playerPrefab: {fileID: 5749217341565915697, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
+    type: 3}
+  spawnPoint: {fileID: 1314564822}
 --- !u!114 &491979552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7768,7 +7774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1 Botl = 1 Gold
+  m_text: 1 Potion = 2 Gold
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19743,7 +19749,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 8
   m_TargetDisplay: 0
 --- !u!224 &1325657736
 RectTransform:

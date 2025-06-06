@@ -4,6 +4,7 @@ using UnityEngine;
 public static class SaveLoadManager
 {   
     static string PathFor(int slot) => Path.Combine(Application.persistentDataPath, $"save_slot{slot}.json");
+
     public static void SaveGame(int slot,
         PlayerStats stats,
         HealthPlayerController hp,
@@ -24,7 +25,6 @@ public static class SaveLoadManager
             healthPotions       = inv.HealthPotions,
             playerPosition      = stats.transform.position,
             playerCurrentHealth = hp.GetCurrentHealth(),
-            
             bossDefeated        = (gameManager != null && gameManager.BossDefeated)
         };
 
@@ -43,6 +43,7 @@ public static class SaveLoadManager
         string json = File.ReadAllText(path);
         var d = JsonUtility.FromJson<SaveData>(json);
         
+        // Устанавливаем уровень, опыт, прогресс до следующего уровня
         stats.SetLevel(d.level, d.currentExp, d.expToNextLevel);
         stats.strength            = d.strength;
         stats.stamina             = d.stamina;
@@ -51,14 +52,18 @@ public static class SaveLoadManager
         stats.availableStatPoints = d.availableStatPoints;
         stats.UpdateExpBar();
 
+        // Восстанавливаем ресурсы и инвентарь
         inv.SetGold(d.gold);
         inv.SetHealthPotions(d.healthPotions);
         
+        // Перед тем как изменить позицию, отключаем CharacterController,
+        // чтобы избежать конфликтов физики
         var cc = stats.GetComponent<CharacterController>();
         if (cc != null) cc.enabled = false;
         stats.transform.position = d.playerPosition;
         if (cc != null) cc.enabled = true;
 
+        // Восстанавливаем текущее здоровье игрока
         hp.SetHealth(d.playerCurrentHealth);
 
         return d;

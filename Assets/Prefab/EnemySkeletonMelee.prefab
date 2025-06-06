@@ -244,8 +244,8 @@ MonoBehaviour:
   fieldOfView: {fileID: 2390520554326732357}
   pathFollower: {fileID: 585514410576707246}
   chaseSpeed: 1.5
-  maxChaseDistance: 25
-  attackRange: 3
+  maxChaseDistance: 20
+  attackRange: 1.8
   weaponCollider: {fileID: 5165289124113514389}
 --- !u!1 &1648213919694759353
 GameObject:

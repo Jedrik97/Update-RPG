@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zenject;
-using UnityEngine.AI;
 
 public class GameSceneInstaller : MonoInstaller
 {
@@ -16,29 +15,46 @@ public class GameSceneInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<GameManager>().FromComponentInHierarchy(GameManager).AsSingle().Lazy();
-        Container.Bind<PauseMenuController>().FromComponentInHierarchy(PauseMenuController).AsSingle().Lazy();
-        Container.Bind<SlotSelectController>().FromComponentInHierarchy(SlotSelectController).AsSingle().Lazy();
-        Container.Bind<TemporaryMessageUI>().FromComponentInHierarchy(TemporaryMessageUI).AsSingle().Lazy();
+        Container.Bind<GameManager>()
+            .FromComponentInHierarchy(GameManager)
+            .AsSingle()
+            .Lazy();
+        Container.Bind<PauseMenuController>()
+            .FromComponentInHierarchy(PauseMenuController)
+            .AsSingle()
+            .Lazy();
+        Container.Bind<SlotSelectController>()
+            .FromComponentInHierarchy(SlotSelectController)
+            .AsSingle()
+            .Lazy();
+        Container.Bind<TemporaryMessageUI>()
+            .FromComponentInHierarchy(TemporaryMessageUI)
+            .AsSingle()
+            .Lazy();
         
         var playerGO = Object.Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
         playerGO.SetActive(true);
         
-        var nav = playerGO.GetComponent<NavMeshAgent>();
-        if (nav != null)
-        {
-            nav.enabled = true;
-            nav.Warp(spawnPoint.position);
-        }
-        
-        Container.Bind<PlayerStats>().FromComponentOn(playerGO).AsSingle();
-        Container.Bind<HealthPlayerController>().FromComponentOn(playerGO).AsSingle();
-        Container.Bind<CharacterController>().FromComponentOn(playerGO).AsSingle();
-        Container.Bind<PlayerInventory>().FromComponentOn(playerGO).AsSingle();
-        Container.Bind<InventoryUI>().FromComponentOn(playerGO).AsSingle();
+        Container.Bind<PlayerStats>()
+            .FromComponentOn(playerGO)
+            .AsSingle();
+        Container.Bind<HealthPlayerController>()
+            .FromComponentOn(playerGO)
+            .AsSingle();
+        Container.Bind<CharacterController>()
+            .FromComponentOn(playerGO)
+            .AsSingle();
+        Container.Bind<PlayerInventory>()
+            .FromComponentOn(playerGO)
+            .AsSingle();
+        Container.Bind<InventoryUI>()
+            .FromComponentOn(playerGO)
+            .AsSingle();
         
         Container.InjectGameObject(playerGO);
         
-        Container.BindInterfacesTo<SaveLoadInitializer>().AsSingle().NonLazy();
+        Container.BindInterfacesTo<SaveLoadInitializer>()
+            .AsSingle()
+            .NonLazy();
     }
 }

@@ -9,7 +9,7 @@ public class Vendor : MonoBehaviour
     public GameObject vendorUIPanel;
     public TextMeshProUGUI messageText;
 
-    private readonly string defaultPrompt = "Нажмите R, чтобы купить склянку";
+    private readonly string defaultPrompt = "Press R, to bought Potion";
     private Coroutine revertCoroutine;
     private bool _playerInRange = false;
     private PlayerInventory _inventory;
@@ -49,11 +49,11 @@ public class Vendor : MonoBehaviour
         {
             bool bought = _inventory.BuyHealthPotion();
             if (bought)
-                ShowTemporaryMessage("Вы купили 1 склянку здоровья.");
+                ShowTemporaryMessage("You bought 1 Potion");
             else
                 ShowTemporaryMessage(_inventory.HealthPotions >= MaxPotions
-                    ? $"Максимум {MaxPotions} склянок"
-                    : "Недостаточно золота для покупки.");
+                    ? $"Maximum {MaxPotions} Potions"
+                    : "Not enough gold");
         }
     }
 

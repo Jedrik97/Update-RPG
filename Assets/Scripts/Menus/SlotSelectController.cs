@@ -1,5 +1,4 @@
 using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,14 +10,21 @@ public class SlotSelectController : MonoBehaviour
     public GameObject panel;
     public GameObject buttonContainer;
 
-    public Button[] slotButtons;   // Ожидается 3 кнопки
+    [Tooltip("Ожидается 3 кнопки (Slot 1, Slot 2, Slot 3)")]
+    public Button[] slotButtons;
     public Button cancelButton;
 
-    private PlayerStats      _stats;
+    [Header("Player Respawn Settings")]
+    [Tooltip("Тот же префаб игрока, который используется в GameSceneInstaller")]
+    public GameObject playerPrefab;
+    [Tooltip("Точка спавна, аналогичная той, что в GameSceneInstaller")]
+    public Transform spawnPoint;
+
+    private PlayerStats _stats;
     private HealthPlayerController _hp;
-    private PlayerInventory  _inv;
-    private PauseMenuController   _pauseMenu;
-    private GameManager      _gameManager;
+    private PlayerInventory _inv;
+    private PauseMenuController _pauseMenu;
+    private GameManager _gameManager;
 
     enum Mode { Continue, Save, Load }
     private Mode mode;
@@ -77,57 +83,40 @@ public class SlotSelectController : MonoBehaviour
 
     private void PopulateSlotButtons()
     {
-        // Ищем все файлы save_slotX.json
-        var files = Directory.GetFiles(Application.persistentDataPath, "save_slot*.json");
-        // Сортируем по времени последнего изменения (UTC), берём последние 3
-        var last3 = files.OrderByDescending(f => File.GetLastWriteTimeUtc(f))
-                         .Take(3)
-                         .ToArray();
-
-        for (int i = 0; i < slotButtons.Length; i++)
+        for (int i = 1; i <= 3; i++)
         {
-            var btn   = slotButtons[i];
+            int index = i - 1; // для slotButtons[0..2]
+            var btn   = slotButtons[index];
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
             btn.onClick.RemoveAllListeners();
 
-            if (i < last3.Length)
+            string path = Path.Combine(Application.persistentDataPath, $"save_slot{i}.json");
+            bool exists = File.Exists(path);
+
+            if (exists)
             {
-                int slot   = ExtractSlotNumber(last3[i]);
-                label.text = File.GetLastWriteTime(last3[i]).ToString("dd.MM.yyyy HH:mm");
-                int captured = slot;
-                btn.onClick.AddListener(() => OnSlotButton(captured));
+                // Отображаем дату последнего сохранения
+                var dt = File.GetLastWriteTime(path);
+                label.text = dt.ToString("dd.MM.yyyy HH:mm");
+                btn.onClick.AddListener(() => OnSlotButton(i));
                 btn.gameObject.SetActive(true);
             }
             else if (mode == Mode.Save)
             {
-                int newSlot = GetNextAvailableSlotNumber(files);
-                label.text  = "Пустой слот";
-                btn.onClick.AddListener(() => OnSlotButton(newSlot));
+                // В режиме «Сохранить» пустой слот тоже доступен
+                label.text = "Пустой слот";
+                btn.onClick.AddListener(() => OnSlotButton(i));
                 btn.gameObject.SetActive(true);
             }
             else
             {
+                // В режимах Continue/Load скрываем несуществующие слоты
                 btn.gameObject.SetActive(false);
             }
         }
 
         cancelButton.onClick.RemoveAllListeners();
         cancelButton.onClick.AddListener(OnCancelClicked);
-    }
-
-    private int ExtractSlotNumber(string path)
-    {
-        return int.Parse(Path.GetFileNameWithoutExtension(path).Split("save_slot").Last());
-    }
-
-    private int GetNextAvailableSlotNumber(string[] files)
-    {
-        var used = files.Select(f => ExtractSlotNumber(f)).ToList();
-        for (int s = 1; s <= 3; s++)
-            if (!used.Contains(s))
-                return s;
-        var oldest = files.OrderBy(f => File.GetLastWriteTimeUtc(f)).First();
-        return ExtractSlotNumber(oldest);
     }
 
     private void OnSlotButton(int slot)
@@ -142,23 +131,13 @@ public class SlotSelectController : MonoBehaviour
                     if (buttonContainer != null)
                         buttonContainer.SetActive(false);
 
-                    // Переходим к сцене игры с показом загрузочного экрана
-                    LoadingScreenController.Instance.ShowLoadingProcess(() =>
-                    {
-                        SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
-                        if (data != null)
-                        {
-                            if (data.bossDefeated && _gameManager != null)
-                                _gameManager.SetBossDefeatedFromSave();
-
-                            LoadingScreenController.Instance.LoadScene("GameScene");
-                        }
-                    });
+                    // Переходим к сцене игры. SaveLoadInitializer в новой сцене применит данные.
+                    LoadingScreenController.Instance.LoadScene("GameScene");
                 }
                 break;
 
             case Mode.Save:
-                // Сохраняем, передавая GameManager, чтобы записать bossDefeated
+                // Сохраняем текущие данные; передаём GameManager для флага bossDefeated
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv, _gameManager);
                 HidePanel();
                 if (buttonContainer != null)
@@ -168,17 +147,40 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Load:
                 if (SaveLoadManager.HasSave(slot))
                 {
+                    // При загрузке из паузы необходимо удалить старого игрока,
+                    // затем создать нового из префаба и применить к нему данные.
                     LoadingScreenController.Instance.ShowLoadingProcess(() =>
                     {
-                        SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
-                        if (data != null)
+                        // 1) Удаляем старого игрока
+                        if (_stats != null)
                         {
-                            if (data.bossDefeated && _gameManager != null)
-                                _gameManager.SetBossDefeatedFromSave();
-
-                            HidePanel();
-                            _pauseMenu?.ClosePauseMenu();
+                            Destroy(_stats.gameObject);
                         }
+
+                        // 2) Инстанцируем нового игрока из префаба в spawnPoint
+                        var playerGO = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+                        playerGO.SetActive(true);
+
+                        // 3) Получаем нужные компоненты у нового экземпляра
+                        var newStats = playerGO.GetComponent<PlayerStats>();
+                        var newHp    = playerGO.GetComponent<HealthPlayerController>();
+                        var newInv   = playerGO.GetComponent<PlayerInventory>();
+
+                        // 4) Заменяем ссылки в контроллере
+                        _stats = newStats;
+                        _hp    = newHp;
+                        _inv   = newInv;
+
+                        // 5) Загружаем сохранение на нового игрока
+                        SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
+                        if (data != null && data.bossDefeated && _gameManager != null)
+                        {
+                            _gameManager.SetBossDefeatedFromSave();
+                        }
+
+                        // 6) Закрываем панель и меню паузы
+                        HidePanel();
+                        _pauseMenu?.ClosePauseMenu();
                     });
                 }
                 break;

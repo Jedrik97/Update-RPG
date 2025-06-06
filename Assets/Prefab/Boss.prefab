@@ -3868,8 +3868,8 @@ MonoBehaviour:
   maxChaseDistance: 30
   rangeTriggerDistance: 30
   aoeDistance: 10
-  meleeTriggerDistance: 2
-  meleeDuration: 10
+  meleeTriggerDistance: 1.5
+  meleeDuration: 15
   teleportPoints:
   - {fileID: 0}
   - {fileID: 0}
