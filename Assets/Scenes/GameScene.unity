@@ -2965,9 +2965,6 @@ MonoBehaviour:
   - {fileID: 925007604}
   - {fileID: 1136282177}
   cancelButton: {fileID: 374031234}
-  playerPrefab: {fileID: 5749217341565915697, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
-    type: 3}
-  spawnPoint: {fileID: 1314564822}
 --- !u!1 &268509957
 GameObject:
   m_ObjectHideFlags: 0
@@ -6562,7 +6559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &491979550
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6583,7 +6580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 420, y: 100}
+  m_AnchoredPosition: {x: 600, y: -30}
   m_SizeDelta: {x: -1696.8, y: -781.19995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &491979551
@@ -6605,9 +6602,6 @@ MonoBehaviour:
   - {fileID: 1263429506}
   - {fileID: 1455179877}
   cancelButton: {fileID: 1792776695}
-  playerPrefab: {fileID: 5749217341565915697, guid: 669535c6cbcef494e9e3c5f5429ccbf4,
-    type: 3}
-  spawnPoint: {fileID: 1314564822}
 --- !u!114 &491979552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8684,9 +8678,9 @@ MonoBehaviour:
   - {fileID: 326732492}
   - {fileID: 358667259}
   respawnPoint: {fileID: 798244912}
-  experiencePerKill: 100
-  respawnDelay: 15
-  spawnDelay: 6
+  experiencePerKill: 150
+  respawnDelay: 10
+  spawnDelay: 5
   bossPrefab: {fileID: 4181609811843583209, guid: 1e1130d7209a3a64d9cc7cc06280c6cb,
     type: 3}
   bossSpawnPoint: {fileID: 684714275}

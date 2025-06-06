@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int poolSize;
     [SerializeField] private List<WayPoint> startPoints;
     [SerializeField] private Transform respawnPoint;
-    [SerializeField] private float experiencePerKill = 100f;
+    [SerializeField] private float experiencePerKill = 150f;
     [SerializeField] private float respawnDelay = 15f;
     [SerializeField] private float spawnDelay = 1f;
 

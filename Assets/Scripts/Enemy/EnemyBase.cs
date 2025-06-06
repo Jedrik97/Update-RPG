@@ -82,7 +82,7 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator WaitAndReturnToPool()
     {
-        yield return new WaitForSeconds(60f);
+        yield return new WaitForSeconds(10f);
         _pool?.ReturnToPool(this);
     }
 }

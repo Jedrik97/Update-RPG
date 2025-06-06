@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
     [Header("Level & Experience")] 
     public int level = 1;
     private float currentExp = 0f;
+
+
     public float expToNextLevel = 500f;
 
     [Header("Attributes")] 
@@ -15,11 +17,11 @@ public class PlayerStats : MonoBehaviour
     public float intelligence = 1f;
     public float wisdom = 1f;
 
-    [Header("Stat Points")] public int availableStatPoints = 0;
+    [Header("Stat Points")] 
+    public int availableStatPoints = 0;
 
-    [Header("UI Elements")]
+    [Header("UI Elements")] 
     public Image expBarFill;
-
     public TextMeshProUGUI expText;
 
     private void Start()
@@ -30,7 +32,9 @@ public class PlayerStats : MonoBehaviour
     public void GainExperience(float amount)
     {
         currentExp += amount;
-        if (currentExp >= expToNextLevel)
+
+
+        while (currentExp >= expToNextLevel)
         {
             LevelUp();
         }
@@ -41,13 +45,19 @@ public class PlayerStats : MonoBehaviour
     public void LevelUp()
     {
         currentExp -= expToNextLevel;
+
+
         level++;
-        expToNextLevel += 1000f * level;
+
+
+        expToNextLevel = 500f + (level - 1) * 300f;
+
 
         strength += 1f;
         stamina += 1f;
         intelligence += 1f;
         wisdom += 1f;
+
 
         availableStatPoints++;
 
@@ -84,7 +94,6 @@ public class PlayerStats : MonoBehaviour
         availableStatPoints--;
         UpdateExpBar();
     }
-
 
     public void SetLevel(int newLevel, float newCurrentExp, float newExpToNextLevel)
     {
