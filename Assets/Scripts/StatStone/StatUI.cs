@@ -10,7 +10,7 @@ public class StatUI : MonoBehaviour
     public TMP_Text intelligenceText;
     public TMP_Text wisdomText;
 
-    public TMP_Text statPointsText; 
+    public TMP_Text statPointsText;
 
     public void Show(PlayerStats stats, string statToHighlight)
     {

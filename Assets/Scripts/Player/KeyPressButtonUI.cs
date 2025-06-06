@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class KeyPressButtonUI : MonoBehaviour
 {
-
     [SerializeField] private Button key1Button;
     [SerializeField] private Button key2Button;
     [SerializeField] private Button key3Button;
@@ -49,11 +48,10 @@ public class KeyPressButtonUI : MonoBehaviour
         var colors5 = key5Button.colors;
         key5NormalColor = colors5.normalColor;
         key5PressedColor = colors5.pressedColor;
-        
+
         var colorsF = keyFButton.colors;
         keyFNormalColor = colorsF.normalColor;
         keyFPressedColor = colorsF.pressedColor;
-        
     }
 
     private void Update()

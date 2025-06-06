@@ -31,7 +31,7 @@ public class EnemyPathFollower : MonoBehaviour
 
     private void OnDisable()
     {
-        if (agent )
+        if (agent)
             agent.enabled = false;
 
         isChasing = false;
@@ -47,7 +47,7 @@ public class EnemyPathFollower : MonoBehaviour
     public void StopPatrol()
     {
         isChasing = true;
-        if (agent  && agent.isOnNavMesh)
+        if (agent && agent.isOnNavMesh)
             agent.isStopped = true;
     }
 
@@ -115,7 +115,8 @@ public class EnemyPathFollower : MonoBehaviour
             else
                 movingForward = true;
         }
-        if (agent )
+
+        if (agent)
             agent.SetDestination(waypoints[currentWaypointIndex].position);
     }
 
@@ -130,7 +131,7 @@ public class EnemyPathFollower : MonoBehaviour
     {
         waypoints = new Transform[0];
         isChasing = true;
-        if (agent )
+        if (agent)
         {
             agent.isStopped = true;
             agent.enabled = false;

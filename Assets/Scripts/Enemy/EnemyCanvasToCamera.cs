@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class EnemyCanvasToCamera : MonoBehaviour
 {
-    
     private Transform playerCamera;
 
     void Start()
     {
-        
         if (Camera.main != null)
         {
             playerCamera = Camera.main.transform;
         }
         else
         {
-            Debug.LogError("Main Camera не найдена! Убедитесь, что у камеры установлен тег 'MainCamera'.");
+            Debug.LogError("Main Camera не найдена!");
         }
     }
 
@@ -25,7 +23,7 @@ public class EnemyCanvasToCamera : MonoBehaviour
             Vector3 direction = transform.position - playerCamera.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            
+
             targetRotation.x = 0;
             targetRotation.z = 0;
 

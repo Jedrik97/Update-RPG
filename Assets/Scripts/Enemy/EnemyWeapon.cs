@@ -10,20 +10,19 @@ public class EnemyWeapon : MonoBehaviour
         if (weaponCollider)
             weaponCollider.enabled = false;
     }
-    
+
     public void EnableCollider()
     {
-
         if (weaponCollider == null)
         {
             return;
         }
+
         weaponCollider.enabled = true;
     }
 
     public void DisableCollider()
     {
-
         if (weaponCollider)
             weaponCollider.enabled = false;
     }

@@ -7,23 +7,15 @@ using Zenject;
 
 public class HealthPlayerController : MonoBehaviour
 {
-    [Header("Health Settings")]
-    [Tooltip("Максимальное здоровье игрока")]
-    public float maxHealth = 100f;
+    [Header("Health Settings")] public float maxHealth = 100f;
     private float currentHealth;
 
-    [Header("UI for Health")]
-    [Tooltip("Изображение, показывающее здоровье (fillAmount)")]
-    public Image healthOrb;
-    [Tooltip("Текст, показывающий текущее и максимальное здоровье")]
+    [Header("UI for Health")] public Image healthOrb;
+
     public TextMeshProUGUI healthText;
 
-    [Header("Animator & Death Settings")]
-    [Tooltip("Animator, в котором должен быть триггер 'Die' для анимации смерти")]
-    public Animator animator;
-    [Tooltip("Имя слоя, на который переводится мёртвый игрок (создать в Tags & Layers)")]
+    [Header("Animator & Death Settings")] public Animator animator;
     public string deadLayerName = "DeadPlayer";
-    [Tooltip("Имя тега, на который переводится мёртвый игрок (создать в Tags)")]
     public string deadTagName = "DeadPlayer";
 
     private Coroutine regenCoroutine;
@@ -66,7 +58,7 @@ public class HealthPlayerController : MonoBehaviour
         bool used = _inventory.UseHealthPotion(this);
         if (!used)
         {
-            _tempMessageUI.ShowMessage("Нет фляжек для использования.");
+            _tempMessageUI.ShowMessage("No Potions to use!");
         }
     }
 
@@ -82,7 +74,7 @@ public class HealthPlayerController : MonoBehaviour
             Die();
         }
     }
-    
+
     public void Heal(float healAmount)
     {
         if (isDead) return;
@@ -90,6 +82,7 @@ public class HealthPlayerController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + healAmount, 0f, maxHealth);
         UpdateHealthBar();
     }
+
     public void SetHealth(float h)
     {
         if (isDead) return;
@@ -147,15 +140,13 @@ public class HealthPlayerController : MonoBehaviour
         var navAgent = GetComponent<NavMeshAgent>();
         if (navAgent != null) navAgent.enabled = false;
 
-  
+
         if (animator != null)
         {
             animator.SetTrigger("Die");
-           
         }
         else
         {
-           
             if (_gameManager != null)
             {
                 _gameManager.ShowDeathUI();
@@ -170,7 +161,7 @@ public class HealthPlayerController : MonoBehaviour
             _gameManager.ShowDeathUI();
         }
     }
-    
+
     private void SetLayerRecursively(Transform t, int layer)
     {
         t.gameObject.layer = layer;
@@ -179,9 +170,9 @@ public class HealthPlayerController : MonoBehaviour
             SetLayerRecursively(child, layer);
         }
     }
-    
+
     public float GetCurrentHealth() => currentHealth;
-    
+
     public void UseHealthPotion(float healAmount)
     {
         Heal(healAmount);

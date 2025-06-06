@@ -5,8 +5,7 @@ using System.Collections;
 
 public class Vendor : MonoBehaviour
 {
-    [Header("UI")]
-    public GameObject vendorUIPanel;
+    [Header("UI")] public GameObject vendorUIPanel;
     public TextMeshProUGUI messageText;
 
     private readonly string defaultPrompt = "Press R, to bought Potion";
@@ -14,7 +13,7 @@ public class Vendor : MonoBehaviour
     private bool _playerInRange = false;
     private PlayerInventory _inventory;
     private int MaxPotions = 5;
-    
+
     [Inject]
     public void Construct(PlayerInventory inventory)
     {
@@ -73,17 +72,13 @@ public class Vendor : MonoBehaviour
     {
         if (messageText != null)
             messageText.text = defaultPrompt;
-        
-
     }
 
     private void ShowTemporaryMessage(string text)
     {
         if (messageText != null)
             messageText.text = text;
-        else
-
-        if (revertCoroutine != null)
+        else if (revertCoroutine != null)
             StopCoroutine(revertCoroutine);
         revertCoroutine = StartCoroutine(RevertToDefaultPromptAfterDelay(2f));
     }

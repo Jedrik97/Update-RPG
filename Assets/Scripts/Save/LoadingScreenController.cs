@@ -7,17 +7,11 @@ public class LoadingScreenController : MonoBehaviour
 {
     public static LoadingScreenController Instance { get; private set; }
 
-    [SerializeField]
-    [Tooltip("Ссылка на панель загрузки (GameObject), который нужно показывать/скрывать")]
-    private GameObject loadingPanel;
+    [SerializeField] private GameObject loadingPanel;
 
-    [SerializeField]
-    [Tooltip("Ссылка на слайдер прогресса (0–1)")]
-    private Slider progressSlider;
+    [SerializeField] private Slider progressSlider;
 
-    [SerializeField]
-    [Tooltip("Длительность показа экрана загрузки в секундах")]
-    private float displayDuration = 2f;
+    [SerializeField] private float displayDuration = 2f;
 
     void Awake()
     {
@@ -33,6 +27,7 @@ public class LoadingScreenController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     public void LoadScene(string sceneName)
     {
         if (loadingPanel)
@@ -62,16 +57,14 @@ public class LoadingScreenController : MonoBehaviour
         if (loadingPanel)
             loadingPanel.SetActive(false);
         progressSlider.value = 0;
-        
     }
-    
+
     public void ShowLoadingProcess(System.Action onComplete)
     {
         if (loadingPanel)
             loadingPanel.SetActive(true);
         CursorManager.Instance?.HideCursor();
         StartCoroutine(LoadingProcessRoutine(onComplete));
-        
     }
 
     private IEnumerator LoadingProcessRoutine(System.Action onComplete)

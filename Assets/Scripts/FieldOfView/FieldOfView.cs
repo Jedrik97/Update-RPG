@@ -7,26 +7,24 @@ public class FieldOfView : MonoBehaviour
     private Transform player = null;
     private Coroutine fovCheckCoroutine = null;
 
-    [Header("Field of View")]
-    [SerializeField] private float viewRadius = 15f;
+    [Header("Field of View")] [SerializeField]
+    private float viewRadius = 15f;
+
     [SerializeField, Range(0, 360)] private float viewAngle = 180f;
 
-    [Header("Eye Heights")]
-    [Tooltip("Height of this object's 'eyes' above its position")]
-    [SerializeField] private float eyeHeight = 1.6f;
-    [Tooltip("Height offset to sample the player's eye position")]
+    [Header("Eye Heights")] [SerializeField]
+    private float eyeHeight = 1.6f;
+
     [SerializeField] private float playerEyeHeight = 1.0f;
 
-    [Header("Check Interval")]
-    [Tooltip("Time in seconds between each FOV check")]
-    [SerializeField] private float checkInterval = 0.5f;
+    [Header("Check Interval")] [SerializeField]
+    private float checkInterval = 0.5f;
 
-    [Header("Layers")]
-    [SerializeField] private LayerMask obstacleMask;
+    [Header("Layers")] [SerializeField] private LayerMask obstacleMask;
 
     public event Action<bool> OnPlayerVisibilityChanged;
     public Transform Player => player;
-    
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -73,22 +71,22 @@ public class FieldOfView : MonoBehaviour
     {
         if (!player)
             return false;
-        
+
         Vector3 origin = transform.position + Vector3.up * eyeHeight;
         Vector3 target = player.position + Vector3.up * playerEyeHeight;
 
         Vector3 dir = (target - origin);
         float distance = dir.magnitude;
         Vector3 dirNormalized = dir / distance;
-        
+
         if (distance > viewRadius)
             return false;
-        
+
         Vector3 dirFlat = new Vector3(dirNormalized.x, 0f, dirNormalized.z).normalized;
         float angleToPlayer = Vector3.Angle(transform.forward, dirFlat);
         if (angleToPlayer > viewAngle / 2f)
             return false;
-        
+
         if (Physics.Raycast(origin, dirNormalized, out RaycastHit hit, distance, obstacleMask))
         {
             return false;

@@ -19,7 +19,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         const float deadZone = 0.1f;
         Vector2 input = new Vector2(x, z);
-        
+
         if (input.magnitude < deadZone)
         {
             animator.SetFloat("MoveX", 0f);
@@ -28,13 +28,13 @@ public class PlayerAnimator : MonoBehaviour
         else
         {
             float moveZ = Mathf.Sign(z);
-            
+
             float moveX = running ? 1f : -1f;
 
             animator.SetFloat("MoveX", moveX);
             animator.SetFloat("MoveZ", moveZ);
         }
-        
+
         animator.SetBool("IsJumping", false);
     }
 

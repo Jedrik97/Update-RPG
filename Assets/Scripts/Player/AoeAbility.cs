@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class AoeAbility : MonoBehaviour
 {
-    [Header("AOE Settings")]
+    [Header("AOE Settings")] 
     [SerializeField] private float aoeRadius = 3f;
+
     [SerializeField] private int aoeDamagePerSecond = 10;
     [SerializeField] private float aoeDuration = 10f;
     [SerializeField] private float aoeCooldown = 6f;
@@ -12,7 +13,7 @@ public class AoeAbility : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Animator animator;
 
-    
+
     [SerializeField] private PlayerStats playerStats;
 
     private bool isAoeActive = false;
@@ -50,7 +51,7 @@ public class AoeAbility : MonoBehaviour
 
         float elapsedTime = 0f;
 
-        
+
         UpdateAoeStats();
 
         while (elapsedTime < aoeDuration)
@@ -78,9 +79,9 @@ public class AoeAbility : MonoBehaviour
 
     private void UpdateAoeStats()
     {
-        aoeDamagePerSecond = 10 + (int)(playerStats.intelligence * 2); 
-        aoeRadius = 3f + (playerStats.wisdom * 0.1f); 
-        aoeCooldown = Mathf.Max(0.1f, 6f - (playerStats.wisdom * 0.1f)); 
+        aoeDamagePerSecond = 10 + (int)(playerStats.intelligence * 2);
+        aoeRadius = 3f + (playerStats.wisdom * 0.1f);
+        aoeCooldown = Mathf.Max(0.1f, 6f - (playerStats.wisdom * 0.1f));
         aoeDuration = 10f + (playerStats.intelligence * 0.1f);
     }
 

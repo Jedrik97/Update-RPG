@@ -6,8 +6,9 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Regular Enemies")]
+    [Header("Regular Enemies")] 
     [SerializeField] private List<EnemyBase> enemyPrefabs;
+
     [SerializeField] private int poolSize;
     [SerializeField] private List<WayPoint> startPoints;
     [SerializeField] private Transform respawnPoint;
@@ -15,21 +16,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float respawnDelay = 15f;
     [SerializeField] private float spawnDelay = 1f;
 
-    [Header("Boss Settings")]
+    [Header("Boss Settings")] 
     [SerializeField] private EnemyBase bossPrefab;
+
     [SerializeField] private Transform bossSpawnPoint;
 
-    [Header("Player Death UI Settings")]
-    [SerializeField] private GameObject deathUI;            
-    [SerializeField] private float slowPauseDuration = 1f;
-    [SerializeField] private float uiFadeDuration = 0.5f;   
+    [Header("Player Death UI Settings")] 
+    [SerializeField] private GameObject deathUI;
 
-    [Header("Win UI Settings")]
+    [SerializeField] private float slowPauseDuration = 1f;
+    [SerializeField] private float uiFadeDuration = 0.5f;
+
+    [Header("Win UI Settings")] 
     [SerializeField] private GameObject winPanel;
+
     [SerializeField] private float winUIPersistTime = 30f;
 
-    [Header("Boss Objective UI")]
+    [Header("Boss Objective UI")] 
     [SerializeField] private GameObject bossObjectivePanel;
+
     [SerializeField] private int bossObjectiveSortingOrder = 100;
 
     private ObjectPool<EnemyBase> enemyPool;
@@ -56,20 +61,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        
         enemyPool = new ObjectPool<EnemyBase>(enemyPrefabs, poolSize, transform);
         bossPool = new ObjectPool<EnemyBase>(new List<EnemyBase> { bossPrefab }, 0, transform);
         StartCoroutine(SpawnEnemiesSequentially());
 
-        
+
         if (deathUI != null)
         {
             _deathMenuController = deathUI.GetComponent<DeathMenuController>();
-            
-            
         }
 
-        
+
         if (bossObjectivePanel != null)
         {
             bossObjectivePanel.SetActive(!bossDefeated);
@@ -80,13 +82,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("BossObjectivePanel не назначен в GameManager.");
+            Debug.LogWarning("BossObjectivePanel");
         }
     }
 
     private void Update()
     {
-        
         if (!bossSpawned && playerStats != null && playerStats.level >= 5)
         {
             bossSpawned = true;
@@ -94,12 +95,13 @@ public class GameManager : MonoBehaviour
             SpawnBoss();
         }
 
-        
+
         if (!bossDefeated && !objectiveHiddenManually && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
             bossObjectivePanel.SetActive(false);
             objectiveHiddenManually = true;
         }
+
         if (!bossDefeated && bossObjectivePanel != null && Input.GetKeyDown(KeyCode.Z))
         {
             bool isActive = bossObjectivePanel.activeSelf;
@@ -145,6 +147,7 @@ public class GameManager : MonoBehaviour
             winPanel.SetActive(true);
             StartCoroutine(HideWinPanelRoutine());
         }
+
         if (bossObjectivePanel != null)
         {
             bossObjectivePanel.SetActive(false);
@@ -159,6 +162,7 @@ public class GameManager : MonoBehaviour
             elapsed += Time.unscaledDeltaTime;
             yield return null;
         }
+
         if (winPanel != null)
             winPanel.SetActive(false);
     }
@@ -260,10 +264,7 @@ public class GameManager : MonoBehaviour
 
     public int GetPlayerLevel() => playerStats != null ? playerStats.level : 1;
 
-    
-    
-    
-    
+
     public void ShowDeathUI()
     {
         StartCoroutine(SlowPauseAndDisplayUI());
@@ -271,7 +272,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SlowPauseAndDisplayUI()
     {
-        
         float elapsed = 0f;
         while (elapsed < slowPauseDuration)
         {
@@ -280,9 +280,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = Mathf.Lerp(1f, 0f, t);
             yield return null;
         }
+
         Time.timeScale = 0f;
 
-        
+
         if (_deathMenuController != null)
         {
             _deathMenuController.ShowDeathMenu();
@@ -298,9 +299,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
-    
-    
+
     public bool IsDeathMenuVisible
     {
         get

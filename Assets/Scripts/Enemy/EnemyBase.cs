@@ -4,12 +4,11 @@ using Zenject;
 
 public class EnemyBase : MonoBehaviour
 {
-    [Header("Enemy Stats")]
-    public string enemyName;
+    [Header("Enemy Stats")] public string enemyName;
     public float maxHealth = 100f;
     public float currentHealth;
     public float attackDamage = 10f;
-    
+
     private GameManager gameManager;
 
     public event System.Action<float> OnHealthChanged;
@@ -18,7 +17,7 @@ public class EnemyBase : MonoBehaviour
     private ObjectPool<EnemyBase> _pool;
 
     protected Animator animator;
-    
+
     [Inject]
     public void Construct(GameManager gameManager)
     {
@@ -33,6 +32,7 @@ public class EnemyBase : MonoBehaviour
         {
             ApplyLevelBasedStats(gameManager.GetPlayerLevel());
         }
+
         animator = GetComponent<Animator>();
     }
 

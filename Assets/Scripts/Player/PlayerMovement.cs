@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public static event Action<float, float, bool> OnMove;
     public static event Action<bool> OnJump;
 
-    [Header("Настройки")]
     public float walkSpeed = 2f;
     public float runSpeed = 4f;
     public float jumpForce = 2f;
@@ -31,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerInput.OnMoveInput         -= HandleMoveInput;
-        PlayerInput.OnJumpInput         -= HandleJumpInput;
+        PlayerInput.OnMoveInput -= HandleMoveInput;
+        PlayerInput.OnJumpInput -= HandleJumpInput;
         PlayerCombat.OnAttackStateChanged -= HandleAttackStateChanged;
     }
 
@@ -50,11 +49,11 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        
+
         isRunning = Input.GetKey(KeyCode.LeftShift);
         float speed = isRunning ? runSpeed : walkSpeed;
 
-        
+
         if (input.magnitude < 0.1f)
         {
             moveDirection.x = 0f;
@@ -63,15 +62,19 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        
-        Vector3 f = cameraTransform.forward; f.y = 0f; f.Normalize();
-        Vector3 r = cameraTransform.right;   r.y = 0f; r.Normalize();
+
+        Vector3 f = cameraTransform.forward;
+        f.y = 0f;
+        f.Normalize();
+        Vector3 r = cameraTransform.right;
+        r.y = 0f;
+        r.Normalize();
         Vector3 desiredDir = (f * input.y + r * input.x).normalized;
 
         moveDirection.x = desiredDir.x * speed;
         moveDirection.z = desiredDir.z * speed;
 
-        
+
         if (input.y >= 0f && desiredDir.sqrMagnitude > 0f)
         {
             float targetAngle = Mathf.Atan2(desiredDir.x, desiredDir.z) * Mathf.Rad2Deg;
@@ -83,9 +86,8 @@ public class PlayerMovement : MonoBehaviour
             );
             transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
         }
-        
 
-        
+
         OnMove?.Invoke(input.x, input.y, isRunning);
     }
 
@@ -101,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        
         if (!characterController.isGrounded)
         {
             moveDirection.y -= gravity * Time.deltaTime;

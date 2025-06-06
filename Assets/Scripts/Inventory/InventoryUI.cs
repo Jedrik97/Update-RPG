@@ -36,7 +36,7 @@ public class InventoryUI : MonoBehaviour
     {
         if (goldText == null)
         {
-            Debug.LogWarning("[InventoryUI] Поле goldText не назначено в Инспекторе!");
+            Debug.LogWarning("[InventoryUI]");
             return;
         }
         goldText.text = $"Gold: {value}";
@@ -46,7 +46,7 @@ public class InventoryUI : MonoBehaviour
     {
         if (potionText == null)
         {
-            Debug.LogWarning("[InventoryUI] Поле potionText не назначено в Инспекторе!");
+            Debug.LogWarning("[InventoryUI]");
             return;
         }
         potionText.text = $"Potions: {value}/{MaxPotions}";

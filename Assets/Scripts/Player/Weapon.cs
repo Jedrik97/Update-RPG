@@ -4,9 +4,9 @@ using Zenject;
 public class Weapon : MonoBehaviour
 {
     private PlayerStats playerStats;
-    
+
     [SerializeField] private Collider weaponCollider;
-    
+
     private int weaponDamage;
     private float deactivateWeaponTime = 2f;
 
@@ -21,13 +21,13 @@ public class Weapon : MonoBehaviour
         if (weaponCollider)
             weaponCollider.enabled = false;
     }
-    
-    
+
+
     public void EnableCollider(bool enable)
     {
         if (weaponCollider == null)
         {
-            Debug.LogError("Weapon: weaponCollider не назначен!");
+            Debug.LogError("weaponCollider");
             return;
         }
 
@@ -39,6 +39,7 @@ public class Weapon : MonoBehaviour
             Invoke(nameof(DisableCollider), deactivateWeaponTime);
         }
     }
+
     public void DisableCollider()
     {
         if (weaponCollider)
@@ -49,7 +50,7 @@ public class Weapon : MonoBehaviour
     {
         if (playerStats == null)
         {
-            Debug.LogError("Weapon: playerStats не назначен!");
+            Debug.LogError("playerStats");
             return;
         }
 

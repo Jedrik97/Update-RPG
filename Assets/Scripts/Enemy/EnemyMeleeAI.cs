@@ -5,24 +5,34 @@ using UnityEngine.Events;
 
 public class EnemyMeleeAI : EnemyBase
 {
-    [Header("Components & Prefabs")]
-    [SerializeField] private FieldOfView fieldOfView;
+    [Header("Components & Prefabs")] [SerializeField]
+    private FieldOfView fieldOfView;
+
     [SerializeField] private EnemyPathFollower pathFollower;
 
-    [Header("Movement & Detection")]
-    [SerializeField] private float chaseSpeed = 2.5f;
+    [Header("Movement & Detection")] [SerializeField]
+    private float chaseSpeed = 2.5f;
+
     [SerializeField] private float maxChaseDistance = 25f;
     [SerializeField] private float attackRange = 3f;
-    
+
     [SerializeField] private Collider weaponCollider;
-    
+
     private NavMeshAgent agent;
     private Transform player;
 
     private bool hasSeenPlayer;
     private Vector3 chaseStartPoint;
 
-    private enum EnemyState { Patrolling, Chasing, Attacking, Returning, Dead }
+    private enum EnemyState
+    {
+        Patrolling,
+        Chasing,
+        Attacking,
+        Returning,
+        Dead
+    }
+
     private EnemyState currentState = EnemyState.Patrolling;
 
     protected override void OnEnable()
@@ -33,7 +43,7 @@ public class EnemyMeleeAI : EnemyBase
 
         if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
-        
+
         OnHealthChanged += HandleDamageInterrupt;
         OnDeath += HandleDeath;
 
@@ -57,11 +67,13 @@ public class EnemyMeleeAI : EnemyBase
         if (weaponCollider)
             weaponCollider.enabled = true;
     }
+
     public void DisableCollider()
     {
         if (weaponCollider)
             weaponCollider.enabled = false;
     }
+
     private void HandlePlayerVisibilityChanged(bool isVisible)
     {
         if (currentState == EnemyState.Dead)
@@ -74,6 +86,7 @@ public class EnemyMeleeAI : EnemyBase
                 hasSeenPlayer = true;
                 chaseStartPoint = transform.position;
             }
+
             player = fieldOfView.Player;
             currentState = EnemyState.Chasing;
         }
@@ -107,6 +120,7 @@ public class EnemyMeleeAI : EnemyBase
                 {
                     currentState = EnemyState.Chasing;
                 }
+
                 break;
 
             case EnemyState.Chasing:
@@ -128,6 +142,7 @@ public class EnemyMeleeAI : EnemyBase
                     agent.SetDestination(player.position);
                     RotateTowardsPlayer();
                 }
+
                 break;
 
             case EnemyState.Attacking:
@@ -142,6 +157,7 @@ public class EnemyMeleeAI : EnemyBase
                     animator.SetBool("IsAttacking", false);
                     currentState = EnemyState.Chasing;
                 }
+
                 break;
 
             case EnemyState.Returning:
@@ -153,9 +169,10 @@ public class EnemyMeleeAI : EnemyBase
                     agent.isStopped = true;
                     currentState = EnemyState.Patrolling;
                     ReturnHeal();
-                    
+
                     pathFollower?.ResumePatrol();
                 }
+
                 break;
         }
     }
@@ -164,7 +181,7 @@ public class EnemyMeleeAI : EnemyBase
     {
         animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
     }
-    
+
 
     private void RotateTowardsPlayer()
     {
@@ -178,7 +195,7 @@ public class EnemyMeleeAI : EnemyBase
             Time.deltaTime * 5f
         );
     }
-    
+
     private void HandleDamageInterrupt(float newHealth)
     {
         if (currentState == EnemyState.Attacking)
@@ -199,14 +216,12 @@ public class EnemyMeleeAI : EnemyBase
         animator.SetTrigger("Die");
 
         Collider[] cols = GetComponents<Collider>();
-        
+
         foreach (var col in cols)
         {
             col.enabled = false;
         }
-        
+
         agent.enabled = false;
     }
-    
 }
-

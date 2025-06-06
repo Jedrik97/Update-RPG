@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
     private Vector3 launchDirection;
     [SerializeField] private float speed = 10f;
-    
-    [SerializeField] private int damage = 10;  
+
+    [SerializeField] private int damage = 10;
 
     private Vector3 startPosition;
     private ObjectPool<Arrow> pool;
@@ -38,6 +37,7 @@ public class Arrow : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
+
             ReturnToPool();
         }
     }
@@ -50,12 +50,12 @@ public class Arrow : MonoBehaviour
 
     private void ReturnToPool()
     {
-        
         if (rb)
         {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
+
         gameObject.SetActive(false);
         pool.ReturnToPool(this);
     }

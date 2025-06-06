@@ -3,25 +3,26 @@ using TMPro;
 
 public class PlayerStatsMenu : MonoBehaviour
 {
-    [Header("UI References (assign in Inspector)")]
-    [SerializeField] private GameObject statsPanel;
+    [Header("UI References (assign in Inspector)")] [SerializeField]
+    private GameObject statsPanel;
+
     [SerializeField] private TMP_Text strengthText;
     [SerializeField] private TMP_Text staminaText;
     [SerializeField] private TMP_Text intelligenceText;
     [SerializeField] private TMP_Text wisdomText;
     [SerializeField] private TMP_Text statPointsText;
 
-    [Header("PlayerStats Reference (assign in Inspector)")]
-    [SerializeField] private PlayerStats playerStats;
+    [Header("PlayerStats Reference (assign in Inspector)")] [SerializeField]
+    private PlayerStats playerStats;
 
     private void Start()
     {
         if (statsPanel == null)
         {
-            Debug.LogError("[PlayerStatsMenu] statsPanel is not assigned!");
+            Debug.LogError("[PlayerStatsMenu]");
             return;
         }
-        
+
         statsPanel.SetActive(false);
     }
 
@@ -45,7 +46,7 @@ public class PlayerStatsMenu : MonoBehaviour
             if (CursorManager.Instance)
                 CursorManager.Instance.ShowCursor();
             else
-                Debug.LogWarning("[PlayerStatsMenu] No CursorManager found in scene!");
+                Debug.LogWarning("[PlayerStatsMenu]");
 
             UpdateStatsUI();
         }
@@ -62,14 +63,14 @@ public class PlayerStatsMenu : MonoBehaviour
     {
         if (playerStats == null)
         {
-            Debug.LogWarning("[PlayerStatsMenu] playerStats reference is null, UI will not update.");
+            Debug.LogWarning("[PlayerStatsMenu]a");
             return;
         }
 
-        strengthText.text     = $"Strength: {playerStats.strength}";
-        staminaText.text      = $"Stamina: {playerStats.stamina}";
+        strengthText.text = $"Strength: {playerStats.strength}";
+        staminaText.text = $"Stamina: {playerStats.stamina}";
         intelligenceText.text = $"Intelligence: {playerStats.intelligence}";
-        wisdomText.text       = $"Wisdom: {playerStats.wisdom}";
-        statPointsText.text   = $"Available Stat Points: {playerStats.availableStatPoints}";
+        wisdomText.text = $"Wisdom: {playerStats.wisdom}";
+        statPointsText.text = $"Available Stat Points: {playerStats.availableStatPoints}";
     }
 }

@@ -1,19 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyArcherAI : EnemyBase
 {
-    [Header("Components & Prefabs")]
-    [SerializeField] private FieldOfView fieldOfView;
+    [Header("Components & Prefabs")] [SerializeField]
+    private FieldOfView fieldOfView;
+
     [SerializeField] private EnemyPathFollower pathFollower;
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private Arrow arrowPrefab;
     [SerializeField] private int initialArrowCount = 10;
 
-    [Header("Movement & Detection")]
-    [SerializeField] private float chaseSpeed = 2.5f;
+    [Header("Movement & Detection")] [SerializeField]
+    private float chaseSpeed = 2.5f;
+
     [SerializeField] private float maxChaseDistance = 30f;
     [SerializeField] private float attackRange = 15f;
 
@@ -24,10 +25,18 @@ public class EnemyArcherAI : EnemyBase
     private bool hasSeenPlayer;
     private Vector3 chaseStartPoint;
 
-    private enum EnemyState { Patrolling, Chasing, Attacking, Returning, Dead }
+    private enum EnemyState
+    {
+        Patrolling,
+        Chasing,
+        Attacking,
+        Returning,
+        Dead
+    }
+
     private EnemyState currentState = EnemyState.Patrolling;
 
-    protected override void OnEnable() 
+    protected override void OnEnable()
     {
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
@@ -36,7 +45,7 @@ public class EnemyArcherAI : EnemyBase
 
         if (fieldOfView != null)
             fieldOfView.OnPlayerVisibilityChanged += HandlePlayerVisibilityChanged;
-        
+
         OnHealthChanged += HandleDamageInterrupt;
         OnDeath += HandleDeath;
 
@@ -67,6 +76,7 @@ public class EnemyArcherAI : EnemyBase
                 hasSeenPlayer = true;
                 chaseStartPoint = transform.position;
             }
+
             player = fieldOfView.Player;
             currentState = EnemyState.Chasing;
         }
@@ -96,11 +106,12 @@ public class EnemyArcherAI : EnemyBase
         switch (currentState)
         {
             case EnemyState.Patrolling:
-               
+
                 if (distToPlayer <= maxChaseDistance)
                 {
                     currentState = EnemyState.Chasing;
                 }
+
                 break;
 
             case EnemyState.Chasing:
@@ -122,6 +133,7 @@ public class EnemyArcherAI : EnemyBase
                     agent.SetDestination(player.position);
                     RotateTowardsPlayer();
                 }
+
                 break;
 
             case EnemyState.Attacking:
@@ -136,6 +148,7 @@ public class EnemyArcherAI : EnemyBase
                     animator.SetBool("IsAttacking", false);
                     currentState = EnemyState.Chasing;
                 }
+
                 break;
 
             case EnemyState.Returning:
@@ -147,11 +160,11 @@ public class EnemyArcherAI : EnemyBase
                     agent.isStopped = true;
                     currentState = EnemyState.Patrolling;
                     ReturnHeal();
-                    
+
                     pathFollower?.ResumePatrol();
                 }
-                break;
 
+                break;
         }
     }
 
@@ -159,7 +172,7 @@ public class EnemyArcherAI : EnemyBase
     {
         animator.SetBool("IsWalking", agent.velocity.magnitude > 0.1f);
     }
-    
+
     private void Shoot()
     {
         if (currentState == EnemyState.Dead || player == null)
@@ -188,7 +201,7 @@ public class EnemyArcherAI : EnemyBase
             Time.deltaTime * 5f
         );
     }
-    
+
     private void HandleDamageInterrupt(float newHealth)
     {
         if (currentState == EnemyState.Attacking)
@@ -206,9 +219,9 @@ public class EnemyArcherAI : EnemyBase
 
         animator.SetBool("IsWalking", false);
         animator.SetBool("IsAttacking", false);
-        
+
         Collider[] cols = GetComponents<Collider>();
-        
+
         foreach (var col in cols)
         {
             col.enabled = false;
@@ -217,4 +230,3 @@ public class EnemyArcherAI : EnemyBase
         agent.enabled = false;
     }
 }
-

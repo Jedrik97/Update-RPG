@@ -5,10 +5,18 @@ public class StatStone : MonoBehaviour
 {
     private int _keyDown = 0;
 
-    public enum StatType { Strength, Stamina, Intelligence, Wisdom }
+    public enum StatType
+    {
+        Strength,
+        Stamina,
+        Intelligence,
+        Wisdom
+    }
+
     public StatType statType;
 
     private PlayerStats _playerStats;
+    
     [SerializeField] private StatUI statUI;
 
     [Inject]

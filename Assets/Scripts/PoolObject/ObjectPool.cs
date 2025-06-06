@@ -8,7 +8,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     private List<T> _prefabs;
     private Transform _parent;
 
-    
+
     private List<T> _activeList;
 
     public int InactiveCount => _poolQueue.Count;
@@ -34,7 +34,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             }
         }
     }
-    
+
     public T Get()
     {
         T obj = _poolQueue.Count > 0
@@ -42,7 +42,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             : Object.Instantiate(_prefabs[Random.Range(0, _prefabs.Count)], _parent);
 
         obj.gameObject.SetActive(true);
-        
+
         if (!_activeList.Contains(obj))
             _activeList.Add(obj);
 
@@ -52,11 +52,11 @@ public class ObjectPool<T> where T : MonoBehaviour
     public void ReturnToPool(T obj)
     {
         var nav = obj.GetComponent<NavMeshAgent>();
-        if (nav != null) 
+        if (nav != null)
             nav.enabled = false;
 
         obj.gameObject.SetActive(false);
-        
+
         _activeList.Remove(obj);
 
         _poolQueue.Enqueue(obj);
@@ -70,7 +70,7 @@ public class ObjectPool<T> where T : MonoBehaviour
             (list[i], list[j]) = (list[j], list[i]);
         }
     }
-    
+
     public T[] GetActiveObjects()
     {
         return _activeList.ToArray();

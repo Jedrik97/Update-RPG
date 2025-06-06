@@ -3,12 +3,10 @@ using Zenject;
 
 public class GameSceneInstaller : MonoInstaller
 {
-    [Header("Player Setup")]
-    public GameObject playerPrefab;
+    [Header("Player Setup")] public GameObject playerPrefab;
     public Transform spawnPoint;
 
-    [Header("Other Controllers")]
-    public GameObject GameManager;
+    [Header("Other Controllers")] public GameObject GameManager;
     public GameObject PauseMenuController;
     public GameObject SlotSelectController;
     public GameObject TemporaryMessageUI;
@@ -31,10 +29,10 @@ public class GameSceneInstaller : MonoInstaller
             .FromComponentInHierarchy(TemporaryMessageUI)
             .AsSingle()
             .Lazy();
-        
+
         var playerGO = Object.Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
         playerGO.SetActive(true);
-        
+
         Container.Bind<PlayerStats>()
             .FromComponentOn(playerGO)
             .AsSingle();
@@ -50,9 +48,9 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<InventoryUI>()
             .FromComponentOn(playerGO)
             .AsSingle();
-        
+
         Container.InjectGameObject(playerGO);
-        
+
         Container.BindInterfacesTo<SaveLoadInitializer>()
             .AsSingle()
             .NonLazy();

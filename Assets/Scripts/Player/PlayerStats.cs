@@ -4,30 +4,29 @@ using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
-    [Header("Level & Experience")]
+    [Header("Level & Experience")] 
     public int level = 1;
     private float currentExp = 0f;
     public float expToNextLevel = 500f;
 
-    [Header("Attributes")]
+    [Header("Attributes")] 
     public float strength = 1f;
     public float stamina = 1f;
     public float intelligence = 1f;
     public float wisdom = 1f;
 
-    [Header("Stat Points")]
-    public int availableStatPoints = 0;
+    [Header("Stat Points")] public int availableStatPoints = 0;
 
     [Header("UI Elements")]
-    [Tooltip("Image Type = Filled, Fill Method = Horizontal")]
     public Image expBarFill;
+
     public TextMeshProUGUI expText;
-    
+
     private void Start()
     {
         UpdateExpBar();
     }
-   
+
     public void GainExperience(float amount)
     {
         currentExp += amount;
@@ -38,7 +37,7 @@ public class PlayerStats : MonoBehaviour
 
         UpdateExpBar();
     }
-    
+
     public void LevelUp()
     {
         currentExp -= expToNextLevel;
@@ -53,14 +52,13 @@ public class PlayerStats : MonoBehaviour
         availableStatPoints++;
 
         UpdateExpBar();
-
     }
-    
+
     public void SpendStatPoint(string stat)
     {
         if (availableStatPoints <= 0)
         {
-            Debug.LogWarning("[PlayerStats] Нет доступных очков характеристик.");
+            Debug.LogWarning("[PlayerStats]");
             return;
         }
 
@@ -79,7 +77,7 @@ public class PlayerStats : MonoBehaviour
                 wisdom += 1f;
                 break;
             default:
-                Debug.LogWarning($"[PlayerStats] Неизвестная характеристика: {stat}");
+                Debug.LogWarning($"[PlayerStats]");
                 return;
         }
 
@@ -95,11 +93,11 @@ public class PlayerStats : MonoBehaviour
         expToNextLevel = newExpToNextLevel;
         UpdateExpBar();
     }
-    
-    public int GetLevel()           => level;
-    public float GetCurrentExp()    => currentExp;
+
+    public int GetLevel() => level;
+    public float GetCurrentExp() => currentExp;
     public float GetExpToNextLevel() => expToNextLevel;
-    
+
     public void UpdateExpBar()
     {
         if (expBarFill != null)

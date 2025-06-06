@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyUI : MonoBehaviour
 {
-    [Header("UI Elements")]
+    [Header("UI Elements")] 
     [SerializeField] private TMPro.TMP_Text enemyNameText;
     [SerializeField] private UnityEngine.UI.Slider healthBar;
     [SerializeField] private UnityEngine.UI.Image enemyCircle;
-    
 
-    [Header("Enemy Base")]
+
+    [Header("Enemy Base")] 
     [SerializeField] private EnemyBase enemyBase;
 
     private Collider enemyCollider;
@@ -19,8 +19,9 @@ public class EnemyUI : MonoBehaviour
         {
             enemyBase.OnHealthChanged += UpdateHealthUI;
         }
+
         enemyCollider = GetComponent<Collider>();
-        
+
         InitializeUI();
         HideUI();
     }
@@ -37,7 +38,7 @@ public class EnemyUI : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            HideUI(); 
+            HideUI();
         }
     }
 

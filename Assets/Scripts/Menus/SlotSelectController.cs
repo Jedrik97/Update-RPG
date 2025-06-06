@@ -6,18 +6,16 @@ using Zenject;
 
 public class SlotSelectController : MonoBehaviour
 {
-    [Header("Panels & Buttons (same Canvas)")]
     public GameObject panel;
+
     public GameObject buttonContainer;
 
-    [Tooltip("Ожидается 3 кнопки (Slot 1, Slot 2, Slot 3)")]
     public Button[] slotButtons;
+
     public Button cancelButton;
 
-    [Header("Player Respawn Settings")]
-    [Tooltip("Тот же префаб игрока, который используется в GameSceneInstaller")]
     public GameObject playerPrefab;
-    [Tooltip("Точка спавна, аналогичная той, что в GameSceneInstaller")]
+
     public Transform spawnPoint;
 
     private PlayerStats _stats;
@@ -26,7 +24,13 @@ public class SlotSelectController : MonoBehaviour
     private PauseMenuController _pauseMenu;
     private GameManager _gameManager;
 
-    enum Mode { Continue, Save, Load }
+    enum Mode
+    {
+        Continue,
+        Save,
+        Load
+    }
+
     private Mode mode;
 
     [Inject]
@@ -37,10 +41,10 @@ public class SlotSelectController : MonoBehaviour
         [InjectOptional] PauseMenuController pauseMenu,
         GameManager gameManager)
     {
-        _stats       = stats;
-        _hp          = hp;
-        _inv         = inv;
-        _pauseMenu   = pauseMenu;
+        _stats = stats;
+        _hp = hp;
+        _inv = inv;
+        _pauseMenu = pauseMenu;
         _gameManager = gameManager;
     }
 
@@ -85,8 +89,8 @@ public class SlotSelectController : MonoBehaviour
     {
         for (int i = 1; i <= 3; i++)
         {
-            int index = i - 1; 
-            var btn   = slotButtons[index];
+            int index = i - 1;
+            var btn = slotButtons[index];
             var label = btn.GetComponentInChildren<TextMeshProUGUI>();
             btn.onClick.RemoveAllListeners();
 
@@ -95,7 +99,6 @@ public class SlotSelectController : MonoBehaviour
 
             if (exists)
             {
-                
                 var dt = File.GetLastWriteTime(path);
                 label.text = dt.ToString("dd.MM.yyyy HH:mm");
                 btn.onClick.AddListener(() => OnSlotButton(i));
@@ -103,14 +106,12 @@ public class SlotSelectController : MonoBehaviour
             }
             else if (mode == Mode.Save)
             {
-                
                 label.text = "Пустой слот";
                 btn.onClick.AddListener(() => OnSlotButton(i));
                 btn.gameObject.SetActive(true);
             }
             else
             {
-                
                 btn.gameObject.SetActive(false);
             }
         }
@@ -131,13 +132,14 @@ public class SlotSelectController : MonoBehaviour
                     if (buttonContainer != null)
                         buttonContainer.SetActive(false);
 
-                    
+
                     LoadingScreenController.Instance.LoadScene("GameScene");
                 }
+
                 break;
 
             case Mode.Save:
-                
+
                 SaveLoadManager.SaveGame(slot, _stats, _hp, _inv, _gameManager);
                 HidePanel();
                 if (buttonContainer != null)
@@ -147,42 +149,40 @@ public class SlotSelectController : MonoBehaviour
             case Mode.Load:
                 if (SaveLoadManager.HasSave(slot))
                 {
-                    
-                    
                     LoadingScreenController.Instance.ShowLoadingProcess(() =>
                     {
-                        
                         if (_stats != null)
                         {
                             Destroy(_stats.gameObject);
                         }
 
-                        
+
                         var playerGO = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
                         playerGO.SetActive(true);
 
-                        
+
                         var newStats = playerGO.GetComponent<PlayerStats>();
-                        var newHp    = playerGO.GetComponent<HealthPlayerController>();
-                        var newInv   = playerGO.GetComponent<PlayerInventory>();
+                        var newHp = playerGO.GetComponent<HealthPlayerController>();
+                        var newInv = playerGO.GetComponent<PlayerInventory>();
 
-                        
+
                         _stats = newStats;
-                        _hp    = newHp;
-                        _inv   = newInv;
+                        _hp = newHp;
+                        _inv = newInv;
 
-                        
+
                         SaveData data = SaveLoadManager.LoadGame(slot, _stats, _hp, _inv);
                         if (data != null && data.bossDefeated && _gameManager != null)
                         {
                             _gameManager.SetBossDefeatedFromSave();
                         }
 
-                        
+
                         HidePanel();
                         _pauseMenu?.ClosePauseMenu();
                     });
                 }
+
                 break;
         }
     }
