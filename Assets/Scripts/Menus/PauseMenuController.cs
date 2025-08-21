@@ -69,13 +69,8 @@ public class PauseMenuController : MonoBehaviour
             CursorManager.Instance?.ShowCursor();
         }
         else
-        {
-            
-
-            
+        {  
             CursorManager.Instance?.HideCursor();
-
-            
             pausePanel.SetActive(false);
             buttonContainer.SetActive(false);
             slotSelect.HidePanel();
@@ -104,7 +99,6 @@ public class PauseMenuController : MonoBehaviour
 
     public void OnExitToMainMenuClicked()
     {
-        
         Time.timeScale = 1f;
         IsPaused = false;
         CursorManager.Instance?.ShowCursor();
