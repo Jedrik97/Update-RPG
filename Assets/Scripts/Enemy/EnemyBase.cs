@@ -4,7 +4,8 @@ using Zenject;
 
 public class EnemyBase : MonoBehaviour
 {
-    [Header("Enemy Stats")] public string enemyName;
+    [Header("Enemy Stats")] 
+    public string enemyName;
     public float maxHealth = 100f;
     public float currentHealth;
     public float attackDamage = 10f;
